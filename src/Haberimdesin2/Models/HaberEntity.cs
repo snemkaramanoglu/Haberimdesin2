@@ -16,26 +16,26 @@ namespace Haberimdesin2.Models
 
         [ForeignKey("Id")]
         public virtual ApplicationUser user { get; set; }
-        public string UserId { get; set; }
+        public string Id { get; set; }
 
         public string Title { get; set; }
-        //
+        
         public string HeadLine { get; set; }
-        //
+        
         public string Detail { get; set; }
-        //
+        
         public string PrimaryImgURL { get; set; }
-        //
+        
         public int Like { get; set; }
-        //
+        
         public int Dislike { get; set; }
 
        
-        //
+        
         public DateTime TimeStamp { get; set; }
-        //
+        
         public float Latitude { get; set; }
-        //
+        
         public float Longitude { get; set; }
         [ForeignKey("CategoryID")]
         public virtual CategoryEntity category { get; set; }
