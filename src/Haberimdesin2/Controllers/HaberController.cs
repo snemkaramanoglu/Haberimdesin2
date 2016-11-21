@@ -14,19 +14,38 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
+
+/*
+
+    / KATEGORILER STRING OLARAK SECILECEK
+    / LIKE DISLIKE EKLENECEK
+    COMMENT EKLENECEK
+
+    TARIH EKLENECEK
+    KULLANICI ADI EKLEDEICEK
+ bU KADAR YETER SANIRIM BASKA býsý yok evet
+ su bg kýsmýna bakayým sen telýný sarja koy
+
+    */
+
+
 
 namespace Haberimdesin2.Controllers
 {
     public class HaberController : Controller
     {
+        private IHttpContextAccessor _accessor;
         private readonly ApplicationDbContext _context;
         public IHostingEnvironment _environment;
         public UserManager<ApplicationUser> _user;
-        public HaberController(ApplicationDbContext context, IHostingEnvironment environment, UserManager<ApplicationUser> user)
+        public HaberController(ApplicationDbContext context, IHostingEnvironment environment, UserManager<ApplicationUser> user, IHttpContextAccessor accessor)
         {
             _context = context;
             _environment = environment;
             _user = user;
+            _accessor = accessor;
         }
 
         // GET: HaberEntities
@@ -61,13 +80,24 @@ namespace Haberimdesin2.Controllers
             return View();
         }
 
+        //[HttpPost]
+        //[Authorize]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> AddLike(HaberEntity haberEntity)
+        //{
+        //    haberEntity.
+        //}
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(HaberEntity haberEntity)
         {
             XmlDocument ipInfoXML = new XmlDocument();
-            string resXML = await GetCountryByIP("81.213.90.207");
+
+            //buna da bakayým olcak bence
+
+            string resXML = await GetCountryByIP();
             ipInfoXML.LoadXml(resXML);
             XmlNodeList responseXMLLat = ipInfoXML.GetElementsByTagName("lat");
             float lat = float.Parse(responseXMLLat[0].InnerText.Replace("\"", ""));
@@ -81,7 +111,6 @@ namespace Haberimdesin2.Controllers
             haberEntity.HeadLine = Request.Form["HeadLine"].ToString();
             haberEntity.Title = Request.Form["Title"].ToString();
             haberEntity.Id = _user.GetUserId(User);
-
             var file = Request.Form.Files[0];
 
             string haberImgUrl = Path.Combine(new string[] { _environment.WebRootPath, "haberimage" });
@@ -117,9 +146,9 @@ namespace Haberimdesin2.Controllers
             return responseRead;
         }
 
-        public async Task<string> GetCountryByIP(string ipAddress)
+        public async Task<string> GetCountryByIP()
         {
-            string ipResponse = await IPRequestHelper("http://ip-api.com/xml/" + ipAddress);
+            string ipResponse = await IPRequestHelper("http://ip-api.com/xml/");
             return ipResponse;
         }
 

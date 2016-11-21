@@ -1,4 +1,6 @@
 ﻿
+
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,8 +30,27 @@ namespace Haberimdesin2.Controllers
             _environment = environment;
             _user = user;
         }
-
+        //burda sende about vardı, direk return view yapan onu sildim :((
         // GET: HaberEntities
+        public IActionResult About()
+        {
+            ViewData["Message"] = "Haber Sizsiniz Bir Sivil Toplum Kuruluşudur";
+
+            return View();
+        }
+
+        public IActionResult Contact()
+        {
+            ViewData["Message"] = "Bizimle İletişime Geçin";
+
+            return View();
+        }
+
+
+        public IActionResult Error()
+        {
+            return View();
+        }
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
@@ -221,3 +242,21 @@ namespace Haberimdesin2.Controllers
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

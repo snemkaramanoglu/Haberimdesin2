@@ -1,4 +1,6 @@
-﻿var HaberimdesinApp = angular.module('Haberimdesin', ['ngRoute']);
+﻿<script type="text/javascript" src="http://l2.io/ip.js?var=myip"></script>
+
+var HaberimdesinApp = angular.module('Haberimdesin', ['ngRoute']);
 
 //routing
 HaberimdesinApp.config(function ($routeProvider) {
@@ -18,3 +20,5 @@ HaberimdesinApp.config(function ($routeProvider) {
 HaberimsedinApp.controller('HomeController', function () {
 
 });
+
+

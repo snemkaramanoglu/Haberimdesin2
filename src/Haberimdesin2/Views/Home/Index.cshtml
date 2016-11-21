@@ -67,7 +67,7 @@
         <div class="row">
             <div id="main-content" class="col-md-8">
                 <div class="box">
-
+                    @if (Model.ToList().Count > 0) { 
                     <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 1].Title</h2></a>
                     <div class="info">
                         <h5> <a href="#">Sinem Karamanoğlu</a></h5>
@@ -85,10 +85,13 @@
                         </div>
                         <p>@Model.ToList()[@Model.ToList().Count - 1].HeadLine <a href="single.html">Devamı...</a></p>
                     </div>
+                   }
                 </div>
                 <div class="heading"><h4></h4></div>
                 <hr class="line">
                 <div class="box">
+                    @if (Model.ToList().Count > 1)
+                    {
                     <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 2].Title</h2></a>
                     <div class="info">
                         <h5> <a href="#">Gamze Selvili</a></h5>
@@ -106,10 +109,13 @@
                         </div>
                         <p>@Model.ToList()[@Model.ToList().Count - 2].HeadLine <a href="single.html">Devamı...</a></p>
                     </div>
+                    }
                 </div>
                 <div class="heading"><h4></h4></div>
                 <hr class="line">
                 <div class="box">
+@if (Model.ToList().Count > 2)
+{
                     <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 3].Title</h2></a>
                     <div class="info">
                         <h5> <a href="#">Furkan Özbay</a></h5>
@@ -127,6 +133,7 @@
                         </div>
                         <p>@Model.ToList()[@Model.ToList().Count - 3].HeadLine <a href="single.html">Devamı...</a></p>
                     </div>
+}
                 </div>
                 <div class="heading"><h4></h4></div>
                 <hr class="line">
@@ -165,6 +172,8 @@
                         <div class="heading"><h4>Top News</h4></div>
                         <div class="content">
                             <div class="wrap-vid">
+@if (Model.ToList().Count > 0)
+{
                                 <div class="zoom-container">
                                     <div class="zoom-caption">
 
@@ -181,9 +190,12 @@
                                     <span><i class="fa fa-calendar"></i>25/3/2015</span>
                                     <span><i class="fa fa-heart"></i>1,200</span>
                                 </div>
+}
                             </div>
 
                             <div class="wrap-vid">
+@if (Model.ToList().Count > 1)
+{
                                 <div class="zoom-container">
                                     <div class="zoom-caption">
 
@@ -200,8 +212,11 @@
                                     <span><i class="fa fa-calendar"></i>25/3/2015</span>
                                     <span><i class="fa fa-heart"></i>1,200</span>
                                 </div>
+}
                             </div>
                             <div class="wrap-vid">
+@if (Model.ToList().Count > 2)
+{
                                 <div class="zoom-container">
                                     <div class="zoom-caption">
 
@@ -218,7 +233,9 @@
                                     <span><i class="fa fa-calendar"></i>25/3/2015</span>
                                     <span><i class="fa fa-heart"></i>1,200</span>
                                 </div>
+                                }
                             </div>
+
                         </div>
                     </div>
                 </div>
