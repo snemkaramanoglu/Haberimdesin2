@@ -1,49 +1,81 @@
-﻿@model IndexViewModel
+﻿
+@model IndexViewModel
 @{
-    ViewData["Title"] = "Manage your account";
+    ViewData["Title"] = "Hesabınızı Yönetin";
 }
 
-<h2>@ViewData["Title"].</h2>
-<p class="text-success">@ViewData["StatusMessage"]</p>
 
-<div>
-    <h4>Change your account settings</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>Password:</dt>
-        <dd>
-            @if (Model.HasPassword)
+
+
+<div id="page-content" class="archive-page container">
+
+    <div class="row">
+        <div id="main-content" class="col-md-12">
+            <div class="box">
+                <center>
+                    <div class="box-header">
+
+                        <h2>@ViewData["Title"]</h2>
+
+                    </div>
+                </center>
+                <div class="box-content">
+                    <div>
+                        <h5>Hesap ayarlarınızı değiştirin</h5>
+                        <hr />
+                        <dl class="dl-horizontal">
+                            <div class="col-sm-4">
+                                <img src="~/Deneme/images/4.jpg" style="height:200px; width:200px; alt="Third slide">
+                               
+                                <form method="post" asp-action="Index" asp-controller="Manage" enctype="multipart/form-data">
+                                    <input type="file" name="files" value="Fotoğrafınızı değiştirmek için resmin üzerine tıklayın"  />
+                                    <input type="submit" value="Yükle" />
+                                </form>
+                                </div>
+                            <div class="col-sm-4">
+                                <dt></dt>
+                                <dt>Şifre:</dt>
+                                <dd>
+                                    @if (Model.HasPassword)
             {
-                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change</a>
-            }
-            else
-            {
-                <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
-            }
-        </dd>
-        <dt>External Logins:</dt>
-        <dd>
+                                        <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Değiştir</a>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Yeni şifre oluştur</a>
+                                    }
+                                </dd>
+                                
+                                <dt>External Logins:</dt>
+                                <dd>
 
-            @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Manage</a>
-        </dd>
-        <dt>Phone Number:</dt>
-        <dd>
-            
-            @(Model.PhoneNumber ?? "None")
-                @if (Model.PhoneNumber != null)
-                {
-                    <br />
-                    <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn-bracketed">Change</a>
-                    <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post">
-                        [<button type="submit" class="btn-link">Remove</button>]
-                    </form>
-                }
-                else
-                {
-                    <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn-bracketed">Add</a>
-                }
-        </dd>
+                                    @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Yönet</a>
+                                </dd>
+                                <dt>Telefon Numarası:</dt>
+                                <dd>
 
-        
-    </dl>
+                                    @(Model.PhoneNumber ?? "Henüz eklenmemiş")
+                                    @if (Model.PhoneNumber != null)
+                                    {
+                                        <br />
+                                        <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn-bracketed">Change</a>
+                                        <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post">
+                                            [<button type="submit" class="btn-link">Sil</button>]
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn-bracketed">Ekle</a>
+                                    }
+                                </dd>
+
+                                </div>
+</dl>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
