@@ -44,7 +44,8 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "angularjs": "1.5.8"
+    "angularjs": "1.5.8",
+    "System.Xml.XmlDocument": "4.0.1",
   },
 
   "tools": {

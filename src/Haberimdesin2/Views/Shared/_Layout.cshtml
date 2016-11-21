@@ -42,18 +42,18 @@
     <nav id="menu" class="navbar container">
         <div class="navbar-header">
             <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-            <a class="navbar-brand" asp-area="" asp-controller="Home">
+            <a class="navbar-brand" asp-area="" asp-controller="Haber">
                 <div class="logo"><span>HABERİMDESİN</span></div>
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
-                <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
-                <li> <a asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a></li>
+                <li><a asp-area="" asp-controller="Haber" asp-action="Index">Anasayfa</a></li>
+                <li><a asp-area="" asp-controller="Haber" asp-action="About">Hakkımızda</a></li>
+                <li> <a asp-area="" asp-controller="Haber" asp-action="Contact">İletişim</a></li>
 
                 <li class="dropdown">
-                    <a asp-area="" asp-controller="Home" asp-action="Category" class="dropdown-toggle" data-toggle="dropdown">Kategori <i class="fa fa-arrow-circle-o-down"></i></a>
+                    <a asp-area="" asp-controller="Haber" asp-action="Category" class="dropdown-toggle" data-toggle="dropdown">Kategori <i class="fa fa-arrow-circle-o-down"></i></a>
                     <div class="dropdown-menu">
                         <div class="dropdown-inner">
                             <ul class="list-unstyled">
@@ -68,7 +68,7 @@
                     </div>
                 </li>
 
-                <li><a asp-area="" asp-controller="Home" asp-action="AddNews">Yeni Haber Ekle</a></li>
+                <li><a asp-area="" asp-controller="Haber" asp-action="Create">Yeni Haber Ekle</a></li>
             </ul>
             @await Html.PartialAsync("_LoginPartial")
 

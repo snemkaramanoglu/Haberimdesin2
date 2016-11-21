@@ -1,4 +1,5 @@
-﻿@{
+﻿@model IEnumerable<Haberimdesin2.Models.HaberEntity>
+@{
     ViewData["Title"] = "Home Page";
 }
 <div class="featured container">
@@ -17,36 +18,36 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="~/Deneme/images/1.jpg" alt="First slide">
+                        <img src=@Model.ToList()[Model.ToList().Count - 1].PrimaryImgURL alt="First slide">
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
-
+                                
                                 <br>
-                                <h2>Çocukluk arkadaşlığı iş ortaklığına dönüştü</h2>
+                                <h2>@Model.ToList()[@Model.ToList().Count-1].Title</h2>
                                 <br>
                             </div>
                         </div><!-- /header-text -->
                     </div>
                     <div class="item">
-                        <img src="~/Deneme/images/2.jpg" alt="Second slide">
+                        <img src=@Model.ToList()[Model.ToList().Count - 2].PrimaryImgURL alt="Second slide">
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
                                 <br>
-                                <h2>Eskişehir’de araç yangını</h2>
+                                <h2>@Model.ToList()[@Model.ToList().Count - 2].Title</h2>
                                 <br>
                                 <br>
                             </div>
                         </div><!-- /header-text -->
                     </div>
                     <div class="item">
-                        <img src="~/Deneme/images/3.jpg" alt="Third slide">
+                        <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL alt="Third slide">
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
                                 <br>
-                                <h2>Büyükşehir’den maç için ek otobüs seferi</h2>
+                                <h2>@Model.ToList()[@Model.ToList().Count - 3].Title</h2>
                                 <br>
                             </div>
                         </div><!-- /header-text -->
@@ -67,7 +68,7 @@
             <div id="main-content" class="col-md-8">
                 <div class="box">
 
-                    <a href="#"><h2 class="vid-name">Çocukluk arkadaşlığı iş ortaklığına dönüştü</h2></a>
+                    <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 1].Title</h2></a>
                     <div class="info">
                         <h5> <a href="#">Sinem Karamanoğlu</a></h5>
                         <span><i class="fa fa-calendar"></i>25/3/2015</span>
@@ -80,15 +81,15 @@
                         <div class="zoom-container">
                             <div class="zoom-caption">
                             </div>
-                            <img src="~/Deneme/images/1.jpg" />
+                            <img src=@Model.ToList()[Model.ToList().Count - 1].PrimaryImgURL />
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor inviduntut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.justo duo dolores et ea rebum. Consetetur sadipscing elitr,  consetetur sadipscing elitr elitr. <a href="single.html">MORE...</a></p>
+                        <p>@Model.ToList()[@Model.ToList().Count - 1].HeadLine <a href="single.html">Devamı...</a></p>
                     </div>
                 </div>
                 <div class="heading"><h4></h4></div>
                 <hr class="line">
                 <div class="box">
-                    <a href="#"><h2 class="vid-name">Eskişehir'de araç yangını</h2></a>
+                    <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 2].Title</h2></a>
                     <div class="info">
                         <h5> <a href="#">Gamze Selvili</a></h5>
                         <span><i class="fa fa-calendar"></i>25/3/2015</span>
@@ -101,15 +102,15 @@
                         <div class="zoom-container">
                             <div class="zoom-caption">
                             </div>
-                            <img src="~/Deneme/images/2.jpg" />
+                            <img src=@Model.ToList()[Model.ToList().Count - 2].PrimaryImgURL />
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor inviduntut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.justo duo dolores et ea rebum. Consetetur sadipscing elitr,  consetetur sadipscing elitr elitr. <a href="single.html">MORE...</a></p>
+                        <p>@Model.ToList()[@Model.ToList().Count - 2].HeadLine <a href="single.html">Devamı...</a></p>
                     </div>
                 </div>
                 <div class="heading"><h4></h4></div>
                 <hr class="line">
                 <div class="box">
-                    <a href="#"><h2 class="vid-name">Büyükşehir’den maç için ek otobüs seferi</h2></a>
+                    <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 3].Title</h2></a>
                     <div class="info">
                         <h5> <a href="#">Furkan Özbay</a></h5>
                         <span><i class="fa fa-calendar"></i>25/3/2015</span>
@@ -122,9 +123,9 @@
                         <div class="zoom-container">
                             <div class="zoom-caption">
                             </div>
-                            <img src="~/Deneme/images/3.jpg" />
+                            <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL />
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Consetetur sadipscing elitr, sed diam nonumy eirmod tempor inviduntut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.justo duo dolores et ea rebum. Consetetur sadipscing elitr,  consetetur sadipscing elitr elitr. <a href="single.html">MORE...</a></p>
+                        <p>@Model.ToList()[@Model.ToList().Count - 3].HeadLine <a href="single.html">Devamı...</a></p>
                     </div>
                 </div>
                 <div class="heading"><h4></h4></div>
@@ -172,9 +173,9 @@
                                         </a>
 
                                     </div>
-                                    <img src="~/Deneme/images/3.jpg" />
+                                    <img src=@Model.ToList()[Model.ToList().Count - 1].PrimaryImgURL />
                                 </div>
-                                <h3 class="vid-name"><a href="#">Büyükşehir’den maç için ek otobüs </a></h3>
+                                <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 1].Title</a></h3>
                                 <div class="info">
                                     <h5> <a href="#">Furkan Özbay</a></h5>
                                     <span><i class="fa fa-calendar"></i>25/3/2015</span>
@@ -191,9 +192,9 @@
                                         </a>
 
                                     </div>
-                                    <img src="~/Deneme/images/2.jpg" />
+                                    <img src=@Model.ToList()[Model.ToList().Count - 2].PrimaryImgURL />
                                 </div>
-                                <h3 class="vid-name"><a href="#">Eskişehir'de araç yangını</a></h3>
+                                <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 2].Title</a></h3>
                                 <div class="info">
                                     <h5> <a href="#">Gamze Selvili</a></h5>
                                     <span><i class="fa fa-calendar"></i>25/3/2015</span>
@@ -209,9 +210,9 @@
                                         </a>
 
                                     </div>
-                                    <img src="~/Deneme/images/1.jpg" />
+                                    <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL />
                                 </div>
-                                <h3 class="vid-name"><a href="#">Çocukluk arkadaşlığı iş ortaklığına dönüştü</a></h3>
+                                <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 3].Title</a></h3>
                                 <div class="info">
                                     <h5> <a href="#">Sinem Karamanoğlu</a></h5>
                                     <span><i class="fa fa-calendar"></i>25/3/2015</span>

@@ -1,4 +1,4 @@
-﻿
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +17,12 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Haberimdesin2.Controllers
 {
-    public class HomeController : Controller
+    public class HaberController : Controller
     {
         private readonly ApplicationDbContext _context;
         public IHostingEnvironment _environment;
         public UserManager<ApplicationUser> _user;
-        public HomeController(ApplicationDbContext context, IHostingEnvironment environment, UserManager<ApplicationUser> user)
+        public HaberController(ApplicationDbContext context, IHostingEnvironment environment, UserManager<ApplicationUser> user)
         {
             _context = context;
             _environment = environment;
@@ -130,7 +130,7 @@ namespace Haberimdesin2.Controllers
         // POST: HaberEntities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
+      
 
         // GET: HaberEntities/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -47,9 +47,10 @@ body{
  	position: relative;
 }
 .head {
-	position: absolute;
-	top:-15%;
-	left: 35%;
+    margin-left: 35%;
+    position: absolute;
+    top: -15%;
+    width: 30%;
 }
 .head img {
 	border-radius:50%;

@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +10,22 @@ using Haberimdesin2.Models;
 
 namespace Haberimdesin2.Controllers
 {
-    public class HaberEntitiesController : Controller
+    public class CategoryEntitiesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public HaberEntitiesController(ApplicationDbContext context)
+        public CategoryEntitiesController(ApplicationDbContext context)
         {
             _context = context;    
         }
 
-        // GET: HaberEntities
+        // GET: CategoryEntities
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
-            return View(await applicationDbContext.ToListAsync());
+            return View(await _context.Category.ToListAsync());
         }
 
-        // GET: HaberEntities/Details/5
+        // GET: CategoryEntities/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,42 +33,38 @@ namespace Haberimdesin2.Controllers
                 return NotFound();
             }
 
-            var haberEntity = await _context.Haber.SingleOrDefaultAsync(m => m.HaberID == id);
-            if (haberEntity == null)
+            var categoryEntity = await _context.Category.SingleOrDefaultAsync(m => m.CategoryID == id);
+            if (categoryEntity == null)
             {
                 return NotFound();
             }
 
-            return View(haberEntity);
+            return View(categoryEntity);
         }
 
-        // GET: HaberEntities/Create
+        // GET: CategoryEntities/Create
         public IActionResult Create()
         {
-            ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID");
-            ViewData["Id"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
 
-        // POST: HaberEntities/Create
+        // POST: CategoryEntities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HaberID,CategoryID,Detail,Dislike,HeadLine,Id,Latitude,Like,Longitude,PrimaryImgURL,TimeStamp,Title")] HaberEntity haberEntity)
+        public async Task<IActionResult> Create([Bind("CategoryID,Name")] CategoryEntity categoryEntity)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(haberEntity);
+                _context.Add(categoryEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
-            ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
-            return View(haberEntity);
+            return View(categoryEntity);
         }
 
-        // GET: HaberEntities/Edit/5
+        // GET: CategoryEntities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,24 +72,22 @@ namespace Haberimdesin2.Controllers
                 return NotFound();
             }
 
-            var haberEntity = await _context.Haber.SingleOrDefaultAsync(m => m.HaberID == id);
-            if (haberEntity == null)
+            var categoryEntity = await _context.Category.SingleOrDefaultAsync(m => m.CategoryID == id);
+            if (categoryEntity == null)
             {
                 return NotFound();
             }
-            ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
-            ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
-            return View(haberEntity);
+            return View(categoryEntity);
         }
 
-        // POST: HaberEntities/Edit/5
+        // POST: CategoryEntities/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HaberID,CategoryID,Detail,Dislike,HeadLine,Id,Latitude,Like,Longitude,PrimaryImgURL,TimeStamp,Title")] HaberEntity haberEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("CategoryID,Name")] CategoryEntity categoryEntity)
         {
-            if (id != haberEntity.HaberID)
+            if (id != categoryEntity.CategoryID)
             {
                 return NotFound();
             }
@@ -104,12 +96,12 @@ namespace Haberimdesin2.Controllers
             {
                 try
                 {
-                    _context.Update(haberEntity);
+                    _context.Update(categoryEntity);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!HaberEntityExists(haberEntity.HaberID))
+                    if (!CategoryEntityExists(categoryEntity.CategoryID))
                     {
                         return NotFound();
                     }
@@ -120,12 +112,10 @@ namespace Haberimdesin2.Controllers
                 }
                 return RedirectToAction("Index");
             }
-            ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
-            ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
-            return View(haberEntity);
+            return View(categoryEntity);
         }
 
-        // GET: HaberEntities/Delete/5
+        // GET: CategoryEntities/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,29 +123,29 @@ namespace Haberimdesin2.Controllers
                 return NotFound();
             }
 
-            var haberEntity = await _context.Haber.SingleOrDefaultAsync(m => m.HaberID == id);
-            if (haberEntity == null)
+            var categoryEntity = await _context.Category.SingleOrDefaultAsync(m => m.CategoryID == id);
+            if (categoryEntity == null)
             {
                 return NotFound();
             }
 
-            return View(haberEntity);
+            return View(categoryEntity);
         }
 
-        // POST: HaberEntities/Delete/5
+        // POST: CategoryEntities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var haberEntity = await _context.Haber.SingleOrDefaultAsync(m => m.HaberID == id);
-            _context.Haber.Remove(haberEntity);
+            var categoryEntity = await _context.Category.SingleOrDefaultAsync(m => m.CategoryID == id);
+            _context.Category.Remove(categoryEntity);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
-        private bool HaberEntityExists(int id)
+        private bool CategoryEntityExists(int id)
         {
-            return _context.Haber.Any(e => e.HaberID == id);
+            return _context.Category.Any(e => e.CategoryID == id);
         }
     }
 }

@@ -1,0 +1,64 @@
+﻿@using Haberimdesin2.Models
+@model Haberimdesin2.Models.HaberEntity
+
+@{
+    ViewData["Title"] = "Yeni bir haber paylaş!";
+}
+
+<h2>Yeni haber!</h2>
+<h4>Haberimdesinde kendi haberini paylaşma vakti</h4>
+
+<hr />
+<form asp-action="Create" enctype="multipart/form-data">
+    <div class="form-horizontal">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CategoryID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="CategoryID" class="form-control" asp-items="ViewBag.CategoryID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2 control-label">Başlık</label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Kısa Açıklama</label>
+            <div class="col-md-10">
+                <textarea asp-for="HeadLine" class="form-control"></textarea>
+                <span asp-validation-for="HeadLine" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Detaylı Açıklama</label>
+            <div class="col-md-10">
+                <textarea asp-for="Detail" class="form-control"></textarea>
+
+                <span asp-validation-for="Detail" class="text-danger" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="col-md-2 control-label">Görsel</label>
+            <div class="col-md-10">
+                <input type="file" name="imageData" accept=".jpg, .jpeg, .png" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Paylaş" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Ana Sayfaya Dön</a>
+</div>
+
