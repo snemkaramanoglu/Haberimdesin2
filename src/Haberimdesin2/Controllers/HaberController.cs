@@ -94,8 +94,7 @@ namespace Haberimdesin2.Controllers
         public async Task<IActionResult> Create(HaberEntity haberEntity)
         {
 
-            haberEntity.Longitude = float.Parse(Request.Form["Longitude"].ToString());
-            haberEntity.Latitude = float.Parse(Request.Form["Latitude"].ToString());
+            
             haberEntity.Detail = Request.Form["Detail"].ToString();
             haberEntity.HeadLine = Request.Form["HeadLine"].ToString();
             haberEntity.Title = Request.Form["Title"].ToString();
@@ -110,8 +109,10 @@ namespace Haberimdesin2.Controllers
                 haberEntity.PrimaryImgURL = "/haberimage/" + file.FileName;
                 await file.CopyToAsync(fileStream);
             }
-            if (ModelState.IsValid)
+
+            if (true)
             {
+                
                 _context.Add(haberEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -122,24 +123,6 @@ namespace Haberimdesin2.Controllers
         }
 
 
-        public async Task<string> IPRequestHelper(string url)
-        {
-            HttpWebRequest objRequest = (HttpWebRequest)WebRequest.Create(url);
-            WebResponse objResponse = await objRequest.GetResponseAsync();
-
-            StreamReader responseStream = new StreamReader(objResponse.GetResponseStream());
-            string responseRead = responseStream.ReadToEnd();
-
-            responseStream.Dispose();
-
-            return responseRead;
-        }
-
-        public async Task<string> GetCountryByIP()
-        {
-            string ipResponse = await IPRequestHelper("http://ip-api.com/xml/");
-            return ipResponse;
-        }
 
 
 
