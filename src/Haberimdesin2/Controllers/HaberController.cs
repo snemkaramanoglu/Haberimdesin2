@@ -92,20 +92,8 @@ namespace Haberimdesin2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(HaberEntity haberEntity)
         {
-            XmlDocument ipInfoXML = new XmlDocument();
 
-            //buna da bakayým olcak bence
-
-            string resXML = await GetCountryByIP();
-            ipInfoXML.LoadXml(resXML);
-            XmlNodeList responseXMLLat = ipInfoXML.GetElementsByTagName("lat");
-            float lat = float.Parse(responseXMLLat[0].InnerText.Replace("\"", ""));
-
-            XmlNodeList responseXMLLon = ipInfoXML.GetElementsByTagName("lon");
-            float lon = float.Parse(responseXMLLon[0].InnerText.Replace("\"", ""));
-
-            haberEntity.Longitude = lon;
-            haberEntity.Latitude = lat;
+            
             haberEntity.Detail = Request.Form["Detail"].ToString();
             haberEntity.HeadLine = Request.Form["HeadLine"].ToString();
             haberEntity.Title = Request.Form["Title"].ToString();
@@ -120,8 +108,10 @@ namespace Haberimdesin2.Controllers
                 haberEntity.PrimaryImgURL = "/haberimage/" + file.FileName;
                 await file.CopyToAsync(fileStream);
             }
-            if (ModelState.IsValid)
+
+            if (true)
             {
+                
                 _context.Add(haberEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -132,24 +122,6 @@ namespace Haberimdesin2.Controllers
         }
 
 
-        public async Task<string> IPRequestHelper(string url)
-        {
-            HttpWebRequest objRequest = (HttpWebRequest)WebRequest.Create(url);
-            WebResponse objResponse = await objRequest.GetResponseAsync();
-
-            StreamReader responseStream = new StreamReader(objResponse.GetResponseStream());
-            string responseRead = responseStream.ReadToEnd();
-
-            responseStream.Dispose();
-
-            return responseRead;
-        }
-
-        public async Task<string> GetCountryByIP()
-        {
-            string ipResponse = await IPRequestHelper("http://ip-api.com/xml/");
-            return ipResponse;
-        }
 
 
 
