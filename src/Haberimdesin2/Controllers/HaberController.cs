@@ -47,15 +47,6 @@ namespace Haberimdesin2.Controllers
             _user = user;
             _accessor = accessor;
         }
-
-        // GET: HaberEntities
-        public async Task<IActionResult> Index()
-        {
-            var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
-            return View(await applicationDbContext.ToListAsync());
-        }
-
-        // GET: HaberEntities/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -72,6 +63,14 @@ namespace Haberimdesin2.Controllers
             return View(haberEntity);
         }
 
+        // GET: HaberEntities
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
+    
         // GET: HaberEntities/Create
         public IActionResult Create()
         {
