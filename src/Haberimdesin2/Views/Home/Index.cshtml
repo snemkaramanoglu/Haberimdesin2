@@ -76,10 +76,10 @@
                     <div class="box">
 
                         <a asp-action="Details" asp-route-id="@item.HaberID">
-                            <h2 class="vid-name">BURA @item.Title</h2>
+                            <h2 class="vid-name">BURA  @item.Title</h2>
                         </a>
                         <div class="info">
-                            <h5> <a href="#">@item.user.Name</a></h5>
+                         <h5> <a href="#">@item.user</a></h5>
                             <span><i class="fa fa-calendar"></i>@item.TimeStamp.ToString("dd/MM/yyyy")</span>
                             <span><i class="fa fa-comment"></i> 0 Comments</span>
                             <span><i class="fa fa-hand-o-up"></i>@item.Like</span>
@@ -149,7 +149,7 @@
                                     </div>
                                     <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 1].Title</a></h3>
                                     <div class="info">
-                                        <h5> <a href="#">Furkan Özbay</a></h5>
+                                        <h5> <a href="#">FFGTGH</a></h5>
                                         <span><i class="fa fa-calendar"></i>25/3/2015</span>
                                         <span><i class="fa fa-heart"></i>1,200</span>
                                     </div>
@@ -192,7 +192,9 @@
                                     </div>
                                     <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 3].Title</a></h3>
                                     <div class="info">
-                                        <h5> <a href="#">@Model.ToList()[@Model.ToList().Count - 3].user.Name</a></h5>
+                                         <!----
+                                        <h5> <a href="#"</a></h5>
+                                             ---->
                                         <span><i class="fa fa-calendar"></i>25/3/2015</span>
                                         <span><i class="fa fa-heart"></i>1,200</span>
                                     </div>

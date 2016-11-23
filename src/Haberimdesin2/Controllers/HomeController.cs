@@ -17,6 +17,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 
+
 namespace Haberimdesin2.Controllers
 {
     public class HomeController : Controller
@@ -38,6 +39,23 @@ namespace Haberimdesin2.Controllers
 
             return View();
         }
+        //pagınatıon yapmak ıcın ugrastım ekledi ama henüz beceremedim
+        /*
+        [HttpGet]
+        public ActionResult Index(int? page)
+        {
+            var dummyItems = Enumerable.Range(1, 150).Select(x => "Item " + x);
+            var pager = new Pager(dummyItems.Count(), page);
+
+            var viewModel = new IndexViewModel
+            {
+                Items = dummyItems.Skip((pager.CurrentPage - 1) * pager.PageSize).Take(pager.PageSize),
+                Pager = pager
+            };
+
+            return View(viewModel);
+        }
+        */
 
         public IActionResult Contact()
         {
@@ -53,7 +71,13 @@ namespace Haberimdesin2.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
+            // List<HaberEntity> sonBesMakaleList = new List<HaberEntity>();
+            // var sonbesmakale = _context.Haber;
+            //   sonBesMakaleList = sonbesmakale.OrderByDescending(i => i.TimeStamp).Take(3).ToList();
+            // 
+            //SON UC HABERIN GÖSTERİLMESİ
+            var applicationDbContext = (_context.Haber.Take(3)).OrderByDescending(h => h.HaberID).Include(h => h.category).Include(h => h.user);
+
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -121,10 +145,18 @@ namespace Haberimdesin2.Controllers
             }
             ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
-          
+
             return View(haberEntity);
         }
+        public ActionResult SonUcHaber()
+        {
+            List<HaberEntity> sonBesMakaleList = new List<HaberEntity>();
+            var sonbesmakale = _context.Haber;
+            sonBesMakaleList = sonbesmakale.OrderByDescending(i => i.TimeStamp).Take(3).ToList();
 
+            return PartialView(sonBesMakaleList);
+
+        }
 
         public async Task<string> IPRequestHelper(string url)
         {

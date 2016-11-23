@@ -66,11 +66,18 @@ namespace Haberimdesin2.Controllers
         // GET: HaberEntities
         public async Task<IActionResult> Index()
         {
+            /*
             var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
             return View(await applicationDbContext.ToListAsync());
+            */
+
+            var applicationDbContext = _context.Haber.OrderByDescending(i => i.TimeStamp).Take(3);
+
+            return View(await applicationDbContext.ToListAsync());
+
         }
 
-    
+
         // GET: HaberEntities/Create
         public IActionResult Create()
         {
@@ -95,7 +102,7 @@ namespace Haberimdesin2.Controllers
         public async Task<IActionResult> Create(HaberEntity haberEntity)
         {
 
-            
+
             haberEntity.Detail = Request.Form["Detail"].ToString();
             haberEntity.HeadLine = Request.Form["HeadLine"].ToString();
             haberEntity.Title = Request.Form["Title"].ToString();
@@ -117,7 +124,7 @@ namespace Haberimdesin2.Controllers
 
             if (true)
             {
-                
+
                 _context.Add(haberEntity);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
@@ -126,16 +133,16 @@ namespace Haberimdesin2.Controllers
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
             return View(haberEntity);
         }
-        
-        
-        public  ActionResult  SonUcHaber()
+
+        //Henüz kullanýlmýyor.
+        public ActionResult SonUcHaber()
         {
             List<HaberEntity> sonBesMakaleList = new List<HaberEntity>();
             var sonbesmakale = _context.Haber;
             sonBesMakaleList = sonbesmakale.OrderByDescending(i => i.TimeStamp).Take(3).ToList();
 
             return PartialView(sonBesMakaleList);
-                      
+
         }
 
 
