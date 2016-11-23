@@ -121,6 +121,7 @@ namespace Haberimdesin2.Controllers
             }
             ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
+          
             return View(haberEntity);
         }
 

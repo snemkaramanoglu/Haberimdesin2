@@ -46,6 +46,7 @@
     },
     "angularjs": "1.5.8",
     "System.Xml.XmlDocument": "4.0.1",
+    "MailKit": "1.10.0",
   },
 
   "tools": {
@@ -95,4 +96,5 @@
     "prepublish": [ "bower install", "dotnet bundle" ],
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
   }
+
 }

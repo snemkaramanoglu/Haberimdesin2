@@ -353,6 +353,7 @@ namespace Haberimdesin2.Controllers
 
         //
         // POST: /Account/SendCode
+        /*
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -388,7 +389,7 @@ namespace Haberimdesin2.Controllers
 
             return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, ReturnUrl = model.ReturnUrl, RememberMe = model.RememberMe });
         }
-
+        */
         //
         // GET: /Account/VerifyCode
         [HttpGet]

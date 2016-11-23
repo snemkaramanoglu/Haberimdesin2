@@ -1,0 +1,271 @@
+@model Haberimdesin2.Models.HaberEntity
+
+@{
+ 
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div id="page-content" class="single-page container">
+    <div class="row">
+        <div id="main-content" class="col-md-8">
+            <div class="box">
+                <div class="wrap-vid">
+                   <img src="@Model.PrimaryImgURL" alt="Third slide">
+                   
+
+                </div>
+               
+                <div class="line"></div>
+                <h1 class="vid-name"><a href="#">@Model.Title</a></h1>
+                <div class="info">
+                    <!---- KULLANICI ADINI NEDEN CEKEMEDIGIMI ANLAMADIMM ---->
+                    <h5>By @Model.user</h5>
+                    <span><i class="fa fa-calendar"></i>@Model.TimeStamp</span>
+                    <span><i class="fa fa-hand-o-up"></i>@Model.Like</span>
+                    <span><i class="fa fa-hand-o-down"></i>@Model.Dislike</span>
+                    <span><i class="fa fa-location-arrow"></i>konum bilgisi</span>
+                </div>
+                @Html.DisplayFor(model => model.Detail)
+                <div class="line"></div>
+                <div class="comment">
+
+                    <h5>Yorum Birak</h5>
+                    <form name="form1" method="post" action="">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="text" class="form-control input-lg" name="name" id="name" placeholder="Enter name" required="required" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <input type="email" class="form-control input-lg" name="email" id="email" placeholder="Enter email" required="required" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" class="form-control" rows="4" cols="25" required="required"
+                                              placeholder="Message"></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-4 btn-block" name="btnBooking" id="btnBbooking">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="box">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h2 class="page-header">Comments</h2>
+                            <section class="comment-list">
+                                <!-- First Comment -->
+                                <article class="row">
+
+                                    <div class="col-md-10 col-sm-20">
+                                        <div class="panel panel-default arrow left">
+                                            <div class="panel-body">
+                                                <header class="text-left">
+                                                    <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
+                                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                </header>
+                                                <div class="comment-post">
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                    </p>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+
+                                <!-- Fourth Comment -->
+                                <article class="row">
+
+                                    <div class="col-md-10 col-sm-10 col-xs-12">
+                                        <div class="panel panel-default arrow left">
+                                            <div class="panel-body">
+                                                <header class="text-left">
+                                                    <div class="comment-user"><i class="fa fa-user"></i> That Guy</div>
+                                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>
+                                                </header>
+                                                <div class="comment-post">
+                                                    <p>
+                                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                    </p>
+                                                </div>
+                                                <p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </article>
+
+
+                            </section>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+        <div id="sidebar" class="col-md-4">
+            <!---- Start Widget ---->
+            <div class="widget wid-follow">
+
+                <!---- Start Widget ---->
+                <div class="widget wid-post">
+                    <div class="heading"><h4>Category</h4></div>
+                    <div class="content">
+                        <div class="post wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span>Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="images/1.jpg" />
+                            </div>
+                            <div class="wrapper">
+                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
+                                <div class="info">
+                                    <h6>By <a href="#">Kelvin</a></h6>
+                                    <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                    <span><i class="fa fa-heart"></i>1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span>Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="images/2.jpg" />
+                            </div>
+                            <div class="wrapper">
+                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
+                                <div class="info">
+                                    <h6>By <a href="#">Kelvin</a></h6>
+                                    <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                    <span><i class="fa fa-heart"></i>1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="post wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span>Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="images/3.jpg" />
+                            </div>
+                            <div class="wrapper">
+                                <h5 class="vid-name"><a href="#">Video's Name</a></h5>
+                                <div class="info">
+                                    <h6>By <a href="#">Kelvin</a></h6>
+                                    <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                    <span><i class="fa fa-heart"></i>1,200</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!---- Start Widget ---->
+                <div class="widget ">
+                    <div class="heading"><h4>Top News</h4></div>
+                    <div class="content">
+                        <div class="wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span>Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="images/1.jpg" />
+                            </div>
+                            <h3 class="vid-name"><a href="#">Video's Name</a></h3>
+                            <div class="info">
+                                <h5>By <a href="#">Kelvin</a></h5>
+                                <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                <span><i class="fa fa-heart"></i>1,200</span>
+                            </div>
+                        </div>
+                        <div class="wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span>Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="images/2.jpg" />
+                            </div>
+                            <h3 class="vid-name"><a href="#">Video's Name</a></h3>
+                            <div class="info">
+                                <h5>By <a href="#">Kelvin</a></h5>
+                                <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                <span><i class="fa fa-heart"></i>1,200</span>
+                            </div>
+                        </div>
+                        <div class="wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                    <span>Youtube</span>
+                                    <a href="single.html">
+                                        <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                    </a>
+                                    <p>Video's Name</p>
+                                </div>
+                                <img src="images/3.jpg" />
+                            </div>
+                            <h3 class="vid-name"><a href="#">Video's Name</a></h3>
+                            <div class="info">
+                                <h5>By <a href="#">Kelvin</a></h5>
+                                <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                <span><i class="fa fa-heart"></i>1,200</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <!-- JS -->
+    <script src="owl-carousel/owl.carousel.js"></script>
+    <script>
+    $(document).ready(function() {
+      $("#owl-demo").owlCarousel({
+        autoPlay: 3000,
+        items : 5,
+        itemsDesktop : [1199,4],
+        itemsDesktopSmall : [979,4]
+      });
+
+    });
+    </script>
+    <div>
+   

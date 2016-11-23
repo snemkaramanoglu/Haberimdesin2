@@ -87,6 +87,8 @@ namespace Haberimdesin2.Controllers
         //    haberEntity.
         //}
 
+
+
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
@@ -98,6 +100,10 @@ namespace Haberimdesin2.Controllers
             haberEntity.HeadLine = Request.Form["HeadLine"].ToString();
             haberEntity.Title = Request.Form["Title"].ToString();
             haberEntity.Id = _user.GetUserId(User);
+            //SONUÇTA BAÞTA LÝKELERÝ SIFIR
+            haberEntity.Like = 0;
+            haberEntity.Dislike = 0;
+            haberEntity.TimeStamp = DateTime.Now;
             var file = Request.Form.Files[0];
 
             string haberImgUrl = Path.Combine(new string[] { _environment.WebRootPath, "haberimage" });
@@ -120,9 +126,17 @@ namespace Haberimdesin2.Controllers
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
             return View(haberEntity);
         }
+        
+        
+        public  ActionResult  SonUcHaber()
+        {
+            List<HaberEntity> sonBesMakaleList = new List<HaberEntity>();
+            var sonbesmakale = _context.Haber;
+            sonBesMakaleList = sonbesmakale.OrderByDescending(i => i.TimeStamp).Take(3).ToList();
 
-
-
+            return PartialView(sonBesMakaleList);
+                      
+        }
 
 
 
@@ -130,7 +144,7 @@ namespace Haberimdesin2.Controllers
         // POST: HaberEntities/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-      
+
 
         // GET: HaberEntities/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -2,6 +2,7 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+
 <div class="featured container">
     <div class="row">
         <div class="col-sm-2">
@@ -15,6 +16,7 @@
                     <li data-target="#carousel-example-generic" data-slide-to="1"></li>
                     <li data-target="#carousel-example-generic" data-slide-to="2"></li>
                 </ol>
+
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
@@ -22,10 +24,12 @@
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
-                                
+
                                 <br>
-                                <h2>@Model.ToList()[@Model.ToList().Count-1].Title</h2>
+
+                                <h2>@Model.ToList()[@Model.ToList().Count - 1].Title</h2>
                                 <br>
+
                             </div>
                         </div><!-- /header-text -->
                     </div>
@@ -41,6 +45,7 @@
                             </div>
                         </div><!-- /header-text -->
                     </div>
+
                     <div class="item">
                         <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL alt="Third slide">
                         <!-- Static Header -->
@@ -60,85 +65,43 @@
     </div>
 </div>
 
-<!-- Header -->
-<!-- /////////////////////////////////////////Content -->
 <div id="page-content" class="archive-page container">
     <div class="">
         <div class="row">
             <div id="main-content" class="col-md-8">
-                <div class="box">
-                    @if (Model.ToList().Count > 0) { 
-                    <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 1].Title</h2></a>
-                    <div class="info">
-                        <h5> <a href="#">Sinem Karamanoğlu</a></h5>
-                        <span><i class="fa fa-calendar"></i>25/3/2015</span>
-                        <span><i class="fa fa-comment"></i> 0 Comments</span>
-                        <span><i class="fa fa-hand-o-up"></i>1,200</span>
-                        <span><i class="fa fa-hand-o-down"></i>1,200</span>
+         
+                @foreach (var item in Model)
+                {
+                   
+                    <div class="box">
 
-                    </div>
-                    <div class="wrap-vid">
-                        <div class="zoom-container">
-                            <div class="zoom-caption">
-                            </div>
-                            <img src=@Model.ToList()[Model.ToList().Count - 1].PrimaryImgURL />
+                        <a asp-action="Details" asp-route-id="@item.HaberID">
+                            <h2 class="vid-name">BURA @item.Title</h2>
+                        </a>
+                        <div class="info">
+                            <h5> <a href="#">@item.user.Name</a></h5>
+                            <span><i class="fa fa-calendar"></i>@item.TimeStamp.ToString("dd/MM/yyyy")</span>
+                            <span><i class="fa fa-comment"></i> 0 Comments</span>
+                            <span><i class="fa fa-hand-o-up"></i>@item.Like</span>
+                            <span><i class="fa fa-hand-o-down"></i>@item.Dislike</span>
+
                         </div>
-                        <p>@Model.ToList()[@Model.ToList().Count - 1].HeadLine <a href="single.html">Devamı...</a></p>
-                    </div>
-                   }
-                </div>
-                <div class="heading"><h4></h4></div>
-                <hr class="line">
-                <div class="box">
-                    @if (Model.ToList().Count > 1)
-                    {
-                    <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 2].Title</h2></a>
-                    <div class="info">
-                        <h5> <a href="#">Gamze Selvili</a></h5>
-                        <span><i class="fa fa-calendar"></i>25/3/2015</span>
-                        <span><i class="fa fa-comment"></i> 0 Comments</span>
-                        <span><i class="fa fa-hand-o-up"></i>1,200</span>
-                        <span><i class="fa fa-hand-o-down"></i>1,200</span>
-
-                    </div>
-                    <div class="wrap-vid">
-                        <div class="zoom-container">
-                            <div class="zoom-caption">
+                        <div class="wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+                                </div>
+                                <img src=@item.PrimaryImgURL />
                             </div>
-                            <img src=@Model.ToList()[Model.ToList().Count - 2].PrimaryImgURL />
+                            <p>@item.HeadLine <a asp-action="Details" asp-route-id="@item.HaberID">Devamı...</a></p>
                         </div>
-                        <p>@Model.ToList()[@Model.ToList().Count - 2].HeadLine <a href="single.html">Devamı...</a></p>
-                    </div>
-                    }
-                </div>
-                <div class="heading"><h4></h4></div>
-                <hr class="line">
-                <div class="box">
-@if (Model.ToList().Count > 2)
-{
-                    <a href="#"><h2 class="vid-name">@Model.ToList()[@Model.ToList().Count - 3].Title</h2></a>
-                    <div class="info">
-                        <h5> <a href="#">Furkan Özbay</a></h5>
-                        <span><i class="fa fa-calendar"></i>25/3/2015</span>
-                        <span><i class="fa fa-comment"></i> 0 Comments</span>
-                        <span><i class="fa fa-hand-o-up"></i>1,200</span>
-                        <span><i class="fa fa-hand-o-down"></i>1,200</span>
 
                     </div>
-                    <div class="wrap-vid">
-                        <div class="zoom-container">
-                            <div class="zoom-caption">
-                            </div>
-                            <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL />
-                        </div>
-                        <p>@Model.ToList()[@Model.ToList().Count - 3].HeadLine <a href="single.html">Devamı...</a></p>
-                    </div>
-}
-                </div>
-                <div class="heading"><h4></h4></div>
-                <hr class="line">
+                    <div class="heading"><h4></h4></div>
+                    <hr class="line">
+                }
 
-                <hr class="line">
+
+
                 <div class="box">
                     <center>
                         <ul class="pagination">
@@ -172,67 +135,67 @@
                         <div class="heading"><h4>Top News</h4></div>
                         <div class="content">
                             <div class="wrap-vid">
-@if (Model.ToList().Count > 0)
-{
-                                <div class="zoom-container">
-                                    <div class="zoom-caption">
+                                @if (Model.ToList().Count > 0)
+                                {
+                                    <div class="zoom-container">
+                                        <div class="zoom-caption">
 
-                                        <a href="single.html">
-                                            <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                                        </a>
+                                            <a href="single.html">
+                                                <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                            </a>
 
+                                        </div>
+                                        <img src=@Model.ToList()[Model.ToList().Count - 1].PrimaryImgURL />
                                     </div>
-                                    <img src=@Model.ToList()[Model.ToList().Count - 1].PrimaryImgURL />
-                                </div>
-                                <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 1].Title</a></h3>
-                                <div class="info">
-                                    <h5> <a href="#">Furkan Özbay</a></h5>
-                                    <span><i class="fa fa-calendar"></i>25/3/2015</span>
-                                    <span><i class="fa fa-heart"></i>1,200</span>
-                                </div>
-}
+                                    <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 1].Title</a></h3>
+                                    <div class="info">
+                                        <h5> <a href="#">Furkan Özbay</a></h5>
+                                        <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                        <span><i class="fa fa-heart"></i>1,200</span>
+                                    </div>
+                                }
                             </div>
 
                             <div class="wrap-vid">
-@if (Model.ToList().Count > 1)
-{
-                                <div class="zoom-container">
-                                    <div class="zoom-caption">
+                                @if (Model.ToList().Count > 1)
+                                {
+                                    <div class="zoom-container">
+                                        <div class="zoom-caption">
 
-                                        <a href="single.html">
-                                            <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                                        </a>
+                                            <a href="single.html">
+                                                <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                            </a>
 
+                                        </div>
+                                        <img src=@Model.ToList()[Model.ToList().Count - 2].PrimaryImgURL />
                                     </div>
-                                    <img src=@Model.ToList()[Model.ToList().Count - 2].PrimaryImgURL />
-                                </div>
-                                <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 2].Title</a></h3>
-                                <div class="info">
-                                    <h5> <a href="#">Gamze Selvili</a></h5>
-                                    <span><i class="fa fa-calendar"></i>25/3/2015</span>
-                                    <span><i class="fa fa-heart"></i>1,200</span>
-                                </div>
-}
+                                    <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 2].Title</a></h3>
+                                    <div class="info">
+                                        <h5> <a href="#">Gamze Selvili</a></h5>
+                                        <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                        <span><i class="fa fa-heart"></i>1,200</span>
+                                    </div>
+                                }
                             </div>
                             <div class="wrap-vid">
-@if (Model.ToList().Count > 2)
-{
-                                <div class="zoom-container">
-                                    <div class="zoom-caption">
+                                @if (Model.ToList().Count > 2)
+                                {
+                                    <div class="zoom-container">
+                                        <div class="zoom-caption">
 
-                                        <a href="single.html">
-                                            <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
-                                        </a>
+                                            <a href="single.html">
+                                                <i class="fa fa-play-circle-o fa-5x" style="color: #fff"></i>
+                                            </a>
 
+                                        </div>
+                                        <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL />
                                     </div>
-                                    <img src=@Model.ToList()[Model.ToList().Count - 3].PrimaryImgURL />
-                                </div>
-                                <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 3].Title</a></h3>
-                                <div class="info">
-                                    <h5> <a href="#">Sinem Karamanoğlu</a></h5>
-                                    <span><i class="fa fa-calendar"></i>25/3/2015</span>
-                                    <span><i class="fa fa-heart"></i>1,200</span>
-                                </div>
+                                    <h3 class="vid-name"><a href="#">@Model.ToList()[@Model.ToList().Count - 3].Title</a></h3>
+                                    <div class="info">
+                                        <h5> <a href="#">@Model.ToList()[@Model.ToList().Count - 3].user.Name</a></h5>
+                                        <span><i class="fa fa-calendar"></i>25/3/2015</span>
+                                        <span><i class="fa fa-heart"></i>1,200</span>
+                                    </div>
                                 }
                             </div>
 
@@ -245,54 +208,54 @@
 </div>
 <script src="owl-carousel/owl.carousel.js"></script>
 <script>
-                $(document).ready(function () {
-                    $("#owl-demo-1").owlCarousel({
-                        autoPlay: 3000,
-                        items: 1,
-                        itemsDesktop: [1199, 1],
-                        itemsDesktopSmall: [400, 1]
-                    });
-                    $("#owl-demo-2").owlCarousel({
-                        autoPlay: 3000,
-                        items: 3,
+    $(document).ready(function () {
+        $("#owl-demo-1").owlCarousel({
+            autoPlay: 3000,
+            items: 1,
+            itemsDesktop: [1199, 1],
+            itemsDesktopSmall: [400, 1]
+        });
+        $("#owl-demo-2").owlCarousel({
+            autoPlay: 3000,
+            items: 3,
 
-                    });
-                });
+        });
+    });
 </script>
 
 
 <script type="text/javascript" src="js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
 <script type="text/javascript" src="js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
 <script type="text/javascript">
-                $('.form_datetime').datetimepicker({
-                    //language:  'fr',
-                    weekStart: 1,
-                    todayBtn: 1,
-                    autoclose: 1,
-                    todayHighlight: 1,
-                    startView: 2,
-                    forceParse: 0,
-                    showMeridian: 1
-                });
-                $('.form_date').datetimepicker({
-                    language: 'fr',
-                    weekStart: 1,
-                    todayBtn: 1,
-                    autoclose: 1,
-                    todayHighlight: 1,
-                    startView: 2,
-                    minView: 2,
-                    forceParse: 0
-                });
-                $('.form_time').datetimepicker({
-                    language: 'fr',
-                    weekStart: 1,
-                    todayBtn: 1,
-                    autoclose: 1,
-                    todayHighlight: 1,
-                    startView: 1,
-                    minView: 0,
-                    maxView: 1,
-                    forceParse: 0
-                });
+    $('.form_datetime').datetimepicker({
+        //language:  'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
+    $('.form_date').datetimepicker({
+        language: 'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0
+    });
+    $('.form_time').datetimepicker({
+        language: 'fr',
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 1,
+        minView: 0,
+        maxView: 1,
+        forceParse: 0
+    });
 </script>
