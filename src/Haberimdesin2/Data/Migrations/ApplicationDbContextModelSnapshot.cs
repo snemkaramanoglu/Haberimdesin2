@@ -75,6 +75,104 @@ namespace Haberimdesin2.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("Haberimdesin2.Models.CategoryEntity", b =>
+                {
+                    b.Property<int>("CategoryID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("CategoryID");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.CommentEntity", b =>
+                {
+                    b.Property<int>("CommentID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<int>("Dislike");
+
+                    b.Property<int>("HaberID");
+
+                    b.Property<string>("Id");
+
+                    b.Property<int>("Like");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("CommentID");
+
+                    b.HasIndex("HaberID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.HaberEntity", b =>
+                {
+                    b.Property<int>("HaberID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CategoryID");
+
+                    b.Property<string>("Detail");
+
+                    b.Property<int>("Dislike");
+
+                    b.Property<string>("HeadLine");
+
+                    b.Property<string>("Id");
+
+                    b.Property<float>("Latitude");
+
+                    b.Property<int>("Like");
+
+                    b.Property<float>("Longitude");
+
+                    b.Property<string>("PrimaryImgURL");
+
+                    b.Property<DateTime>("TimeStamp");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("HaberID");
+
+                    b.HasIndex("CategoryID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("Haber");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.ImageEntity", b =>
+                {
+                    b.Property<int>("ImageID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("HaberID");
+
+                    b.Property<string>("Id");
+
+                    b.Property<string>("ImageURL");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("ImageID");
+
+                    b.HasIndex("HaberID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("Image");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
@@ -180,6 +278,42 @@ namespace Haberimdesin2.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.CommentEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.HaberEntity", "haber")
+                        .WithMany()
+                        .HasForeignKey("HaberID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.HaberEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.CategoryEntity", "category")
+                        .WithMany()
+                        .HasForeignKey("CategoryID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.ImageEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.HaberEntity", "haber")
+                        .WithMany()
+                        .HasForeignKey("HaberID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

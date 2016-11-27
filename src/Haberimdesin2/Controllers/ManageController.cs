@@ -108,9 +108,16 @@ namespace Haberimdesin2.Controllers
             {
                 return View("Error");
             }
-            var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
-            await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
-            return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
+            user.PhoneNumber = model.PhoneNumber;
+           IdentityResult x= await _userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
+
+            if (x.Succeeded)
+            {
+                return RedirectToAction(nameof(Index), "Manage");
+            }else
+            {
+                return RedirectToAction(nameof(IdentityError), "Manage");
+            }
         }
 
         //

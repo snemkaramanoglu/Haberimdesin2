@@ -1,0 +1,74 @@
+﻿
+<div class="row">
+    <div id="main-content" class="col-md-12">
+        <div class="box">
+            <center>
+                <div class="box-header">
+                    <h4 class="center">Yeni Haber Ekle</h4>
+                </div>
+            </center>
+            <div class="box-content">
+                <div class="container-fluid" ng-controller="addNewsController">
+                    <form ng-submit="uploadNews()">
+                        <div class="container-fluid">
+
+                            <div class="col-md-3">
+                                Başlık:
+                            </div>
+                            <div class="col-md-9">
+                                <input name="haberHeader" id="haberHeader" class="form-control" ng-model="haberHeader" ng-required="true" />
+                            </div>
+                            <div class="col-md-3">
+                                Manşet:
+                            </div>
+                            <div class="col-md-9">
+                                <input name="Headline" id="haberHeadline" class="form-control" ng-model="haberHeadline" ng-required="true" />
+                            </div>
+                            <div class="col-md-3">
+                                Haber Ayrıntı:
+                            </div>
+                            <div class="col-md-9">
+                                <textarea rows="5" cols="40" name="haberDetails" id="haberDetails" class="form-control" ng-model="haberDetail" ng-required="true"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                Kategori Seçiniz:
+                            </div>
+                            <div class="col-md-9">
+
+                                <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="data.model" ng-required="true">
+
+                                    <option ng-repeat="option in data.availableOptions" value="{{option.categoryID}}">{{option.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                               Birden fazla fotoğraf seçebilirsiniz:
+                            </div>
+
+                            <div class="col-md-9">
+                                <input type="file" id="haberPrimaryImage" name="imagefile" file-model="imageFiles" class="form-control" accept=".jpg, .jpeg, .png" multiple ng-required="true" />
+                            </div>
+                            @*<div class="col-md-3">
+                            Add New Image:
+                        </div>
+                        <div class="col-md-9">
+                            <input type="file" id="extraImage" name="imagefile" file-model="solutionImageFile" class="form-control" accept=".jpg, .jpeg, .png" ng-required="false" />
+                        </div>*@
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="submit" class="btn btn-block btn-primary" value="Haber Yap" />
+                            </div>
+
+
+
+
+                        </div>
+                    </form>
+                 
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
