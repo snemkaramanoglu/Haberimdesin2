@@ -1,0 +1,103 @@
+@model Haberimdesin2.Models.HaberEntity
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h2>View</h2>
+
+<form asp-action="View">
+    <div class="form-horizontal">
+        <h4>HaberEntity</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="CategoryID" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="CategoryID" class ="form-control" asp-items="ViewBag.CategoryID"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Detail" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Detail" class="form-control" />
+                <span asp-validation-for="Detail" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Dislike" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Dislike" class="form-control" />
+                <span asp-validation-for="Dislike" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="HeadLine" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="HeadLine" class="form-control" />
+                <span asp-validation-for="HeadLine" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Id" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <select asp-for="Id" class ="form-control" asp-items="ViewBag.Id"></select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Latitude" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Latitude" class="form-control" />
+                <span asp-validation-for="Latitude" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Like" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Like" class="form-control" />
+                <span asp-validation-for="Like" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Longitude" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Longitude" class="form-control" />
+                <span asp-validation-for="Longitude" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="PrimaryImgURL" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="PrimaryImgURL" class="form-control" />
+                <span asp-validation-for="PrimaryImgURL" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="TimeStamp" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="TimeStamp" class="form-control" />
+                <span asp-validation-for="TimeStamp" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="Title" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

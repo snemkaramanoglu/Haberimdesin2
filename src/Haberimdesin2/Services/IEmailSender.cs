@@ -1,12 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+using MailKit.Net.Smtp;
+using MimeKit;
+using MailKit.Security;
 namespace Haberimdesin2.Services
 {
     public interface IEmailSender
     {
-        Task SendEmailAsync(string email, string subject, string message);
+        
+        
     }
 }
