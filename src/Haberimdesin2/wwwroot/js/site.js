@@ -3,35 +3,50 @@
 //routing
 
 //Controllers
-
+var habers = null
+var lastNew = null;
+var last2News = null;
 HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
     $scope.activeHaber = null;
-    $scope.habers = null;
-    
+    $scope.last2News = function () {
+        return last2News;
+    }
+    $scope.lastNew = function () {
+        return lastNew;
+    }
+    $scope.habers = function () {
+        return habers;
+    };
     $http.get('/haberimdesin/getCategories').success(function (res) {
         $scope.categories = res.categories;
     }).error(function (err) {
         console.log(err);
     });
     //İD SILMEDIN
+
     $scope.getAllNews = function () {
         var url = "/haberimdesin/getAllNews";
         $http.get(url).success(function (re) {
 
-            $scope.habers = re.newsList.reverse();
+            habers = re.newsList.reverse();
+            lastNew = habers[0];
+            last2News = habers.slice(1, 3);
 
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
     }
     $scope.getAllNews();
+ 
     //ne yapmaya calısıyosun söle benden bısey cıkar belkı kategori seçince haberler niye n
     $scope.getNewsByCategory = function (id) {
         
         var url = "/haberimdesin/getNewsByID/" + id;
         $http.get(url).success(function (re) {
-
-            $scope.habers = re.newsList.reverse();
-
+            //internet cok yavasladı, ne indiriyonm
+            last2News = null;
+            lastNew = null;
+            habers = re.newsList.reverse();
+     
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
         
@@ -91,7 +106,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         window.scrollTo(0, 0);
         var url = "/haberimdesin/getNewsDetail/" + id;
         $http.get(url).success(function (re) {
-            $scope.habers = null;
+            habers = null;
             $scope.yorumlar = re.yorumList.reverse();
             $scope.kisiler = re.userNameList.reverse();
             $scope.activeHaber = re.newsList;
@@ -137,7 +152,7 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
 
 
     $http.get('/haberimdesin/getCategories').success(function (res) {
-        console.log(res);
+        //console.log(res);
         $scope.data = {
             model: null,
             availableOptions: res.categories
