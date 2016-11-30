@@ -211,7 +211,8 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
-                console.log(response);
+                console.log(response+"oldu");
+              window.location.assign('/Home/Index');
             }).error(function (err) {
                 console.log(err);
             });
