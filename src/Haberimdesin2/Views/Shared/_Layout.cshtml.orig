@@ -1,0 +1,108 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+<<<<<<< HEAD
+    
+    <title>Haberimdesin</title>
+=======
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Free Bootstrap Themes by 365Bootstrap dot com - Free Responsive Html5 Templates">
+    <meta name="author" content="http://www.365bootstrap.com">
+
+    <title>Newspaper | Free Bootstrap Themes by 365Bootstrap.com</title>
+>>>>>>> d324288bfd066d8e065f403d74793e6bbee55b93
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="~/deneme/css/bootstrap.min.css" type="text/css">
+
+    <!-- Owl Carousel Assets -->
+    <link href="~/deneme/owl-carousel/owl.carousel.css" rel="stylesheet">
+    <link href="~/deneme/owl-carousel/owl.theme.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="~/deneme/css/Style.css">
+    <link href="~/deneme/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="~/deneme/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css">
+
+
+
+</head>
+<body ng-app="Haberimdesin">
+    <!--Navigation-->
+    <nav id="menu" class="navbar container" ng-controller="News">
+        <div class="navbar-header">
+            <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"asp-area="">
+                <div class="logo"><span>HABERİMDESİN</span></div>
+            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
+                <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
+                <li> <a asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a></li>
+
+                <li class="dropdown">
+                    <a asp-area="" asp-controller="Home" asp-action="Category" class="dropdown-toggle" data-toggle="dropdown">Kategori <i class="fa fa-arrow-circle-o-down"></i></a>
+                    <div class="dropdown-menu">
+                        <div class="dropdown-inner">
+
+
+                            <ul class="list-unstyled">
+
+                                <li ng-repeat="category in categories" ng-click="getNewsByCategory(category.categoryID)"><a>{{category.name}}</a> </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                </li>
+
+                <li><a asp-area="" asp-controller="Home" asp-action="AddNews">Yeni Haber Ekle</a></li>
+            </ul>
+            @await Html.PartialAsync("_LoginPartial")
+
+        </div>
+    </nav>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <div class="sinem">
+            <p>Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Ceng Students</p>
+        </div>
+    </div>
+
+
+    <environment names="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/lib/angular/angular.js"></script>
+        <script src="~/lib/angular/angular-route.min.js"></script>
+        <script src="~/js/site.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Staging,Production">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://code.angularjs.org/1.5.5/angular.min.js"
+                asp-fallback-src="~/lib/angular/angular.min.js"
+                asp-fallback-test="window.angular">
+        </script>
+        <script src="https://code.angularjs.org/1.5.5/angular-route.min.js"
+                asp-fallback-src="~/lib/angular/angular-route.min.js"
+                asp-fallback-test="window.angular.ngRoute">
+        </script>
+        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/bootstrap.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+        <script src="~/js/site.min.js" asp-append-version="true"></script>
+    </environment>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

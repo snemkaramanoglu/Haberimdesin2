@@ -129,9 +129,15 @@ namespace Haberimdesin2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
+<<<<<<< HEAD
+            //ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
+            //ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
+            //return View(haberEntity);
+=======
             ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
             return View(haberEntity);
+>>>>>>> d324288bfd066d8e065f403d74793e6bbee55b93
         }
 
         //Henüz kullanýlmýyor.

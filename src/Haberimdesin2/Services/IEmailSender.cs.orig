@@ -1,0 +1,16 @@
+<<<<<<< HEAD
+﻿namespace Haberimdesin2.Services
+=======
+﻿using System;
+using MailKit.Net.Smtp;
+using MimeKit;
+using MailKit.Security;
+namespace Haberimdesin2.Services
+>>>>>>> d324288bfd066d8e065f403d74793e6bbee55b93
+{
+    public interface IEmailSender
+    {
+        
+        
+    }
+}
