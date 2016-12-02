@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using Haberimdesin2.Models;
 using Haberimdesin2.Models.ManageViewModels;
 using Haberimdesin2.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace Haberimdesin2.Controllers
 {
@@ -335,6 +336,26 @@ namespace Haberimdesin2.Controllers
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
 
+        //Dosya Yükleme Kısmında Yüklerken Kullanılabilir
+        /*
+        [HttpPost]
+
+        public async Task<IActionResult> Index(ICollection<IFormFile> files)
+        {
+            var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+            foreach (var file in files)
+            {
+                if (file.Length > 0)
+                {
+                    using (var fileStream = new FileStream(Path.Combine(uploads, file.FileName), FileMode.Create))
+                    {
+                        await file.CopyToAsync(fileStream);
+                    }
+                }
+            }
+            return View();
+        }
+        */
         #region Helpers
 
         private void AddErrors(IdentityResult result)

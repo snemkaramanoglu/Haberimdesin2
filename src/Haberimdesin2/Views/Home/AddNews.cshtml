@@ -1,102 +1,74 @@
 ﻿
-<h1>@ViewData["Message"]</h1>
-<div class="container-fluid" ng-controller="addNewsController">
-    <form ng-submit="uploadNews()">
-        <div class="container-fluid">
-
-            <div class="col-md-3">
-                Header:
-            </div>
-            <div class="col-md-9">
-                <input name="haberHeader" id="haberHeader" class="form-control" ng-model="haberHeader" ng-required="true" />
-            </div>
-            <div class="col-md-3">
-                Headline:
-            </div>
-            <div class="col-md-9">
-                <input name="Headline" id="haberHeadline" class="form-control" ng-model="haberHeadline" ng-required="true" />
-            </div>
-            <div class="col-md-3">
-                Details:
-            </div>
-            <div class="col-md-9">
-                <textarea rows="5" cols="40" name="haberDetails" id="haberDetails" class="form-control" ng-model="haberDetail" ng-required="true" ></textarea>
-            </div>
-            <div class="col-md-3">
-                Select a Category:
-            </div>
-            <div class="col-md-9">
-
-                <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="data.model" ng-required="true">
-
-                    <option ng-repeat="option in data.availableOptions" value="{{option.categoryID}}">{{option.name}}</option>
-                </select>
-            </div>
-            <div class="col-md-3">
-                Select Multiple Images:
-            </div>
-
-            <div class="col-md-9">
-                <input type="file" id="haberPrimaryImage" name="imagefile" file-model="imageFiles" class="form-control" accept=".jpg, .jpeg, .png" multiple ng-required="true" />
-            </div>
-            @*<div class="col-md-3">
-                Add New Image:
-            </div>
-            <div class="col-md-9">
-                <input type="file" id="extraImage" name="imagefile" file-model="solutionImageFile" class="form-control" accept=".jpg, .jpeg, .png" ng-required="false" />
-            </div>*@
-            <div class="col-md-offset-3 col-md-9">
-                <input type="submit" class="btn btn-block btn-primary" value="Upload" />
-            </div>
-
-       
-            
-
-        </div>
-    </form>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <img src="https://eliaslealblog.files.wordpress.com/2014/03/user-200.png" style="height: 40px; width: auto" alt="" />
-            <h5 style="display: inline-block;"><small>@User.Identity.Name</small></h5>
-            <ul class="list-inline pull-right" style="margin: 0; line-height: 40px">
-                <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
-                    <ul class="list-inline" style="margin: 0; line-height: 40px">
-                        <li class="list-inline-item" style="padding: 0 5px 0 5px">
-                            <h6 style="display: inline-block; margin: 0">0</h6>
-                            <i class="fa fa-2x fa-thumbs-o-up"></i>
-                        </li>
-                        <li class="list-inline-item" style="padding: 0 5px 0 5px">
-                            <i class="fa fa-2x fa-thumbs-o-down"></i>
-                            <h6 style="display: inline-block; margin: 0">0</h6>
-                        </li>
-                    </ul>
-                </li>
-                <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
-                    <h6 style="display: inline-block; margin: 0" >{{date | date:'yyyy-MM-dd'}}</h6>
-                </li>
-            </ul>
-        </div>
-        <div class="panel-body" style="text-align: center">
-            <h2 ng-show="haberHeader">{{haberHeader}}</h2>
-            <h2 ng-hide="haberHeader">[BAŞLIK]</h2>
-            <div class="row">
-                <div class="container-fluid" style="padding: 0 15px 0 15px">
-                    <div class="col-lg-4 col-md-4 col-sm-4">
-                        <div class="row">
-                            <img id="primaryImage" src={{"data:image/png;base64,"+ base64String(imageFiles[0])}} style="width: 100%; height: auto; margin-top: 5px" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8" style="text-align: left; font-size: 1.25em;">
-                        {{haberHeadline}}
-                    </div>
+<div class="row">
+    <div id="main-content" class="col-md-12">
+        <div class="box">
+            <center>
+                <div class="box-header">
+                    <h4 class="center">Yeni Haber Ekle</h4>
                 </div>
-            </div>
-        </div>
+            </center>
+            <div class="box-content">
+                <div class="container-fluid" ng-controller="addNewsController">
+                    <form ng-submit="uploadNews()">
+                        <div class="container-fluid">
 
+                            <div class="col-md-3">
+                                Başlık:
+                            </div>
+                            <div class="col-md-9">
+                                <input name="haberHeader" id="haberHeader" class="form-control" ng-model="haberHeader" ng-required="true" />
+                            </div>
+                            <div class="col-md-3">
+                                Manşet:
+                            </div>
+                            <div class="col-md-9">
+                                <input name="Headline" id="haberHeadline" class="form-control" ng-model="haberHeadline" ng-required="true" />
+                            </div>
+                            <div class="col-md-3">
+                                Haber Ayrıntı:
+                            </div>
+                            <div class="col-md-9">
+                                <textarea rows="5" cols="40" name="haberDetails" id="haberDetails" class="form-control" ng-model="haberDetail" ng-required="true"></textarea>
+                            </div>
+                            <div class="col-md-3">
+                                Kategori Seçiniz:
+                            </div>
+                            <div class="col-md-9">
 
+                                <select class="form-control" name="repeatSelect" id="repeatSelect" ng-model="data.model" ng-required="true">
 
-    </div>
+                                    <option ng-repeat="option in data.availableOptions" value="{{option.categoryID}}">{{option.name}}</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                               Birden fazla fotoğraf seçebilirsiniz:
+                            </div>
 
+                            <div class="col-md-9">
+                                <input type="file" id="haberPrimaryImage" name="imagefile" file-model="imageFiles" class="form-control" accept=".jpg, .jpeg, .png" multiple ng-required="true" />
+                            </div>
+                            @*<div class="col-md-3">
+                            Add New Image:
+                        </div>
+                        <div class="col-md-9">
+                            <input type="file" id="extraImage" name="imagefile" file-model="solutionImageFile" class="form-control" accept=".jpg, .jpeg, .png" ng-required="false" />
+                        </div>*@
+                            <div class="col-md-offset-3 col-md-9">
+                                <input type="submit" class="btn btn-block btn-primary" value="Haber Yap"  />
 </div>
+
+
+
+
+                        </div>
+                    </form>
+                 
+                </div>
+
+
+
+            </div>
+
+        </div>
 
 

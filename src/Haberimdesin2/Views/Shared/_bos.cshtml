@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Haberimdesin3</title>
+    <environment names="Development">
+        
+        <link rel="stylesheet" href="~/css/style.css" />
+    </environment>
+    <environment names="Staging,Production">
+      
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    </environment>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--webfonts-->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
+    <!--//webfonts-->
+</head>
+<body>
+    <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-brand"></a>
+
+    <div class="container body-content">
+        @RenderBody()
+
+    </div>
+   
+    @RenderSection("scripts", required: false)
+</body>
+</html>

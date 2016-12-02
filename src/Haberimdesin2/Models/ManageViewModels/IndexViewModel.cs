@@ -14,6 +14,8 @@ namespace Haberimdesin2.Models.ManageViewModels
 
         public string PhoneNumber { get; set; }
 
+        public string Name { get; set; }
+
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }

@@ -44,6 +44,58 @@ namespace Haberimdesin2.Controllers
 
         // POST: Haberimdesin/Create
         [HttpPost]
+        public JsonResult LikeComment()
+        {
+            int id = int.Parse(Request.Form["id"]);
+            _context.Comment.Where(c => c.CommentID == id).Single().Like++;
+            _context.SaveChanges();
+            return Json(new { });
+        }
+        [HttpPost]
+        public JsonResult DislikeComment()
+        {
+            int id = int.Parse(Request.Form["id"]);
+            _context.Comment.Where(c => c.CommentID == id).Single().Dislike++;
+            _context.SaveChanges();
+            return Json(new { });
+        }
+        [HttpPost]
+        public JsonResult LikeNews()
+        {
+            int id = int.Parse(Request.Form["id"]);
+            _context.Haber.Where(h => h.HaberID == id).Single().Like++;
+            _context.SaveChanges();
+            return Json(new { });
+        }
+        [HttpPost]
+        public JsonResult DislikeNews()
+        {
+            int id = int.Parse(Request.Form["id"]);
+            _context.Haber.Where(h => h.HaberID == id).Single().Dislike++;
+            _context.SaveChanges();
+            return Json(new { });
+        }
+        [HttpPost]
+        public JsonResult CreateComment()
+        {
+            string icerik = Request.Form["yorumIcerik"];
+            int haberId = int.Parse(Request.Form["haberID"]);
+            DateTime time = DateTime.Now;
+            string userId = _userManager.GetUserId(User);
+            CommentEntity comment = new CommentEntity
+            {
+                UserID = userId,
+                HaberID = haberId,
+                Content = icerik,
+                TimeStamp = time,
+                Like = 0,
+                Dislike = 0
+            };
+            _context.Comment.Add(comment);
+            _context.SaveChanges();
+            return Json(new { });
+        }
+        [HttpPost]
         public async Task<JsonResult> CreateNews()
         {
 
@@ -102,7 +154,15 @@ namespace Haberimdesin2.Controllers
             var categories = _context.Category.ToList();
             return Json(new { categories });
         }
+        [HttpGet]
+        public JsonResult getAllNews()//site.js acsana
+        {
 
+            var newsList = _context.Haber.Include(h => h.user).ToList();//niye saçmaladý
+
+
+            return Json(new { newsList });
+        }
         [HttpGet]
         public JsonResult getNewsByID(int id)
         {
@@ -111,6 +171,22 @@ namespace Haberimdesin2.Controllers
             
 
             return Json(new { newsList });
+        }
+
+        [HttpGet]
+        public JsonResult getNewsDetail(int id)
+        {
+            
+            var newsList = _context.Haber.Where(h => h.HaberID == id).Include(h => h.user).ToList();
+            var yorumList = _context.Comment.Where(c => c.HaberID == id).Include(c => c.user).ToList();
+            var userNameList = new List<String>();
+            for(int i = 0; i < yorumList.Count; i++)
+            {
+                string name = _context.Users.Where(u => u.Id == yorumList[i].UserID).ToList()[0].Name;
+                string surname = _context.Users.Where(u => u.Id == yorumList[i].UserID).ToList()[0].Surname;
+                userNameList.Add(name + " " + surname);
+            }
+            return Json(new { yorumList, newsList, userNameList });
         }
 
         // GET: Haberimdesin/Edit/5
