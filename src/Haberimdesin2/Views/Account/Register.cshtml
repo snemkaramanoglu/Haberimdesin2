@@ -3,7 +3,7 @@
     ViewData["Title"] = "Üye Ol";
 }
 
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
 
 <div class="row">
     <div id="main-content" class="col-md-12">
@@ -11,38 +11,38 @@
             <div class="box-content">
                 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
 
-                    <hr />
+              
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
-                        <label asp-for="Surname" class="col-md-2 control-label">Ad</label>
+                        <label asp-for="Surname" class="col-md-2 control-label">Adınız</label>
                         <div class="col-md-10">
                             <input asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Surname" class="col-md-2 control-label">Soyad</label>
+                        <label asp-for="Surname" class="col-md-2 control-label">Soyadınız</label>
                         <div class="col-md-10">
                             <input asp-for="Surname" class="form-control" />
                             <span asp-validation-for="Surname" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Email" class="col-md-2 control-label">Email</label>
+                        <label asp-for="Email" class="col-md-2 control-label">Email Adresiniz</label>
                         <div class="col-md-10">
                             <input asp-for="Email" class="form-control" />
                             <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="Password" class="col-md-2 control-label">Şifre</label>
+                        <label asp-for="Password" class="col-md-2 control-label">Şifreniz</label>
                         <div class="col-md-10">
                             <input asp-for="Password" class="form-control" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label asp-for="ConfirmPassword" class="col-md-2 control-label">Şifre Tekrar</label>
+                        <label asp-for="ConfirmPassword" class="col-md-2 control-label">Şifreniz Tekrar</label>
                         <div class="col-md-10">
                             <input asp-for="ConfirmPassword" class="form-control" />
                             <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-md-offset-2 col-md-10">
-                            <button type="submit" class="btn btn-default">Üye Ol</button>
+                            <button type="submit" class="btn-danger btn-lg">Üye Ol</button>
                         </div>
                     </div>
                 </form>

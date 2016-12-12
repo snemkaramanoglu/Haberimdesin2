@@ -18,6 +18,7 @@
         <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
 
             <div asp-validation-summary="All" class="text-danger"></div>
+           
             <li>
                 <input type="text" asp-for="Email" class="text" value="E-mail" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'E-mail';}"><a href="#" class="icon user"></a>
                 <span asp-validation-for="Email" class="text-danger"></span>
@@ -61,7 +62,7 @@
             <p>
                 <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Üye Ol</a>
             </p>
-
+           
             <p>
                 <a asp-action="ForgotPassword">Şifremi Unuttum</a>
             </p>
