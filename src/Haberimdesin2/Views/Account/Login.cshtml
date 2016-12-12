@@ -23,12 +23,12 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </li>
             <li>
-                <input type="password" asp-for="Password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"><a href="#" class="icon lock"></a>
+                <input type="password" asp-for="Password" value="Şifre" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}"><a href="#" class="icon lock"></a>
                 <span asp-validation-for="Password" class="text-danger"></span>
             </li>
 
 
-            <label class="checkbox"><input asp-for="RememberMe" type="checkbox" name="checkbox" checked><i></i>@Html.DisplayNameFor(m => m.RememberMe)</label>
+            <label class="checkbox"><input asp-for="RememberMe" type="checkbox" name="checkbox" checked><i></i>Beni Hatırla</label>
             <br><br>
             <input type="submit" value="Giriş Yap">
 
@@ -59,11 +59,11 @@
             <div class="clear"> </div>
             <br><br>
             <p>
-                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Üye Ol</a>
             </p>
 
             <p>
-                <a asp-action="ForgotPassword">Forgot your password?</a>
+                <a asp-action="ForgotPassword">Şifremi Unuttum</a>
             </p>
         </form>
 

@@ -121,7 +121,7 @@ namespace Haberimdesin2.Controllers
                 haberEntity.PrimaryImgURL = "/haberimage/" + file.FileName;
                 await file.CopyToAsync(fileStream);
             }
-
+            /*
             if (true)
             {
 
@@ -129,6 +129,7 @@ namespace Haberimdesin2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Index", "Home");
             }
+            */
             ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
             return View(haberEntity);
