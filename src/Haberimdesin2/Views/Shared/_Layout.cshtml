@@ -32,7 +32,7 @@
             </a>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav" >
                 <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
                 <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
                 <li> <a asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a></li>
@@ -43,7 +43,7 @@
                         <div class="dropdown-inner">
 
 
-                            <ul class="list-unstyled">
+                            <ul  class="list-unstyled">
 
                                 <li ng-repeat="category in categories" ng-click="getNewsByCategory(category.categoryID)"><a>{{category.name}}</a> </li>
                             </ul>

@@ -5,9 +5,9 @@
 /* ---------------------------------------------------------------------------- */
 /* ------------------------------------Html-Body------------------------------- */
 /* ---------------------------------------------------------------------------- */
-body {font-family:Verdana,sans-serif;color: #666; background:url(../images/bg.jpg);  fixed ; font-size: 14px;line-height: 1.6em;font-weight: 400;}
+body {font-family:Verdana,sans-serif;color: #666; background:url(../images/bg.jpg);  no-repeat fixed; font-size: 14px;line-height: 1.6em;font-weight: 400;}
 html, body {width:100%; padding:0; margin:0;}
-
+background:url(../images/bg.jpg) no-repeat fixed;
 ::-moz-selection{background:#000;color:#fff;text-shadow:none}
 ::selection{background:#000;color:#fff;text-shadow:none}
 /* ---------------------------------------------------------------------------- */
@@ -182,7 +182,7 @@ header{}
 .box .box-content {margin-top: 30px;}
 .box .box-content a{font-weight: bold;color: #333;}
 .box .box-content a:hover{color: #555;}
-.box .box-content h3{font-size: 18px;margin: 10px 0 5px ;}
+.box .box-content h3{font-size: 18px;margin: 10px 0 5px ;}z
 .box .box-content span{font-size: 15px;}
 .box .box-content span i{font-size: 14px;margin-right: 2px;}
 .box .box-content p{margin-top: 10px;}

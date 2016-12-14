@@ -3,7 +3,7 @@
 }
 
 <div class="container-fluid" ng-controller="News" style="padding-top:20px;">
-    <div class="row">
+    <div class="row" style="text-align: center;">
         <div class="col-sm-2">
         </div>
         <div class="col-sm-8">
@@ -92,8 +92,8 @@
 
 
 
-<div class="col-md-8>
-    <div class="panel panel-default" ng-repeat="haber in activeHaber">
+<div class="col-md-12>
+    <div class="panel panel-default" ng-repeat="haber in activeHaber"style="margin-top: 10px;">
 
         <div id="page-content" class="single-page container">
             <div class="row">
@@ -122,8 +122,7 @@
                            
                         </div>
                         <p style="margin-top: 20px">{{haber.detail}}</p>
-
-                        <div class="line"></div>
+                        <hr />
                         <div class="comment">
 
                             <form ng-submit="uploadComment()">
@@ -142,7 +141,7 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h2 class="page-header">Yorumlar</h2>
+                                  
                                     <div    class="list-group-item" ng-repeat="yorum in yorumlar track by $index">
                                     
                                     <section class="comment-list">
@@ -195,4 +194,4 @@
     </div>
 
 
-            </div>
+         

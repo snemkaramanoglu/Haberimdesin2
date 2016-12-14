@@ -22,7 +22,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     }).error(function (err) {
         console.log(err);
     });
-    //İD SILMEDIN
+  
 
     $scope.getAllNews = function () {
         var url = "/haberimdesin/getAllNews";
@@ -37,12 +37,12 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     }
     $scope.getAllNews();
  
-    //ne yapmaya calısıyosun söle benden bısey cıkar belkı kategori seçince haberler niye n
+  
     $scope.getNewsByCategory = function (id) {
         
         var url = "/haberimdesin/getNewsByID/" + id;
         $http.get(url).success(function (re) {
-            //internet cok yavasladı, ne indiriyonm
+           
             last2News = null;
             lastNew = null;
             habers = re.newsList.reverse();
@@ -108,6 +108,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         $http.get(url).success(function (re) {
             habers = null;
             $scope.yorumlar = re.yorumList.reverse();
+            $scope.lastNew = null;
+            $scope.last2News = null;
             $scope.kisiler = re.userNameList.reverse();
             $scope.activeHaber = re.newsList;
         }).error(function (err) { console.log(err); });
