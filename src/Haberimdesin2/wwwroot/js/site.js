@@ -3,7 +3,7 @@
 //routing
 
 //Controllers
-var habers = null
+var habers = null;
 var lastNew = null;
 var last2News = null;
 HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
@@ -110,6 +110,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             $scope.yorumlar = re.yorumList.reverse();
             $scope.lastNew = null;
             $scope.last2News = null;
+ 
             $scope.kisiler = re.userNameList.reverse();
             $scope.activeHaber = re.newsList;
         }).error(function (err) { console.log(err); });

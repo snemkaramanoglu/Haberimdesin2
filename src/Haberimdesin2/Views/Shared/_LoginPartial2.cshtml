@@ -1,0 +1,28 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using Haberimdesin2.Models
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hoşgeldin @UserManager.GetUserName(User)!</a>
+            </li>
+            <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link"><img src="~/images/çıkış.jpg" style="height: 20px; width: 20px;" alt="" />Çıkış</button>
+            </li>
+        </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li ><a asp-area=""onclick="href = 'http://habersizsiniz.azurewebsites.net/Home/About'">Hakkımızda</a></li>
+    
+        <li><a asp-area="" asp-controller="Account" asp-action="Login"><img src="~/images/giriş.png" style="height: 20px; width: 20px;" alt=""/>Giriş Yap</a></li>
+    </ul>
+}
+

@@ -3,14 +3,19 @@
     ViewData["Title"] = "Üye Ol";
 }
 
-<h2>@ViewData["Title"]</h2>
+@{
+    Layout = "_üye";
+}
+
+
 
 <div class="row">
     <div id="main-content" class="col-md-12">
         <div class="box">
             <div class="box-content">
                 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-
+                    <center><h2>@ViewData["Title"]</h2></center>
+                    <br />
               
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
