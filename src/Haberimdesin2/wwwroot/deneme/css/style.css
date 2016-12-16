@@ -5,7 +5,7 @@
 /* ---------------------------------------------------------------------------- */
 /* ------------------------------------Html-Body------------------------------- */
 /* ---------------------------------------------------------------------------- */
-body {font-family:Verdana,sans-serif;color: #666; background:url(../images/bg.jpg) no-repeat fixed; font-size: 14px;line-height: 1.6em;font-weight: 400;}
+body {font-family:Verdana,sans-serif;color: #666; background:url(../images/bg2.jpg); font-size: 14px;line-height: 1.6em;font-weight: 400;padding-bottom: 133px;}
 html, body {width:100%; padding:0; margin:0;}
 
 ::-moz-selection{background:#000;color:#fff;text-shadow:none}
@@ -29,7 +29,7 @@ h1,h2,h3,h4,h5,h6 {font-family: 'Roboto', sans-serif;font-weight: 600;color: #11
 p {margin: 0 0 20px;}
 
 a {
-   color: #7DC314;
+   color: rgba(80, 80, 222, 1);
    -webkit-transition: all .2s ease-in-out;
    -moz-transition: all .2s ease-in-out;
    transition: all .2s ease-in-out;
@@ -76,7 +76,7 @@ body.sub-page {padding-top: 30px;background-color: #F9F9F9;}
 /* ---------------------------------------------------------------------------- */
 /* ------------------------------------Menu------------------------------------ */
 /* ---------------------------------------------------------------------------- */
-#menu {background-color: #F9F9F9;border-radius: 0;}
+#menu {background-color: #F9F9F9;border-radius: 0;  }
 #menu a.navbar-brand:hover{color: #000;}
 #menu .navbar-brand{margin: 0;padding: 14px 18px;background-color: #F9F9F9;height: auto;text-transform: uppercase;}
 #menu .logo {}
@@ -89,7 +89,7 @@ body.sub-page {padding-top: 30px;background-color: #F9F9F9;}
 #menu .dropdown-inner a {min-width: 160px;display: block;padding: 3px 20px;clear: both;line-height: 20px;color: #000;font-size: 14px;margin: 0 5px;}
 #menu li.dropdown:hover>a, #menu li.dropdown:focus>a, #menu li.dropdown:active>a{background: #fff;color: #000;}
 
-#menu ul.nav li a{font-weight: bold;color: #000;border-radius: 5px;padding: 14px 19px;}
+#menu ul.nav li a{font-weight: bold;color: #000;border-radius: 5px;}
 #menu ul.nav li.dropdown a{border-top-left-radius: 5px;border-top-right-radius: 5px;border-bottom-right-radius: 0px;border-bottom-left-radius: 0px;}
 #menu .nav > li > a:hover, #menu .nav > li > a:focus{background-color: #fff;color:#000;}
 
@@ -166,7 +166,7 @@ header{}
 
 /* ---MainContent--- */
 
-.box {background-color: #fff;padding: 20px 20px 10px;}
+.box {background-color: #fff;padding: 20px 20px 10px; box-shadow:inset; border-radius:5px}
 .box:last-child{padding: 20px 20px 5px;}
 .box:after, .box:before{clear: both; content: '\0020'; display: block; visibility: hidden; width: 0; height: 0;}
 .box .info {margin: 5px 0 10px 0;}
@@ -218,7 +218,7 @@ ul.pagination li a{color: #444;}
 .widget .heading h4{font-size: 22px;padding: 0px 8px;background-color: #fff;display: inline-block;margin-left: 15px;color: #333;text-transform: uppercase;}
 .widget .content {}
 
-.widget.wid-vid ul a{display:inline;margin: 3px 2px;float:left;color:#333;padding:5px;border-bottom: 1px solid transparent;border-top: none;border-right: none;border-left: none;font-weight: bold;}
+.widget.wid-vid ul a{display:inline; margin:3px 2px; float:left;color:#333;padding:5px;border-bottom: 1px solid transparent;border-top: none;border-right: none;border-left: none;font-weight: bold;}
 .widget.wid-vid .tab-content{margin-top: 13px;}
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover{background: none;}
 .widget.wid-vid ul a:hover,.widget.wid-vid ul a:focus{background: none;border-top: none;border-right: none;border-left: none;}
@@ -288,8 +288,7 @@ ul.pagination li a{color: #444;}
 /* ---------------------------------------------------------------------------- */
 /* -------------------------------------Footer--------------------------------- */
 /* ---------------------------------------------------------------------------- */
-
-footer{background-color: #F9F9F9;margin-top: 20px;color: #000;padding: 20px 0 10px;}
+footer{background-color: #FFF ;margin-top: 20px;color: #000;padding: 20px 0 10px;}
 footer .wrap-footer{border-bottom: 1px solid #444;padding-bottom: 20px;}
 .copy-right {
     text-align: center;
@@ -297,7 +296,10 @@ footer .wrap-footer{border-bottom: 1px solid #444;padding-bottom: 20px;}
 	
 
 }
-body .container body-content {text-align: center;}
+body .container body-content {text-align: center;  position: relative;
+    margin-top: -133px; /* altAlan yuksekliginin eksi degeri */
+    height: 133px;
+    clear:both;}
 footer .footer-heading h4{color: #000;font-size: 20px;}
 footer .content{}
 footer .col-footer{}

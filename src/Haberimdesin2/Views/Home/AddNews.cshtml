@@ -17,19 +17,22 @@
                             </div>
                             <div class="col-md-9">
                                 <input name="haberHeader" id="haberHeader" class="form-control" ng-model="haberHeader" ng-required="true" />
+                                <br />
                             </div>
                             <div class="col-md-3">
                                 Manşet:
                             </div>
                             <div class="col-md-9">
                                 <input name="Headline" id="haberHeadline" class="form-control" ng-model="haberHeadline" ng-required="true" />
-                            </div>
+                                <br />
+                             </div>
                             <div class="col-md-3">
                                 Haber Ayrıntı:
                             </div>
                             <div class="col-md-9">
                                 <textarea rows="5" cols="40" name="haberDetails" id="haberDetails" class="form-control" ng-model="haberDetail" ng-required="true"></textarea>
-                            </div>
+                                <br />
+                             </div>
                             <div class="col-md-3">
                                 Kategori Seçiniz:
                             </div>
@@ -39,14 +42,17 @@
 
                                     <option ng-repeat="option in data.availableOptions" value="{{option.categoryID}}">{{option.name}}</option>
                                 </select>
+                                <br />
                             </div>
                             <div class="col-md-3">
-                               Birden fazla fotoğraf seçebilirsiniz:
+                                Birden fazla fotoğraf seçebilirsiniz:
                             </div>
 
                             <div class="col-md-9">
                                 <input type="file" id="haberPrimaryImage" name="imagefile" file-model="imageFiles" class="form-control" accept=".jpg, .jpeg, .png" multiple ng-required="true" />
-                            </div>
+                                <br />
+                             </div>
+                            
                             @*<div class="col-md-3">
                             Add New Image:
                         </div>
@@ -54,15 +60,13 @@
                             <input type="file" id="extraImage" name="imagefile" file-model="solutionImageFile" class="form-control" accept=".jpg, .jpeg, .png" ng-required="false" />
                         </div>*@
                             <div class="col-md-offset-3 col-md-9">
-                                <input type="submit" class="btn btn-block btn-primary" value="Haber Yap"  />
-</div>
-
-
-
-
+                                <input type="submit" class="btn btn-block btn-primary" value="Haber Yap" />
+                                <br /><br />
+                            </div>
+                           
                         </div>
                     </form>
-                 
+
                 </div>
 
 
