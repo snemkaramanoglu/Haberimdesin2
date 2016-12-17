@@ -158,7 +158,7 @@ namespace Haberimdesin2.Controllers
         public JsonResult getAllNews()//site.js acsana
         {
 
-            var newsList = _context.Haber.Include(h => h.user).ToList();//niye saçmaladý
+            var newsList = _context.Haber.Include(h => h.user).ToList(); //niye saçmaladý
 
 
             return Json(new { newsList });

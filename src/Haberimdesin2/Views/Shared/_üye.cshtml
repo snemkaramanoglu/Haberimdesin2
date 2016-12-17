@@ -24,29 +24,25 @@
 </head>
 <body ng-app="Haberimdesin">
     <!--Navigation-->
-    <nav id="menu" class="navbar container" ng-controller="News">
-        <div class="navbar-header">
-            <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" asp-area="">
-                <div class="logo"><span>HABERİMDESİN</span></div>
-            </a>
-        </div>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-              
+    <nav class="navbar navbar-full" ng-controller="News">
+        <div id="menu">
+            <div class="navbar-header">
+                <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" asp-area="">
+                    <div class="logo"><span>HABERİMDESİN</span></div>
+                </a>
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav"></ul>
+                @await Html.PartialAsync("_LoginPartial2")
 
-                
-
-
-            </ul>
-            @await Html.PartialAsync("_LoginPartial2")
-
+            </div>
         </div>
     </nav>
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <div class="sinem">
+        <div style="text-align:center;">
             <p>Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Ceng Students</p>
         </div>
     </div>

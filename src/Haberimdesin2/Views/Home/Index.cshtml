@@ -4,10 +4,10 @@
 
 <div class="container-fluid" ng-controller="News" style="padding-top:20px;">
     <div class="row" style="text-align: center;">
-        <div class="col-sm-2">
+        <div class="col-sm-1">
         </div>
-        <div class="col-sm-8">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" ng-if="lastNew!=null" >
+        <div class="col-sm-10">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" ng-if="lastNew!=null">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -17,181 +17,149 @@
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
                     <div class="item active">
-                        <img src="{{lastNew().primaryImgURL}}"  style="width: 800px; height: 300px; margin-top: 5px"  alt="First slide">
+                        <img src="{{lastNew().primaryImgURL}}" style="width: 900px; height: 400px; margin-top: 5px" alt="First slide">
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
-                                <br>
+                                <br><br>
                                 <h2>{{lastNew().title}}</h2>
                                 <br>
                             </div>
                         </div><!-- /header-text -->
                     </div>
                     <div class="item" ng-repeat="haber in last2News()">
-                        <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 800px; height: 300px; margin-top: 5px" alt="">
+                        <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 900px; height: 400px; margin-top: 5px" alt="">
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
-                                <br>
+                                <br><br>
                                 <h2>{{haber.title}}</h2>
                                 <br>
                             </div>
                         </div><!-- /header-text -->
                     </div>
-
                 </div>
             </div>
-
         </div>
     </div>
-    
-                <div class="col-md-12">
-                    <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:60px;">
-
-                        <div class="panel-heading">
-                            <img src="https://eliaslealblog.files.wordpress.com/2014/03/user-200.png" style="height: 40px; width: auto" alt="" />
-                            <h5 style="display: inline-block;"><small>{{haber.user.name + " " + haber.user.surname}}</small></h5>
-                            <ul class="list-inline pull-right" style="margin: 0; line-height: 40px">
-                                <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
-                                    <ul class="list-inline" style="margin: 0; line-height: 40px">
-                                        <li class="list-inline-item" style="padding: 0 5px 0 5px">
-                                            <h6 style="display: inline-block; margin: 0">{{haber.like}}</h6>
-                                            <i class="fa fa-2x fa-thumbs-o-up"></i>
-                                        </li>
-                                        <li class="list-inline-item" style="padding: 0 5px 0 5px">
-                                            <i class="fa fa-2x fa-thumbs-o-down"></i>
-                                            <h6 style="display: inline-block; margin: 0">{{haber.dislike}}</h6>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
-                                    <h6 style="display: inline-block; margin: 0"><i class="fa fa-calendar"></i> {{haber.timeStamp | date:'dd/MM/yyyy'}}</h6>
-                                </li>
-                            </ul>
+    <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:20px; height:300px; ">
+        <div class="panel-heading" style="height: 50px;">
+            <img src="https://eliaslealblog.files.wordpress.com/2014/03/user-200.png" style="height: 20px; width: 20px" alt="" />
+            <h6 style="display: inline-block;"><small>{{haber.user.name + " " + haber.user.surname}}</small></h6>
+            <ul class="list-inline pull-right" style="margin: 0; line-height: 20px">
+                <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
+                    <ul class="list-inline" style="margin: 0; line-height: 20px">
+                        <li class="list-inline-item" style="padding: 0 5px 0 5px">
+                            <h6 style="display: inline-block; margin: 0">{{haber.like}}</h6>
+                            <i class="fa fa-2x fa-thumbs-o-up"></i>
+                        </li>
+                        <li class="list-inline-item" style="padding: 0 5px 0 5px">
+                            <i class="fa fa-2x fa-thumbs-o-down"></i>
+                            <h6 style="display: inline-block; margin: 0">{{haber.dislike}}</h6>
+                        </li>
+                    </ul>
+                </li>
+                <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
+                    <h6 style="display: inline-block; margin: 0"><i class="fa fa-calendar"></i> {{haber.timeStamp | date:'dd/MM/yyyy'}}</h6>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body" style="text-align: center">
+            <div class="row" ng-click="getNewsDetail(haber.haberID)">
+                <div class="container-fluid" style="padding: 0 10px 0 10px">
+                    <div class="col-sm-5">
+                        <div class="row">
+                            <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 300px; height: 200px; margin-top: 5px" alt="">
                         </div>
-                        <div class="panel-body" style="text-align: center">
-                            <h2>{{haber.title}}</h2>
-                            <div class="row" ng-click="getNewsDetail(haber.haberID)">
-                                <div class="container-fluid" style="padding: 0 15px 0 15px">
-                                    <div class="col-lg-4 col-md-4 col-sm-4">
-                                        <div class="row">
-                                            <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 100%; height: auto; margin-top: 5px" alt="">
+                    </div>
+                    <div class="col-sm-7" style="text-align: left; font-size: 1.25em;">
+                        <h5>{{haber.title}}</h5>
+                        <hr>
+                        {{haber.headLine}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        <div class="panel panel-default" ng-repeat="haber in activeHaber" style="margin-top:5px; ">
+            <div id="page-content" class="single-page container">
+                <div class="row">
+                    <div id="main-content" class="col-md-7">
+                        <div class="box">
+                            <h1 class="vid-name"><a href="#">{{haber.title}}</a></h1>
+                            <div class="wrap-vid">
+                                <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 500px; height: 300px; margin-top: 5px" alt="">
+                            </div>
+
+                            <div class="info">
+                                <h5> <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
+                                <span><i class="fa fa-calendar"></i>{{haber.timeStamp | date:'yyyy/MM/dd'}}</span>
+                                <span class="list-inline-item" ng-click="likeNews()">
+                                    {{haber.like}}</>
+                                    <i class="fa fa-2x fa-thumbs-o-up"></i>
+                                </span>
+                                <span class="list-inline-item" style="padding: 0 5px 0 5px" ng-click="dislikeNews()">
+
+                                    {{haber.dislike}}
+                                    <i class="fa fa-2x fa-thumbs-o-down"></i>
+                                </span>
+
+                            </div>
+                            <p style="margin-top: 15px">{{haber.detail}}</p>
+                            <hr />
+                            <div class="comment">
+
+                                <form ng-submit="uploadComment()">
+                                    <div class="col-md-8 " style="text-align: left; font-size: 1em; margin-top: 100px">
+                                        <h6>Yorum Ekle:</h6>
+                                        <input name="yorumIcerik" id="yorumIcerik" class="form-control" ng-model="yorumIcerik" ng-required="true" />
+                                    </div>
+                                    <div class="col-md-8" style="margin-top: 10px">
+                                        <input type="submit" class="btn btn-block btn-primary" value="Paylaş" />
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="box">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-7">
+                                        <div class="list-group-item" ng-repeat="yorum in yorumlar track by $index">
+
+                                            <section class="comment-list">
+                                                <!-- First Comment -->
+                                                <article class="row">
+
+                                                    <div class="col-sm-12">
+                                                        <div class="panel panel-default arrow left">
+                                                            <div class="panel-body">
+                                                                <header class="text-left">
+                                                                    <div class="comment-user">
+                                                                        <i class="fa fa-user"></i> {{kisiler[$index]}}
+                                                                    </div>
+                                                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
+                                                                </header>
+                                                                <div class="comment-post">
+                                                                    <p><small>{{yorum.content}}</small></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </article>
+                                            </section>
                                         </div>
                                     </div>
-                                    <div class="col-lg-8 col-md-8 col-sm-8" style="text-align: left; font-size: 1.25em;">
-                                        {{haber.headLine}}
-                                    </div>
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
                 </div>
-
-
-
-<div class="col-md-12>
-    <div class="panel panel-default" ng-repeat="haber in activeHaber"style="margin-top: 10px;">
-
-        <div id="page-content" class="single-page container">
-            <div class="row">
-                <div id="main-content" class="col-md-8">
-                    <div class="box">
-                        <div class="wrap-vid">
-                            <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 500px; height: 300px; margin-top: 5px" alt="">
-
-                        </div>
-
-                        
-                        
-                        <h1 class="vid-name"><a href="#">{{haber.title}}</a></h1>
-                        <div class="info">
-                            <h5> <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
-                            <span><i class="fa fa-calendar"></i>{{haber.timeStamp | date:'yyyy/MM/dd'}}</span>
-                            <span class="list-inline-item"  ng-click="likeNews()">
-                                {{haber.like}}</>
-                                <i class="fa fa-2x fa-thumbs-o-up"></i>
-                            </span>
-                            <span class="list-inline-item" style="padding: 0 5px 0 5px" ng-click="dislikeNews()">
-                              
-                               {{haber.dislike}}
-                                <i class="fa fa-2x fa-thumbs-o-down"></i>
-                            </span>
-                           
-                        </div>
-                        <p style="margin-top: 20px">{{haber.detail}}</p>
-                        <hr />
-                        <div class="comment">
-
-                            <form ng-submit="uploadComment()">
-                                <div class="col-lg-10 col-md-4 col-sm-4" style="text-align: left; font-size: 1em; margin-top: 100px">
-                                    <h6>Yorum Ekle:</h6>
-                                    <input name="yorumIcerik" id="yorumIcerik" class="form-control" ng-model="yorumIcerik" ng-required="true" />
-                                </div>
-                                <div class="col-md-offset1 col-md-9" style="margin-top: 10px">
-                                    <input type="submit" class="btn btn-block btn-primary" value="Paylaş" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="box">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-8">
-                                  
-                                    <div    class="list-group-item" ng-repeat="yorum in yorumlar track by $index">
-                                    
-                                    <section class="comment-list">
-                                        <!-- First Comment -->
-                                        <article class="row">
-
-                                            <div class="col-md-10 col-sm-8">
-                                                <div class="panel panel-default arrow left">
-                                                    <div class="panel-body">
-                                                        <header class="text-left">
-                                                            <div class="comment-user"><i class="fa fa-user"></i> {{kisiler[$index]}}
-                                                            </div>
-                                                            <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
-                                                        </header>
-                                                        <div class="comment-post">
-                                                          
-                                                                <p><small>{{yorum.content}}</small></p>
-
-
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </article>
-
-
-                        
-                                      
-
-                                    </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-               
             </div>
-
-           
-            </div>
-          -
-
-
         </div>
     </div>
-
-
+    <div class="col-md-4">
+       <!-- BURAYA EN SON 3 HABER GELECEK !--> 
+    </div>
+</div>
          
