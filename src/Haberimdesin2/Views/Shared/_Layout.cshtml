@@ -23,19 +23,23 @@
 
 </head>
 <body ng-app="Haberimdesin">
-    <!--Navigation-->
+<!--Navigation-->
+  
     <div class="navbar navbar-full " style="background-color:#fff; color: rgba(46, 44, 44, 0.4); " ng-controller="News">
         <div id="menu">
+            <center><img style="background-color:#fff; color: rgba(46, 44, 44, 0.4); " id="primaryImage" src="~/images/logo2.png"></center>
+
             <div class="navbar-header">
-                <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="glyphicon glyphicon-tasks" style="color:black"></span></button>
+
+                <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="glyphicon glyphicon-tasks" style="color: black"></span></button>
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" asp-area="">
-                    HABERİMDESİN
+
                 </a>
             </div>
 
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="AddNews" style="background-color:crimson;">Yeni Haber Ekle <i class="glyphicon glyphicon-edit"></i></a></li>
+
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
                     <li> <a asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a></li>
@@ -54,6 +58,7 @@
                             </div>
                         </div>
                     </li>
+                    <li><a asp-area="" asp-controller="Home" asp-action="AddNews" style="background-color: crimson;">Yeni Haber Ekle <i class="glyphicon glyphicon-edit"></i></a></li>
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
 
@@ -61,17 +66,17 @@
         </div>
     </div>
 
-   
 
-    <div class="container body-content" >
+
+    <div class="container body-content">
         @RenderBody()
         <hr />
         <div style="text-align:center;">
             <p>Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Anadolu Üniversitesi Ceng Students</p>
         </div>
     </div>
-   
-     
+
+
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>

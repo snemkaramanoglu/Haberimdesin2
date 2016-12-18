@@ -81,74 +81,77 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-8">
-        <div class="panel panel-default" ng-repeat="haber in activeHaber" style="margin-top:5px; ">
-            <div id="page-content" class="single-page container">
-                <div class="row">
-                    <div id="main-content" class="col-md-7">
-                        <div class="box">
-                            <h1 class="vid-name"><a href="#">{{haber.title}}</a></h1>
-                            <div class="wrap-vid">
-                                <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 500px; height: 300px; margin-top: 5px" alt="">
-                            </div>
 
-                            <div class="info">
-                                <h5> <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
-                                <span><i class="fa fa-calendar"></i>{{haber.timeStamp | date:'yyyy/MM/dd'}}</span>
-                                <span class="list-inline-item" ng-click="likeNews()">
-                                    {{haber.like}}</>
-                                    <i class="fa fa-2x fa-thumbs-o-up"></i>
-                                </span>
-                                <span class="list-inline-item" style="padding: 0 5px 0 5px" ng-click="dislikeNews()">
-
-                                    {{haber.dislike}}
-                                    <i class="fa fa-2x fa-thumbs-o-down"></i>
-                                </span>
-
-                            </div>
-                            <p style="margin-top: 15px">{{haber.detail}}</p>
-                            <hr />
-                            <div class="comment">
-
-                                <form ng-submit="uploadComment()">
-                                    <div class="col-md-8 " style="text-align: left; font-size: 1em; margin-top: 100px">
-                                        <h6>Yorum Ekle:</h6>
-                                        <input name="yorumIcerik" id="yorumIcerik" class="form-control" ng-model="yorumIcerik" ng-required="true" />
-                                    </div>
-                                    <div class="col-md-8" style="margin-top: 10px">
-                                        <input type="submit" class="btn btn-block btn-primary" value="Paylaş" />
-                                    </div>
-                                </form>
-                            </div>
+        
+    <div class="panel panel-default" ng-repeat="haber in activeHaber" style="margin-top: 5px;">
+        <div class="col-sm-8">
+        <div id="page-content" class="single-page container">
+            <div class="row">
+                <div id="main-content" class="col-md-7">
+                    <div class="box">
+                        <h1 class="vid-name"><a href="#">{{haber.title}}</a>
+                        </h1>
+                        <div class="wrap-vid">
+                            <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 500px; height: 300px; margin-top: 5px" alt="">
                         </div>
-                        <div class="box">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="list-group-item" ng-repeat="yorum in yorumlar track by $index">
 
-                                            <section class="comment-list">
-                                                <!-- First Comment -->
-                                                <article class="row">
+                        <div class="info">
+                            <h5> <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
+                            <span><i class="fa fa-calendar"></i>{{haber.timeStamp | date:'yyyy/MM/dd'}}</span>
+                            <span class="list-inline-item" ng-click="likeNews()">
+                                        {{haber.like}}</>
+                                        <i class="fa fa-2x fa-thumbs-o-up"></i>
+                                    </span>
+                            <span class="list-inline-item" style="padding: 0 5px 0 5px" ng-click="dislikeNews()">
 
-                                                    <div class="col-sm-12">
-                                                        <div class="panel panel-default arrow left">
-                                                            <div class="panel-body">
-                                                                <header class="text-left">
-                                                                    <div class="comment-user">
-                                                                        <i class="fa fa-user"></i> {{kisiler[$index]}}
-                                                                    </div>
-                                                                    <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
-                                                                </header>
-                                                                <div class="comment-post">
-                                                                    <p><small>{{yorum.content}}</small></p>
+                                        {{haber.dislike}}
+                                        <i class="fa fa-2x fa-thumbs-o-down"></i>
+                                    </span>
+
+                        </div>
+                        <p style="margin-top: 15px">{{haber.detail}}</p>
+                        <hr/>
+                        <div class="comment">
+
+                            <form ng-submit="uploadComment()">
+                                <div class="col-md-8 " style="text-align: left; font-size: 1em; margin-top: 100px">
+                                    <h6>Yorum Ekle:</h6>
+                                    <input name="yorumIcerik" id="yorumIcerik" class="form-control" ng-model="yorumIcerik" ng-required="true"/>
+                                </div>
+                                <div class="col-md-8" style="margin-top: 10px">
+                                    <input type="submit" class="btn btn-block btn-primary" value="Paylaş"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="list-group-item" ng-repeat="yorum in yorumlar track by $index">
+
+                                        <section class="comment-list">
+                                            <!-- First Comment -->
+                                            <article class="col-sm-6">
+
+                                                <div class="col-sm-12">
+                                                    <div class="panel panel-default arrow left">
+                                                        <div class="panel-body">
+                                                            <header class="text-left">
+                                                                <div class="comment-user">
+                                                                    <i class="fa fa-user"></i> {{kisiler[$index]}}
                                                                 </div>
+                                                                <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
+                                                            </header>
+                                                            <div class="comment-post">
+                                                                <p><small>{{yorum.content}}</small>
+                                                                </p>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </article>
-                                            </section>
-                                        </div>
+                                                </div>
+                                            </article>
+                                        </section>
                                     </div>
                                 </div>
                             </div>
@@ -157,9 +160,39 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+   
+        </div>
+       
     <div class="col-md-4">
-       <!-- BURAYA EN SON 3 HABER GELECEK !--> 
+        <div class="widget " ng-controller="News">
+            <div class="heading"><h4>SON HABERLER</h4></div>
+            <div class="content">
+
+                <div class="wrap-vid">
+                    <div class="zoom-container">
+                        <div class="zoom-caption">
+
+
+                            <p>{{lastNew().title}}</p>
+                        </div>
+                        <img src="{{lastNew().primaryImgURL}}" style="width: 250px; height: 200px; margin-top: 5px" />
+                    </div>
+
+                </div>
+                <div class="wrap-vid" ng-repeat="haber in last2News()">
+                    <div class="zoom-container">
+                        <div class="zoom-caption">
+
+                            <p>{{haber.title}}</p>
+                        </div>
+                        <img src="{{haber.primaryImgURL}}" style="width: 250px; height: 200px; margin-top: 5px" />
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
          

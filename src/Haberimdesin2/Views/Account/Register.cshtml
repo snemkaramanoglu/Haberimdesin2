@@ -10,8 +10,8 @@
 
 
 <div class="row">
-    <div id="main-content" class="col-md-12">
-        <div class="box">
+    <div id="main-content" class="col-md-8" >
+        <div class="box" style=;margin-top: 20px">
             <div class="box-content">
                 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                     <center><h2>@ViewData["Title"]</h2></center>
@@ -64,6 +64,34 @@
                     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
                 }
             </div>
-</div>
-</div>
-</div>
+        </div>
+    </div>
+    <div class="col-md-4">
+    <div class="box" style=;margin-top: 20px">
+        <div class="box-content">
+            <div class="widget " ng-controller="News">
+         
+              
+                <div class="widget " ng-controller="News">
+
+                    <div class="content">
+
+                        <div class="wrap-vid">
+                            <div class="zoom-container">
+                                <div class="zoom-caption">
+
+
+                                 
+                                </div>
+                                <img style="width: 600; height: 500px;" src="~/images/android.jpg" />
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+       </div>
+        </div>
+        </div>
