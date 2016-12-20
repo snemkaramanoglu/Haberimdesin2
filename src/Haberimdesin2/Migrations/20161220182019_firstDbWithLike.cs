@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Haberimdesin2.Migrations
 {
-    public partial class db : Migration
+    public partial class firstDbWithLike : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -129,11 +129,9 @@ namespace Haberimdesin2.Migrations
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     CategoryID = table.Column<int>(nullable: false),
                     Detail = table.Column<string>(nullable: true),
-                    Dislike = table.Column<int>(nullable: false),
                     HeadLine = table.Column<string>(nullable: true),
                     Id = table.Column<string>(nullable: true),
                     Latitude = table.Column<float>(nullable: false),
-                    Like = table.Column<int>(nullable: false),
                     Longitude = table.Column<float>(nullable: false),
                     PrimaryImgURL = table.Column<string>(nullable: true),
                     TimeStamp = table.Column<DateTime>(nullable: false),
@@ -208,10 +206,8 @@ namespace Haberimdesin2.Migrations
                     CommentID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Content = table.Column<string>(nullable: true),
-                    Dislike = table.Column<int>(nullable: false),
                     HaberID = table.Column<int>(nullable: false),
                     Id = table.Column<string>(nullable: true),
-                    Like = table.Column<int>(nullable: false),
                     TimeStamp = table.Column<DateTime>(nullable: false),
                     UserID = table.Column<string>(nullable: true)
                 },

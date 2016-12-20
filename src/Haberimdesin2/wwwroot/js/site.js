@@ -6,8 +6,17 @@
 var habers = null;
 var lastNew = null;
 var last2News = null;
+var updatedLikes = false;
+var haberLikes = null;
+var commentLikes = null;
+var haberDislikes = null;
+var commentDislikes = null;
+var activeUserID = null; 
 HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
     $scope.activeHaber = null;
+    $scope.getUserID = function () {
+        return activeUserID;
+    }
     $scope.last2News = function () {
         return last2News;
     }
@@ -17,13 +26,40 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.habers = function () {
         return habers;
     };
+
+    $scope.getHaberLikesOf = function (id) {
+        var usrName = "@HttpContext.Current.User.Identity.Name";
+        if (haberLikes.has(id))
+            return haberLikes.get(id).length;
+        else return 0;
+    }
+    $scope.getHaberDislikesOf = function (id) {
+        if (haberDislikes.has(id))
+            return haberDislikes.get(id).length;
+        else return 0;
+    }
+    $scope.getCommentDislikesOf = function (id) {
+        if (commentDislikes.has(id))
+            return commentDislikes.get(id).length;
+        else return 0;
+    }
+    $scope.getCommentLikesOf = function (id) {
+        if (commentLikes.has(id))
+            return commentLikes.get(id).length;
+        else return 0;
+    }
     $http.get('/haberimdesin/getCategories').success(function (res) {
         $scope.categories = res.categories;
     }).error(function (err) {
         console.log(err);
     });
   
-
+    $scope.updateUserID = function(){
+        var url = "/haberimdesin/getUserID";
+        $http.get(url).success(function (re) {
+            activeUserID = re.usID;
+        }).error(function (err) { console.log(err); });
+    }
     $scope.getAllNews = function () {
         var url = "/haberimdesin/getAllNews";
         $http.get(url).success(function (re) {
@@ -35,9 +71,73 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
     }
+    
+    $scope.updateHaberLikes = function () {
+        if (updatedLikes) return;
+        updatedLikes = true;
+
+        haberLikes = new Map;
+        haberDislikes = new Map;
+        commentLikes = new Map;
+        commentDislikes = new Map;
+
+        var url = "/haberimdesin/getAllHaberLikes";
+        $http.get(url).success(function (re) {
+            
+            for (i = 0; i < re.haberLikeList.length; i++) {
+                var id = re.haberLikeList[i].haberID;
+                if (haberLikes.has(id) === false)
+                    haberLikes.set(id, []);
+                var value = haberLikes.get(id);
+                value.push(re.haberLikeList[i].userID);
+                haberLikes.set(id, value);
+            }
+        }).error(function (err) { console.log(err); });
+
+        
+        url = "/haberimdesin/getAllHaberDislikes";
+        $http.get(url).success(function (re) {
+
+            for (i = 0; i < re.haberDislikeList.length; i++) {
+                var id = re.haberDislikeList[i].haberID;
+                if (haberDislikes.has(id) === false)
+                    haberDislikes.set(id, []);
+                var value = haberDislikes.get(id);
+                value.push(re.haberDislikeList[i].userID);
+                haberDislikes.set(id, value);
+            }
+        }).error(function (err) { console.log(err); });
+
+
+        url = "/haberimdesin/getAllCommentLikes";
+        $http.get(url).success(function (re) {
+
+            for (i = 0; i < re.commentLikeList.length; i++) {
+                var id = re.commentLikeList[i].commentID;
+                if (commentLikes.has(id) === false)
+                    commentLikes.set(id, []);
+                var value = commentLikes.get(id);
+                value.push(re.commentLikeList[i].userID);
+                commentLikes.set(id, value);
+            }
+        }).error(function (err) { console.log(err); });
+
+        url = "/haberimdesin/getAllCommentDislikes";
+        $http.get(url).success(function (re) {
+
+            for (i = 0; i < re.commentDislikeList.length; i++) {
+                var id = re.commentDislikeList[i].commentID;
+                if (commentDislikes.has(id) === false)
+                    commentDislikes.set(id, []);
+                var value = commentDislikes.get(id);
+                value.push(re.commentDislikeList[i].userID);
+                commentDislikes.set(id, value);
+            }
+        }).error(function (err) { console.log(err); });
+    }
     $scope.getAllNews();
- 
-  
+    $scope.updateHaberLikes();
+    $scope.updateUserID();
     $scope.getNewsByCategory = function (id) {
         
         var url = "/haberimdesin/getNewsByID/" + id;
@@ -51,53 +151,96 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         }).error(function (err) { console.log(err); });
         
     }
-    $scope.likeComment = function (id, index) {
+    $scope.likeComment = function (id) {
+
+        for (i = 0 ; i < commentLikes.get(id).length; i++) {
+            if (commentLikes.get(id)[i] === activeUserID) return;
+        }
+        for (i = 0 ; i < commentDislikes.get(id).length; i++) {
+            if (commentDislikes.get(id)[i] === activeUserID) return;
+        }
+
         var fd = new FormData();
         fd.append('id', id);
         $http.post('/Haberimdesin/LikeComment', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
-            $scope.yorumlar[index].like = $scope.yorumlar[index].like + 1;
+            var val = commentLikes.get(id);
+            val.push(activeUserID);
+            commentLikes.set(id, val);
         }).error(function (err) {
             console.log(err);
         });
 
     }
-    $scope.dislikeComment = function (id, index) {
+    $scope.dislikeComment = function (id) {
+
+
+        for (i = 0 ; i < commentLikes.get(id).length; i++) {
+            if (commentLikes.get(id)[i] === activeUserID) return;
+        }
+        for (i = 0 ; i < commentDislikes.get(id).length; i++) {
+            if (commentDislikes.get(id)[i] === activeUserID) return;
+        }
+
         var fd = new FormData();
         fd.append('id', id);
         $http.post('/Haberimdesin/DislikeComment', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
-            $scope.yorumlar[index].dislike = $scope.yorumlar[index].dislike + 1;
+            var val = commentDislikes.get(id);
+            val.push(activeUserID);
+            commentDislikes.set(id, val);
         }).error(function (err) {
             console.log(err);
         });
 
     }
     $scope.likeNews = function () {
+        var id = $scope.activeHaber[0].haberID;
+        
+        for(i = 0 ; i < haberLikes.get(id).length; i++){
+            if(haberLikes.get(id)[i] === activeUserID) return;
+        }
+        for (i = 0 ; i < haberDislikes.get(id).length; i++) {
+            if (haberDislikes.get(id)[i] === activeUserID) return;
+        }
         var fd = new FormData();
         fd.append('id',  $scope.activeHaber[0].haberID);
         $http.post('/Haberimdesin/LikeNews', fd,  {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
-            $scope.activeHaber[0].like = $scope.activeHaber[0].like + 1;
+            
+            var val = haberLikes.get(id);
+            val.push(activeUserID);
+            haberLikes.set(id, val);
         }).error(function (err) {
             console.log(err);
         });
 
     }
     $scope.dislikeNews = function () {
+
+        var id = $scope.activeHaber[0].haberID;
+
+        for (i = 0 ; i < haberDislikes.get(id).length; i++) {
+            if (haberDislikes.get(id)[i] === activeUserID) return;
+        }
+        for (i = 0 ; i < haberLikes.get(id).length; i++) {
+            if (haberLikes.get(id)[i] === activeUserID) return;
+        }
         var fd = new FormData();
         fd.append('id', $scope.activeHaber[0].haberID);
         $http.post('/Haberimdesin/DislikeNews', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
-            $scope.activeHaber[0].dislike = $scope.activeHaber[0].dislike + 1;
+            var val = haberDislikes.get(id);
+            val.push(activeUserID);
+            haberDislikes.set(id, val);
         }).error(function (err) {
             console.log(err);
         });

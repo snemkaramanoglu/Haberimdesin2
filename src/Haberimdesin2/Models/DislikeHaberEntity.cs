@@ -7,22 +7,17 @@ using System.Threading.Tasks;
 
 namespace Haberimdesin2.Models
 {
-    [Table("Comment")]
-    public class CommentEntity
+    [Table("DislikeHaber")]
+    public class DislikeHaberEntity
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int CommentID { get; set; }
-        [ForeignKey("HaberID")]
-        public virtual HaberEntity haber { get; set; }
-        public int HaberID { get; set; }
+        public int dislikeHaberID { get; set; }
         [ForeignKey("Id")]
         public virtual ApplicationUser user { get; set; }
         public string UserID { get; set; }
-        
-        public string Content { get; set; }
-        
-        public DateTime TimeStamp { get; set; }
-
+        [ForeignKey("HaberID")]
+        public virtual HaberEntity haber { get; set; }
+        public int HaberID { get; set; }
     }
 }

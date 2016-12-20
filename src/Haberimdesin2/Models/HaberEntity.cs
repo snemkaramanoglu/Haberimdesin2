@@ -26,10 +26,6 @@ namespace Haberimdesin2.Models
         
         public string PrimaryImgURL { get; set; }
         
-        public int Like { get; set; }
-        
-        public int Dislike { get; set; }
-
        
         
         public DateTime TimeStamp { get; set; }

@@ -8,8 +8,8 @@ using Haberimdesin2.Data;
 namespace Haberimdesin2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161215092218_db")]
-    partial class db
+    [Migration("20161220182019_firstDbWithLike")]
+    partial class firstDbWithLike
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -95,13 +95,9 @@ namespace Haberimdesin2.Migrations
 
                     b.Property<string>("Content");
 
-                    b.Property<int>("Dislike");
-
                     b.Property<int>("HaberID");
 
                     b.Property<string>("Id");
-
-                    b.Property<int>("Like");
 
                     b.Property<DateTime>("TimeStamp");
 
@@ -125,15 +121,11 @@ namespace Haberimdesin2.Migrations
 
                     b.Property<string>("Detail");
 
-                    b.Property<int>("Dislike");
-
                     b.Property<string>("HeadLine");
 
                     b.Property<string>("Id");
 
                     b.Property<float>("Latitude");
-
-                    b.Property<int>("Like");
 
                     b.Property<float>("Longitude");
 

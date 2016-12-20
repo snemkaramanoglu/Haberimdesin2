@@ -18,6 +18,10 @@ namespace Haberimdesin2.Data
         public DbSet<CommentEntity> Comment { get; set; }
         public DbSet<ImageEntity> Image { get; set; }
         public DbSet<CategoryEntity> Category { get; set; }
+        public DbSet<LikeCommentEntity> LikeComment { get; set; }
+        public DbSet<DislikeCommentEntity> DislikeComment { get; set; }
+        public DbSet<LikeHaberEntity> LikeHaber { get; set; }
+        public DbSet<DislikeHaberEntity> DislikeHaber { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

@@ -23,6 +23,7 @@ namespace Haberimdesin2.Controllers
             _context = context;
             _environment = env;
             _userManager = sgn;
+            
         }
         // GET: Haberimdesin
         public ActionResult Index()
@@ -46,35 +47,68 @@ namespace Haberimdesin2.Controllers
         [HttpPost]
         public JsonResult LikeComment()
         {
-            int id = int.Parse(Request.Form["id"]);
-            _context.Comment.Where(c => c.CommentID == id).Single().Like++;
+
+
+            int commentId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            LikeCommentEntity lComment = new LikeCommentEntity
+            {
+                UserID = userId,
+                CommentID = commentId,
+            };
+            _context.LikeComment.Add(lComment);
             _context.SaveChanges();
             return Json(new { });
         }
         [HttpPost]
         public JsonResult DislikeComment()
         {
-            int id = int.Parse(Request.Form["id"]);
-            _context.Comment.Where(c => c.CommentID == id).Single().Dislike++;
-            _context.SaveChanges();
-            return Json(new { });
-        }
-        [HttpPost]
-        public JsonResult LikeNews()
-        {
-            int id = int.Parse(Request.Form["id"]);
-            _context.Haber.Where(h => h.HaberID == id).Single().Like++;
+
+
+            int commentId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            DislikeCommentEntity dComment = new DislikeCommentEntity
+            {
+                UserID = userId,
+                CommentID = commentId,
+            };
+            _context.DislikeComment.Add(dComment);
             _context.SaveChanges();
             return Json(new { });
         }
         [HttpPost]
         public JsonResult DislikeNews()
         {
-            int id = int.Parse(Request.Form["id"]);
-            _context.Haber.Where(h => h.HaberID == id).Single().Dislike++;
+
+
+            int haberId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            DislikeHaberEntity dHaber = new DislikeHaberEntity
+            {
+                UserID = userId,
+                HaberID = haberId,
+            };
+            _context.DislikeHaber.Add(dHaber);
             _context.SaveChanges();
             return Json(new { });
         }
+        [HttpPost]
+        public JsonResult LikeNews()
+        {
+
+
+            int haberId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            LikeHaberEntity lHaber = new LikeHaberEntity
+            {
+                UserID = userId,
+                HaberID = haberId,
+            };
+            _context.LikeHaber.Add(lHaber);
+            _context.SaveChanges();
+            return Json(new { });
+        }
+        
         [HttpPost]
         public JsonResult CreateComment()
         {
@@ -88,8 +122,6 @@ namespace Haberimdesin2.Controllers
                 HaberID = haberId,
                 Content = icerik,
                 TimeStamp = time,
-                Like = 0,
-                Dislike = 0
             };
             _context.Comment.Add(comment);
             _context.SaveChanges();
@@ -109,7 +141,7 @@ namespace Haberimdesin2.Controllers
             DateTime time = DateTime.Now;
 
             string userId = _userManager.GetUserId(User);
-            HaberEntity haber = new HaberEntity { Id = userId, Title = title, HeadLine = headline, Detail = detail, Latitude = latitude, Longitude = longitude, TimeStamp = time, Like = 0, Dislike = 0, CategoryID = categoryId };
+            HaberEntity haber = new HaberEntity { Id = userId, Title = title, HeadLine = headline, Detail = detail, Latitude = latitude, Longitude = longitude, TimeStamp = time, CategoryID = categoryId };
 
             _context.Haber.Add(haber);
             _context.SaveChanges();
@@ -148,11 +180,57 @@ namespace Haberimdesin2.Controllers
             _context.SaveChanges();
             return Json(new { });
         }
+
+        
+        [HttpGet]
+        public JsonResult getUserID()
+        {
+            var usID = _userManager.GetUserId(User);
+            return Json(new { usID });
+        }
+
         [HttpGet]
         public JsonResult getCategories()
         {
             var categories = _context.Category.ToList();
             return Json(new { categories });
+        }
+
+        [HttpGet]
+        public JsonResult getAllHaberLikes()//site.js acsana
+        {
+
+            var haberLikeList = _context.LikeHaber.ToList(); //niye saçmaladý
+
+
+            return Json(new { haberLikeList });
+        }
+        [HttpGet]
+        public JsonResult getAllHaberDislikes()//site.js acsana
+        {
+
+            var haberDislikeList = _context.DislikeHaber.ToList(); //niye saçmaladý
+
+
+            return Json(new { haberDislikeList });
+        }
+        [HttpGet]
+        public JsonResult getAllCommentDislikes()//site.js acsana
+        {
+
+            var commentDislikeList = _context.DislikeComment.ToList(); //niye saçmaladý
+
+
+            return Json(new { commentDislikeList });
+        }
+        [HttpGet]
+        public JsonResult getAllCommentLikes()//site.js acsana
+        {
+
+            var commentLikeList = _context.LikeComment.ToList(); //niye saçmaladý
+
+
+            return Json(new { commentLikeList });
         }
         [HttpGet]
         public JsonResult getAllNews()//site.js acsana

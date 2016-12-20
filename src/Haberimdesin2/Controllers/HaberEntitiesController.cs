@@ -56,7 +56,7 @@ namespace Haberimdesin2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("HaberID,CategoryID,Detail,Dislike,HeadLine,Id,Latitude,Like,Longitude,PrimaryImgURL,TimeStamp,Title")] HaberEntity haberEntity)
+        public async Task<IActionResult> Create([Bind("HaberID,CategoryID,Detail,HeadLine,Id,Latitude,Longitude,PrimaryImgURL,TimeStamp,Title")] HaberEntity haberEntity)
         {
             if (ModelState.IsValid)
             {
@@ -92,7 +92,7 @@ namespace Haberimdesin2.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("HaberID,CategoryID,Detail,Dislike,HeadLine,Id,Latitude,Like,Longitude,PrimaryImgURL,TimeStamp,Title")] HaberEntity haberEntity)
+        public async Task<IActionResult> Edit(int id, [Bind("HaberID,CategoryID,Detail,HeadLine,Id,Latitude,Longitude,PrimaryImgURL,TimeStamp,Title")] HaberEntity haberEntity)
         {
             if (id != haberEntity.HaberID)
             {
