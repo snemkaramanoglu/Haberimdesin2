@@ -153,10 +153,10 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     }
     $scope.likeComment = function (id) {
 
-        for (i = 0 ; i < commentLikes.get(id).length; i++) {
+        for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
             if (commentLikes.get(id)[i] === activeUserID) return;
         }
-        for (i = 0 ; i < commentDislikes.get(id).length; i++) {
+        for (i = 0 ; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
             if (commentDislikes.get(id)[i] === activeUserID) return;
         }
 
@@ -166,6 +166,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
+            if (commentLikes.has(id) === false)
+                commentLikes.set(id, []);
             var val = commentLikes.get(id);
             val.push(activeUserID);
             commentLikes.set(id, val);
@@ -177,10 +179,10 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.dislikeComment = function (id) {
 
 
-        for (i = 0 ; i < commentLikes.get(id).length; i++) {
+        for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
             if (commentLikes.get(id)[i] === activeUserID) return;
         }
-        for (i = 0 ; i < commentDislikes.get(id).length; i++) {
+        for (i = 0 ; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
             if (commentDislikes.get(id)[i] === activeUserID) return;
         }
 
@@ -190,6 +192,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
+            if (commentDislikes.has(id) === false)
+                commentDislikes.set(id, []);
             var val = commentDislikes.get(id);
             val.push(activeUserID);
             commentDislikes.set(id, val);
@@ -201,10 +205,10 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.likeNews = function () {
         var id = $scope.activeHaber[0].haberID;
         
-        for(i = 0 ; i < haberLikes.get(id).length; i++){
+        for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
             if(haberLikes.get(id)[i] === activeUserID) return;
         }
-        for (i = 0 ; i < haberDislikes.get(id).length; i++) {
+        for (i = 0 ; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
             if (haberDislikes.get(id)[i] === activeUserID) return;
         }
         var fd = new FormData();
@@ -213,7 +217,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
-            
+            if (haberLikes.has(id) === false)
+                haberLikes.set(id, []);
             var val = haberLikes.get(id);
             val.push(activeUserID);
             haberLikes.set(id, val);
@@ -226,11 +231,11 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
 
         var id = $scope.activeHaber[0].haberID;
 
-        for (i = 0 ; i < haberDislikes.get(id).length; i++) {
-            if (haberDislikes.get(id)[i] === activeUserID) return;
-        }
-        for (i = 0 ; i < haberLikes.get(id).length; i++) {
+        for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
             if (haberLikes.get(id)[i] === activeUserID) return;
+        }
+        for (i = 0 ; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
+            if (haberDislikes.get(id)[i] === activeUserID) return;
         }
         var fd = new FormData();
         fd.append('id', $scope.activeHaber[0].haberID);
@@ -238,6 +243,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
+            if (haberDislikes.has(id) === false)
+                haberDislikes.set(id, []);
             var val = haberDislikes.get(id);
             val.push(activeUserID);
             haberDislikes.set(id, val);
