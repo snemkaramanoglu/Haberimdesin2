@@ -77,6 +77,35 @@ namespace Haberimdesin2.Controllers
             return Json(new { });
         }
         [HttpPost]
+        public JsonResult CancelLikeComment()
+        {
+            int commentId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            var itemToRemove = _context.LikeComment.SingleOrDefault(x => x.UserID == userId && x.CommentID == commentId);
+            if (itemToRemove != null)
+            {
+                _context.LikeComment.Remove(itemToRemove);
+                _context.SaveChanges();
+
+            }
+            return Json(new { });
+        }
+        [HttpPost]
+        public JsonResult CancelDislikeComment()
+        {
+            int commentId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            var itemToRemove = _context.DislikeComment.SingleOrDefault(x => x.UserID == userId && x.CommentID == commentId);
+            if (itemToRemove != null)
+            {
+                _context.DislikeComment.Remove(itemToRemove);
+                _context.SaveChanges();
+
+            }
+            return Json(new { });
+        }
+
+        [HttpPost]
         public JsonResult DislikeNews()
         {
 
@@ -108,7 +137,35 @@ namespace Haberimdesin2.Controllers
             _context.SaveChanges();
             return Json(new { });
         }
-        
+        [HttpPost]
+        public JsonResult CancelDislikeNews()
+        {
+            int haberId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            var itemToRemove = _context.DislikeHaber.SingleOrDefault(x => x.UserID == userId && x.HaberID == haberId);
+            if (itemToRemove != null)
+            {
+                _context.DislikeHaber.Remove(itemToRemove);
+                _context.SaveChanges();
+
+            }
+            return Json(new { });
+        }
+
+        [HttpPost]
+        public JsonResult CancelLikeNews()
+        {
+            int haberId = int.Parse(Request.Form["id"]);
+            string userId = _userManager.GetUserId(User);
+            var itemToRemove = _context.LikeHaber.SingleOrDefault(x => x.UserID == userId && x.HaberID == haberId);
+            if (itemToRemove != null)
+            {
+                _context.LikeHaber.Remove(itemToRemove);
+                _context.SaveChanges();
+
+            }
+            return Json(new { });
+        }
         [HttpPost]
         public JsonResult CreateComment()
         {
