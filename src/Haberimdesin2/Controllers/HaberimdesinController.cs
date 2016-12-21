@@ -135,12 +135,14 @@ namespace Haberimdesin2.Controllers
             string title = Request.Form["haberHeader"];
             string headline = Request.Form["haberHeadline"];
             string detail = Request.Form["haberDetail"];
+            string userId = Request.Form["name"];
+            
             float latitude = float.Parse(Request.Form["latitude"]);
             float longitude = float.Parse(Request.Form["longitude"]);
             int categoryId = int.Parse(Request.Form["CategoryID"]);
             DateTime time = DateTime.Now;
 
-            string userId = _userManager.GetUserId(User);
+            if(String.IsNullOrEmpty(userId))userId = _userManager.GetUserId(User);
             HaberEntity haber = new HaberEntity { Id = userId, Title = title, HeadLine = headline, Detail = detail, Latitude = latitude, Longitude = longitude, TimeStamp = time, CategoryID = categoryId };
 
             _context.Haber.Add(haber);

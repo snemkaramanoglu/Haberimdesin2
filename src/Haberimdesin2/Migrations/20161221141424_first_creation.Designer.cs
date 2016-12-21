@@ -8,8 +8,8 @@ using Haberimdesin2.Data;
 namespace Haberimdesin2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161220182019_firstDbWithLike")]
-    partial class firstDbWithLike
+    [Migration("20161221141424_first_creation")]
+    partial class first_creation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -112,6 +112,46 @@ namespace Haberimdesin2.Migrations
                     b.ToTable("Comment");
                 });
 
+            modelBuilder.Entity("Haberimdesin2.Models.DislikeCommentEntity", b =>
+                {
+                    b.Property<int>("dislikeCommentID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CommentID");
+
+                    b.Property<string>("Id");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("dislikeCommentID");
+
+                    b.HasIndex("CommentID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("DislikeComment");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.DislikeHaberEntity", b =>
+                {
+                    b.Property<int>("dislikeHaberID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("HaberID");
+
+                    b.Property<string>("Id");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("dislikeHaberID");
+
+                    b.HasIndex("HaberID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("DislikeHaber");
+                });
+
             modelBuilder.Entity("Haberimdesin2.Models.HaberEntity", b =>
                 {
                     b.Property<int>("HaberID")
@@ -164,6 +204,46 @@ namespace Haberimdesin2.Migrations
                     b.HasIndex("Id");
 
                     b.ToTable("Image");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.LikeCommentEntity", b =>
+                {
+                    b.Property<int>("likeCommentID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CommentID");
+
+                    b.Property<string>("Id");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("likeCommentID");
+
+                    b.HasIndex("CommentID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("LikeComment");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.LikeHaberEntity", b =>
+                {
+                    b.Property<int>("likeHaberID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("HaberID");
+
+                    b.Property<string>("Id");
+
+                    b.Property<string>("UserID");
+
+                    b.HasKey("likeHaberID");
+
+                    b.HasIndex("HaberID");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("LikeHaber");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRole", b =>
@@ -285,6 +365,30 @@ namespace Haberimdesin2.Migrations
                         .HasForeignKey("Id");
                 });
 
+            modelBuilder.Entity("Haberimdesin2.Models.DislikeCommentEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.CommentEntity", "comment")
+                        .WithMany()
+                        .HasForeignKey("CommentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.DislikeHaberEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.HaberEntity", "haber")
+                        .WithMany()
+                        .HasForeignKey("HaberID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
+                });
+
             modelBuilder.Entity("Haberimdesin2.Models.HaberEntity", b =>
                 {
                     b.HasOne("Haberimdesin2.Models.CategoryEntity", "category")
@@ -300,6 +404,30 @@ namespace Haberimdesin2.Migrations
             modelBuilder.Entity("Haberimdesin2.Models.ImageEntity", b =>
                 {
                     b.HasOne("Haberimdesin2.Models.HaberEntity", "haber")
+                        .WithMany()
+                        .HasForeignKey("HaberID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.LikeCommentEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.CommentEntity", "comment")
+                        .WithMany()
+                        .HasForeignKey("CommentID")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Haberimdesin2.Models.ApplicationUser", "user")
+                        .WithMany()
+                        .HasForeignKey("Id");
+                });
+
+            modelBuilder.Entity("Haberimdesin2.Models.LikeHaberEntity", b =>
+                {
+                    b.HasOne("Haberimdesin2.Models.HaberEntity", "comment")
                         .WithMany()
                         .HasForeignKey("HaberID")
                         .OnDelete(DeleteBehavior.Cascade);
