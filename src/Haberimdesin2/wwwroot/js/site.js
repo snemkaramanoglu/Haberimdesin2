@@ -154,10 +154,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.likeComment = function (id) {
 
         for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
-            if (commentLikes.get(id)[i] === activeUserID) return;
+            if (commentLikes.get(id)[i] === activeUserID) {
+                $scope.cancelLikeComment(id);
+                return;
+            }
         }
         for (i = 0 ; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
-            if (commentDislikes.get(id)[i] === activeUserID) return;
+            if (commentDislikes.get(id)[i] === activeUserID) $scope.cancelDislikeComment(id);
         }
 
         var fd = new FormData();
@@ -180,10 +183,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
 
 
         for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
-            if (commentLikes.get(id)[i] === activeUserID) return;
+            if (commentLikes.get(id)[i] === activeUserID) $scope.cancelLikeComment(id);
         }
         for (i = 0 ; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
-            if (commentDislikes.get(id)[i] === activeUserID) return;
+            if (commentDislikes.get(id)[i] === activeUserID) {
+                $scope.cancelDislikeComment(id);
+                return;
+            }
         }
 
         var fd = new FormData();
@@ -202,14 +208,96 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         });
 
     }
+    $scope.cancelLikeComment = function (id) {
+
+
+
+
+        var fd = new FormData();
+        fd.append('id', id);
+        $http.post('/Haberimdesin/CancelLikeComment', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            if (commentLikes.has(id) === true) {
+                var val = commentLikes.get(id);
+                val.pop(activeUserID);
+                commentLikes.set(id, val);
+            }
+        }).error(function (err) {
+            console.log(err);
+        });
+
+    }
+    $scope.cancelDislikeComment = function (id) {
+
+
+
+
+        var fd = new FormData();
+        fd.append('id', id);
+        $http.post('/Haberimdesin/CancelDislikeComment', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            if (commentDislikes.has(id) === true) {
+                var val = commentDislikes.get(id);
+                val.pop(activeUserID);
+                commentDislikes.set(id, val);
+            }
+        }).error(function (err) {
+            console.log(err);
+        });
+
+    }
+   
+    $scope.cancelDislikeNews = function () {
+        var id = $scope.activeHaber[0].haberID;
+        var fd = new FormData();
+        fd.append('id', $scope.activeHaber[0].haberID);
+        $http.post('/Haberimdesin/CancelDislikeNews', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            if (haberDislikes.has(id) === true) {
+                var val = haberDislikes.get(id);
+                val.pop(activeUserID);
+                haberDislikes.set(id, val);
+            }
+        }).error(function (err) {
+            console.log(err);
+        });
+    }
+    $scope.cancelLikeNews = function () {
+        var id = $scope.activeHaber[0].haberID;
+        var fd = new FormData();
+        fd.append('id', $scope.activeHaber[0].haberID);
+        $http.post('/Haberimdesin/CancelLikeNews', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            if (haberLikes.has(id) === true) {
+                var val = haberLikes.get(id);
+                val.pop(activeUserID);
+                haberLikes.set(id, val);
+            }
+        }).error(function (err) {
+            console.log(err);
+        });
+
+    }
+
     $scope.likeNews = function () {
         var id = $scope.activeHaber[0].haberID;
         
         for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
-            if(haberLikes.get(id)[i] === activeUserID) return;
+            if (haberLikes.get(id)[i] === activeUserID) {
+                $scope.cancelLikeNews();
+                return;
+            }
         }
         for (i = 0 ; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
-            if (haberDislikes.get(id)[i] === activeUserID) return;
+            if (haberDislikes.get(id)[i] === activeUserID) $scope.cancelDislikeNews();
         }
         var fd = new FormData();
         fd.append('id',  $scope.activeHaber[0].haberID);
@@ -231,11 +319,14 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
 
         var id = $scope.activeHaber[0].haberID;
 
-        for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
-            if (haberLikes.get(id)[i] === activeUserID) return;
+       for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
+           if (haberLikes.get(id)[i] === activeUserID) $scope.cancelLikeNews();
         }
         for (i = 0 ; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
-            if (haberDislikes.get(id)[i] === activeUserID) return;
+            if (haberDislikes.get(id)[i] === activeUserID) {
+                $scope.cancelDislikeNews();
+                return;
+            }
         }
         var fd = new FormData();
         fd.append('id', $scope.activeHaber[0].haberID);
