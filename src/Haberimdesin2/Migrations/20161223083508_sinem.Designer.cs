@@ -8,8 +8,8 @@ using Haberimdesin2.Data;
 namespace Haberimdesin2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161221141424_first_creation")]
-    partial class first_creation
+    [Migration("20161223083508_sinem")]
+    partial class sinem
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

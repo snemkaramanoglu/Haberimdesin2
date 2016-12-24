@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Haberimdesin2.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Haberimdesin2.Models;
 using Haberimdesin2.Models.ManageViewModels;
 using Haberimdesin2.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 
 namespace Haberimdesin2.Controllers
@@ -21,7 +24,7 @@ namespace Haberimdesin2.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-
+        private IHostingEnvironment _environment;
         public ManageController(
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
@@ -85,7 +88,15 @@ namespace Haberimdesin2.Controllers
             }
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
-
+        /* 
+         * TODO:PROFILPICTURE EKLE
+        [HttpPost]
+       
+        public ActionResult UpdateImage(IFormFile uploadfile,ApplicationUser user)
+        {
+            
+        }
+        */
         //
         // GET: /Manage/AddPhoneNumber
         public IActionResult AddPhoneNumber()
@@ -192,7 +203,7 @@ namespace Haberimdesin2.Controllers
             ModelState.AddModelError(string.Empty, "Failed to verify phone number");
             return View(model);
         }
-
+      
         //
         // POST: /Manage/RemovePhoneNumber
         [HttpPost]

@@ -34,5 +34,7 @@ namespace Haberimdesin2.Data
         {
             throw new NotImplementedException();
         }
+
+        public DbSet<ApplicationUser> ApplicationUser { get; set; }
     }
 }

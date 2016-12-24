@@ -1,5 +1,7 @@
 ﻿
 @model IndexViewModel
+@inject UserManager<ApplicationUser> UserManager
+
 @{
     ViewData["Title"] = "Hesabınızı Yönetin";
 }
@@ -17,20 +19,23 @@
                 <div class="box-content">
                     <div>
                         <h5>Hesap ayarlarınızı değiştirin</h5>
+                   <a asp-route-id="@UserManager.GetUserId(User)" asp-controller="ApplicationUsers" asp-action="Edit" class="btn-bracketed">Kişisel Bilgilerinizi düzeltin</a>
                         <hr />
                         <dl class="dl-horizontal">
                             <div class="col-sm-4">
                                 <img src="~/Deneme/images/4.jpg" style="height:200px; width:200px; alt="Third slide">
-
-                                <form method="post" asp-action="Index" asp-controller="Manage" enctype="multipart/form-data">
-                                    <input type="file" name="files" value="Fotoğrafınızı değiştirmek için resmin üzerine tıklayın" />
-                                    <input type="submit" value="Yükle" />
+                                <form asp-controller="Manage" asp-action="UpdateImage"" method="post" enctype="multipart/form-data">
+                                    <input type="file" name="uploadfile" id="uploadfile" />
+                                    <br />
+                                    <input type="submit" value="Gönder" />
                                 </form>
+                            
                             </div>
                             <div class="col-sm-4">
-                                <dt></dt>
+                               
+                               
                                 <dt>Şifre:
-                             
+
 
                                 </dt>
                                 <dd>
@@ -43,21 +48,8 @@
                                         <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Yeni şifre oluştur</a>
                                     }
                                 </dd>
-                                <dt>Name:</dt>
-                                @(Model.Name?? "Name")
-                                @if (Model.Name != null)
-                                {
-                                    <br />
-                                        <a asp-controller="Manage" asp-action="AddName" class="btn-bracketed">Change</a>
-                                        <form asp-controller="Manage" asp-action="RemovePhoneNumber" method="post">
-                                            [<button type="submit" class="btn-link">Sil</button>]
-                                        </form>
-                                }
-                                else
-                                {
-                                    <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn-bracketed">Ekle</a>
-                                }
-                               
+
+
                                 <dd>
                                     <dt>Telefon Numarası:</dt>
                                     @(Model.PhoneNumber ?? "Henüz eklenmemiş")

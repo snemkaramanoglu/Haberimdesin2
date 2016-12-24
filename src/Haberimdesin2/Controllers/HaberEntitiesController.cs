@@ -62,7 +62,7 @@ namespace Haberimdesin2.Controllers
             {
                 _context.Add(haberEntity);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "HaberEntities");
             }
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
             ViewData["Id"] = new SelectList(_context.Users, "Id", "Id", haberEntity.Id);
