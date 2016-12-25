@@ -16,17 +16,20 @@
                 </ol>
                 <!-- Wrapper for slides -->
                 <div class="carousel-inner">
-                    <div class="item active">
-                        <img src="{{lastNew().primaryImgURL}}" style="width: 900px; height: 400px; margin-top: 5px" alt="First slide">
-                        <!-- Static Header -->
-                        <div class="header-text hidden-xs">
-                            <div class="col-md-12 text-center">
-                                <br><br>
-                                <h2>{{lastNew().title}}</h2>
-                                <br>
-                            </div>
-                        </div><!-- /header-text -->
-                    </div>
+                 
+                        <div class="item active">
+                         
+                                <img src="{{lastNew().primaryImgURL}}" style="width: 900px; height: 400px; margin-top: 5px" alt="First slide">
+                           
+                                <!-- Static Header -->
+                                <div class="header-text hidden-xs">
+                                    <div class="col-md-12 text-center">
+                                        <br><br>
+                                        <h2>{{lastNew().title}}</h2>
+                                        <br>
+                                    </div>
+                                </div><!-- /header-text -->
+</div>
                     <div class="item" ng-repeat="haber in last2News()">
                         <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 900px; height: 400px; margin-top: 5px" alt="">
                         <!-- Static Header -->
@@ -70,7 +73,7 @@
                 <div class="container-fluid" style="padding: 0 10px 0 10px">
                     <div class="col-sm-5">
                         <div class="row">
-                            <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 300px; height: 200px; margin-top: 5px" alt="">
+                           <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 300px; height: 200px; margin-top: 5px" alt="">
                         </div>
                     </div>
                     <div class="col-sm-7" style="text-align: left; font-size: 1.25em;">

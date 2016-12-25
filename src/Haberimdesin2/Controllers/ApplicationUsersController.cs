@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Haberimdesin2.Data;
 using Haberimdesin2.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.Kestrel.Internal.Http;
+using Microsoft.VisualStudio.Web.CodeGeneration.Core;
 
 namespace Haberimdesin2.Controllers
 {
@@ -93,6 +95,7 @@ namespace Haberimdesin2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, [Bind("Id,AccessFailedCount,BirthDate,ConcurrencyStamp,Email,EmailConfirmed,Gender,LockoutEnabled,LockoutEnd,Name,NormalizedEmail,NormalizedUserName,PasswordHash,PhoneNumber,PhoneNumberConfirmed,ProfileImgURL,SecurityStamp,Surname,TwoFactorEnabled,UserName")] ApplicationUser applicationUser)
         {
+
             var idm = _userManager.GetUserId(User);
             if (id != idm)
             {
@@ -108,7 +111,7 @@ namespace Haberimdesin2.Controllers
                     _context.Update(applicationUser);
 
                     await _context.SaveChangesAsync();
-
+                    ViewBag.Selamla = "hello";
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -124,11 +127,19 @@ namespace Haberimdesin2.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index","Manage");
+        
+
+                return RedirectToAction("Index2","ApplicationUsers");
             }
+           
             return View(applicationUser);
         }
-
+        public async Task<IActionResult> Index2()
+        {
+           // RedirectToAction("Index", "ApplicationUsers");
+            return View();
+        
+        }
         // GET: ApplicationUsers/Delete/5
         public async Task<IActionResult> Delete(string id)
         {

@@ -13,6 +13,7 @@
             <div class="box">
                 <center>
                     <div class="box-header">
+                   
                         <h2>@ViewData["Title"]</h2>
                     </div>
                 </center>
@@ -24,11 +25,9 @@
                         <dl class="dl-horizontal">
                             <div class="col-sm-4">
                                 <img src="~/Deneme/images/4.jpg" style="height:200px; width:200px; alt="Third slide">
-                                <form asp-controller="Manage" asp-action="UpdateImage"" method="post" enctype="multipart/form-data">
-                                    <input type="file" name="uploadfile" id="uploadfile" />
-                                    <br />
-                                    <input type="submit" value="Gönder" />
-                                </form>
+                                
+                                    
+                                <input asp-controller="Manage" asp-route-id="@UserManager.GetUserId(User)" enctype="multipart/form-data" type="file" id="inputFile" name="file" asp-action="UpdateImage" method="post" enctype="multipart/form-data" /></input> <br /><br />
                             
                             </div>
                             <div class="col-sm-4">

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Haberimdesin2.Data;
 using Haberimdesin2.Migrations;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -24,18 +25,24 @@ namespace Haberimdesin2.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-        private IHostingEnvironment _environment;
+       
+        private ApplicationDbContext _context;
         public ManageController(
+
         UserManager<ApplicationUser> userManager,
         SignInManager<ApplicationUser> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        ApplicationDbContext context)
         {
+            
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
+            
+            _context = context;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
@@ -88,15 +95,29 @@ namespace Haberimdesin2.Controllers
             }
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
-        /* 
-         * TODO:PROFILPICTURE EKLE
-        [HttpPost]
-       
-        public ActionResult UpdateImage(IFormFile uploadfile,ApplicationUser user)
-        {
-            
-        }
-        */
+     /*
+            [HttpPost]
+
+            public ActionResult UpdateImage(HttpPostedFileBase file)
+            {
+                if (file != null)
+                {
+                    //Sunucuya dosya kaydedilirken, sunucunun dosya sistemini, yolunu bilemeyeceğimiz için
+                    //Server.MapPath() ile sitemizin ana dizinine gelmiş oluruz. Devamında da sitemizdeki
+                    //yolu tanımlarız.
+                    user.ProfileImgURL = "/images/" + "haber" + user.Id + "/" + file.FileName;
+                }
+                using (_context)
+                {
+                    user.ProfileImgURL = "/images/" + "haber" + user.Id + "/" + file.FileName;
+                    _context.SaveChanges();
+
+                    //İşlemimiz başarıyla biterse, başarılı olduğuna dair bir sayfaya yönlendiriyoruz.
+                    return RedirectToAction("Index","Manage");
+                }
+
+            }
+         */
         //
         // GET: /Manage/AddPhoneNumber
         public IActionResult AddPhoneNumber()
