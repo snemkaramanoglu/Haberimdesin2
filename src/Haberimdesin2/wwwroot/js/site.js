@@ -3,6 +3,7 @@
 //routing
 
 //Controllers
+var habersOfUser = null;
 var habers = null;
 var lastNew = null;
 var last2News = null;
@@ -11,10 +12,15 @@ var haberLikes = null;
 var commentLikes = null;
 var haberDislikes = null;
 var commentDislikes = null;
-var activeUserID = null; 
+var activeUserID = null;
+
+
 HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
+
+
     $scope.activeHaber = null;
     $scope.getUserID = function () {
+        console.log(activeUserID);
         return activeUserID;
     }
     $scope.last2News = function () {
@@ -25,6 +31,9 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     }
     $scope.habers = function () {
         return habers;
+    };
+    $scope.habersOfUser = function () {
+        return habersOfUser;
     };
 
     $scope.getHaberLikesOf = function (id) {
@@ -58,6 +67,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         var url = "/haberimdesin/getUserID";
         $http.get(url).success(function (re) {
             activeUserID = re.usID;
+            $scope.updateHabersOfUser();
         }).error(function (err) { console.log(err); });
     }
     $scope.getAllNews = function () {
@@ -138,6 +148,16 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.getAllNews();
     $scope.updateHaberLikes();
     $scope.updateUserID();
+    $scope.updateHabersOfUser = function () {
+        
+        var url = "/haberimdesin/getNewsByUserID/" + activeUserID;
+        $http.get(url).success(function (re) {
+            habersOfUser = re.newsList.reverse();
+            console.log(habersOfUser);
+
+        }).error(function (err) { console.log(err); });
+    }
+    
     $scope.getNewsByCategory = function (id) {
         
         var url = "/haberimdesin/getNewsByID/" + id;
@@ -281,6 +301,19 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
                 val.pop(activeUserID);
                 haberLikes.set(id, val);
             }
+        }).error(function (err) {
+            console.log(err);
+        });
+
+    }
+    $scope.cancelNews = function (id) {
+        var fd = new FormData();
+        fd.append('id', id);
+        $http.post('/Haberimdesin/CancelHaberById', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            $scope.updateHabersOfUser();
         }).error(function (err) {
             console.log(err);
         });

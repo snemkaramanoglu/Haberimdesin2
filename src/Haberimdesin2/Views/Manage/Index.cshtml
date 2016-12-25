@@ -7,7 +7,7 @@
 }
 
 
-<div id="page-content" class="archive-page container">
+<div id="page-content"" ng-controller="News" class="archive-page container">
     <div class="row">
         <div id="main-content" class="col-md-12">
             <div class="box">
@@ -32,7 +32,7 @@
                                 <input asp-controller="Manage" asp-route-id="@UserManager.GetUserId(User)" enctype="multipart/form-data" type="file" id="inputFile" name="file" asp-action="UpdateImage" method="post" enctype="multipart/form-data" /></input> <br /><br />
                             
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-8">
                                
                                
                                 <dt>Şifre:
@@ -67,9 +67,55 @@
                                         <a asp-controller="Manage" asp-action="AddPhoneNumber" class="btn-bracketed">Ekle</a>
                                     }
                                 </dd>
+
+                               
+                            </div>
+
+                            <div class="col-sm-8" style="margin-top:30px">
+                                <dd ng-repeat="haber in habersOfUser()" style="border-bottom: 1px solid #5c5356;padding: 10px; margin: 30px 0px 0px 0px; color:#131231;">
+                                    <b style>{{haber.title}}</b></br>
+                                    {{haber.timeStamp | date:'yyyy/MM/dd'}}</br>
+                                    {{haber.headLine}}</br>
+                                    <button type="button" 
+                                            style="background-color: white; 
+                                                    color: #600e27; 
+                                                    border: 2px solid #f07878;
+                                                    padding-top: 5px;
+                                                    padding-bottom: 5px;
+                                                    width: 80px;
+                                                    text-align: center;
+                                                    text-decoration: none;
+                                                    display: inline-block;
+                                                    font-size: 12px;
+                                                    margin: 4px 2px;
+                                                    -webkit-transition-duration: 0.4s; /* Safari */
+                                                    transition-duration: 0.4s;
+                                                    cursor: pointer;" onmouseover="this.style.backgroundColor = '#f07878'; this.style.color = 'white';" 
+                                                    onmouseout="this.style.backgroundColor = 'white'; this.style.color = '#600e27';" 
+                                                     ng-click="cancelNews(haber.haberID)"> Sil </button>
+                                    <button type="button"
+                                            style="background-color: white; 
+                                                    color: #296176; 
+                                                    border: 2px solid #50cfff;
+                                                    padding-top: 5px;
+                                                    padding-bottom: 5px;
+                                                    width: 80px;
+                                                    text-align: center;
+                                                    text-decoration: none;
+                                                    display: inline-block;
+                                                    font-size: 12px;
+                                                    margin: 4px 2px;
+                                                    -webkit-transition-duration: 0.4s; /* Safari */
+                                                    transition-duration: 0.4s;
+                                                    cursor: pointer;" onmouseover="this.style.backgroundColor = '#50cfff'; this.style.color = 'white';"
+                                            onmouseout="this.style.backgroundColor = 'white'; this.style.color = '#296176';">
+                                        Düzenle
+                                    </button>
+                                </dd>
                             </div>
                         </dl>
                     </div>
+
                 </div>
             </div>
         </div>
