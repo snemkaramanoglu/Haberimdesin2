@@ -19,9 +19,11 @@
                 </center>
                 <div class="box-content">
                     <div>
-                        <h5>Hesap ayarlarınızı değiştirin</h5>
-                   <a asp-route-id="@UserManager.GetUserId(User)" asp-controller="ApplicationUsers" asp-action="Edit" class="btn-bracketed">Kişisel Bilgilerinizi düzeltin</a>
-                        <hr />
+                        <ul>
+                            <li><a class="clickable" asp-route-id="@UserManager.GetUserId(User)" asp-controller="ApplicationUsers" asp-action="Edit" class="btn-bracketed">Kişisel Bilgilerinizi düzeltmek için tıklayın.</a></li> 
+                           <li> <a class="clickable" asp-route-id="@UserManager.GetUserId(User)" asp-controller="ApplicationUsers" asp-action="Edit" class="btn-bracketed">Haberlerinizi görmek, düzenlemek veya silmek için tıklayın.</a></li> 
+                        </ul>
+                            <hr />
                         <dl class="dl-horizontal">
                             <div class="col-sm-4">
                                 <img src="~/Deneme/images/4.jpg" style="height:200px; width:200px; alt="Third slide">
