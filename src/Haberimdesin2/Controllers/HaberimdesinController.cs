@@ -44,6 +44,31 @@ namespace Haberimdesin2.Controllers
         }
 
         // POST: Haberimdesin/Create
+
+
+        [HttpPost]
+        public JsonResult UpdateHaber()
+        {
+
+
+            int haberID = int.Parse(Request.Form["id"]);
+            string haberTitle =Request.Form["title"];
+            string haberHeadline = Request.Form["headline"];
+            string haberDetail = Request.Form["detail"];
+            int haberCategoryID = int.Parse(Request.Form["categoryID"]);
+            var result = _context.Haber.SingleOrDefault(h => h.HaberID == haberID);
+            if (result != null)
+            {
+                result.HeadLine = haberHeadline;
+                result.Title = haberTitle;
+                result.Detail = haberDetail;
+                result.CategoryID = haberCategoryID;
+                _context.SaveChanges();
+            }
+            return Json(new { });
+        }
+
+
         [HttpPost]
         public JsonResult LikeComment()
         {
@@ -133,22 +158,39 @@ namespace Haberimdesin2.Controllers
                 UserID = userId,
                 HaberID = haberId,
             };
+            var itemsAlreadyIn = _context.LikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
+            if(itemsAlreadyIn.Count>0) return Json(new { });
             _context.LikeHaber.Add(lHaber);
             _context.SaveChanges();
             return Json(new { });
         }
+
+        [HttpPost]
+        public JsonResult CancelHaberById()
+        {
+            int haberId = int.Parse(Request.Form["id"]);
+            var itemToRemove = _context.Haber.SingleOrDefault(x => x.HaberID == haberId);
+            if (itemToRemove != null)
+            {
+                _context.Haber.Remove(itemToRemove);
+                _context.SaveChanges();
+
+            }
+            return Json(new { });
+        }
+
+
         [HttpPost]
         public JsonResult CancelDislikeNews()
         {
             int haberId = int.Parse(Request.Form["id"]);
             string userId = _userManager.GetUserId(User);
-            var itemToRemove = _context.DislikeHaber.SingleOrDefault(x => x.UserID == userId && x.HaberID == haberId);
-            if (itemToRemove != null)
+            var itemsToRemove = _context.DislikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
+            for (int i = 0; i < itemsToRemove.Count; i++)
             {
-                _context.DislikeHaber.Remove(itemToRemove);
-                _context.SaveChanges();
-
+                _context.DislikeHaber.Remove(itemsToRemove[i]);
             }
+            if (itemsToRemove.Count > 0) _context.SaveChanges();
             return Json(new { });
         }
 
@@ -157,13 +199,12 @@ namespace Haberimdesin2.Controllers
         {
             int haberId = int.Parse(Request.Form["id"]);
             string userId = _userManager.GetUserId(User);
-            var itemToRemove = _context.LikeHaber.SingleOrDefault(x => x.UserID == userId && x.HaberID == haberId);
-            if (itemToRemove != null)
+            var itemsToRemove = _context.LikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
+            for(int i = 0; i < itemsToRemove.Count; i++)
             {
-                _context.LikeHaber.Remove(itemToRemove);
-                _context.SaveChanges();
-
+                _context.LikeHaber.Remove(itemsToRemove[i]);
             }
+            if(itemsToRemove.Count > 0) _context.SaveChanges();
             return Json(new { });
         }
         [HttpPost]
@@ -301,6 +342,15 @@ namespace Haberimdesin2.Controllers
             return Json(new { newsList });
         }
         [HttpGet]
+        public JsonResult getNewsByUserID(string id)
+        {
+
+            var newsList = _context.Haber.Where(h => h.user.Id == id).ToList();
+
+
+            return Json(new { newsList });
+        }
+        [HttpGet]
         public JsonResult getNewsByID(int id)
         {
 
@@ -325,6 +375,9 @@ namespace Haberimdesin2.Controllers
             }
             return Json(new { yorumList, newsList, userNameList });
         }
+
+
+
 
         // GET: Haberimdesin/Edit/5
         public ActionResult Edit(int id)

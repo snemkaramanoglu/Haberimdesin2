@@ -7,38 +7,29 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="~/deneme/css/bootstrap.min.css" type="text/css">
-
     <!-- Owl Carousel Assets -->
     <link href="~/deneme/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="~/deneme/owl-carousel/owl.theme.css" rel="stylesheet">
-
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="~/deneme/css/Style.css">
-    <link href="~/deneme/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="~/deneme/css/style.css">
 
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="~/deneme/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
 
-
 </head>
-<body ng-app="Haberimdesin">
-<!--Navigation-->
-  
-    <div class="navbar navbar-full " style="background-color:#fff; color: rgba(46, 44, 44, 0.4); " ng-controller="News">
+<body ng-app="Haberimdesin" id="myPage" data-spy="scroll" data-target=".navbar" data-offset="20">
+    <!--Navigation-->
+    <div class="jumbotron text-center" style="margin-bottom:0;  background-color: #1e3af4;">
+        <h1>Haberimdesin</h1>
+        <p>Online Haber Sitesi</p>
+    </div>
+    <nav class="navbar navbar-full  " ng-controller="News">
         <div id="menu">
-            <center><img style="background-color:#fff; color: rgba(46, 44, 44, 0.4); " id="primaryImage" src="~/images/logo2.png"></center>
-
             <div class="navbar-header">
-
                 <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><span class="glyphicon glyphicon-tasks" style="color: black"></span></button>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" asp-area="">
-
-                </a>
-            </div>
-
-            <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" asp-area=""></a>
+                <ul class="nav navbar-nav navbar-left ">
 
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Anasayfa</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
@@ -48,34 +39,33 @@
                         <a asp-area="" asp-controller="Home" asp-action="Category" class="dropdown-toggle" data-toggle="dropdown">Kategori <i class="fa fa-arrow-circle-o-down"></i></a>
                         <div class="dropdown-menu">
                             <div class="dropdown-inner">
-
-
                                 <ul class="list-unstyled">
 
                                     <li ng-repeat="category in categories" ng-click="getNewsByCategory(category.categoryID)"><a>{{category.name}}</a> </li>
                                 </ul>
-
                             </div>
                         </div>
                     </li>
                     <li><a asp-area="" asp-controller="Home" asp-action="AddNews" style="background-color: crimson;">Yeni Haber Ekle <i class="glyphicon glyphicon-edit"></i></a></li>
                 </ul>
+
+            </div>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav"></ul>
                 @await Html.PartialAsync("_LoginPartial")
 
             </div>
         </div>
-    </div>
-
-
-
+</nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <div style="text-align:center;">
-            <p>Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Anadolu Üniversitesi Ceng Students</p>
-        </div>
     </div>
-
+    <footer class="container-fluid text-center">
+        <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <p>© Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Anadolu Üniversitesi Ceng Students</p>
+    </footer>
 
 
     <environment names="Development">
@@ -103,8 +93,40 @@
                 asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
+        <script>
+            $(document).ready(function () {
+                // Add smooth scrolling to all links in navbar + footer link
+                $(".navbar a, footer a[href='#myPage']").on('click', function (event) {
+                
+                    if (this.hash !== "") {
+                       
+                        event.preventDefault();
+
+                        var hash = this.hash;
+
+                        $('html, body').animate({
+                            scrollTop: $(hash).offset().top
+                        }, 900, function () {
+                            window.location.hash = hash;
+                        });
+                    } 
+                });
+
+                $(window).scroll(function () {
+                    $(".slideanim").each(function () {
+                        var pos = $(this).offset().top;
+
+                        var winTop = $(window).scrollTop();
+                        if (pos < winTop + 600) {
+                            $(this).addClass("slide");
+                        }
+                    });
+                });
+            })
+        </script>
     </environment>
 
     @RenderSection("scripts", required: false)
 </body>
+
 </html>
