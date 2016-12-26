@@ -66,14 +66,10 @@ namespace Haberimdesin2.Controllers
         // GET: HaberEntities
         public async Task<IActionResult> Index()
         {
-            /*
+         
             var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
             return View(await applicationDbContext.ToListAsync());
-            */
-
-            var applicationDbContext = _context.Haber.OrderByDescending(i => i.TimeStamp).Take(3);
-
-            return View(await applicationDbContext.ToListAsync());
+          
 
         }
 
