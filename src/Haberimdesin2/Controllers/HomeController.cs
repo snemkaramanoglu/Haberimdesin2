@@ -34,6 +34,12 @@ namespace Haberimdesin2.Controllers
             ViewData["Message"] = "Publish a News";
             return View();
         }
+        public IActionResult EditNews()
+        {
+            ViewData["Message"] = "Edit a News";
+            return View();
+        }
+
 
         public IActionResult Error()
         {

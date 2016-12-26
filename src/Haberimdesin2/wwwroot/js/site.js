@@ -13,7 +13,7 @@ var commentLikes = null;
 var haberDislikes = null;
 var commentDislikes = null;
 var activeUserID = null;
-
+var haberToEdit = null;
 
 HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
 
@@ -31,6 +31,9 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     }
     $scope.habers = function () {
         return habers;
+    };
+    $scope.haberToEdit = function () {
+        return haberToEdit;
     };
     $scope.habersOfUser = function () {
         return habersOfUser;
@@ -171,6 +174,27 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         }).error(function (err) { console.log(err); });
         
     }
+    $scope.changeCategory = function (newID) {
+        console.log(newID);
+        haberToEdit.categoryID = newID;
+   }
+    $scope.updateHaber = function () {
+        var fd = new FormData();
+        console.log(haberToEdit);
+        fd.append("id", haberToEdit.haberID);
+        fd.append("title", haberToEdit.title);
+        fd.append("detail", haberToEdit.detail);
+        fd.append("headline", haberToEdit.headLine);
+        fd.append("categoryID", haberToEdit.categoryID);
+        $http.post('/Haberimdesin/UpdateHaber', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            haberToEdit = null;
+        }).error(function (err) {
+            console.log(err);
+        });
+    }
     $scope.likeComment = function (id) {
 
         for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
@@ -306,6 +330,12 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         });
 
     }
+    $scope.editNews = function (haber) {
+
+
+        haberToEdit = haber;
+
+    }
     $scope.cancelNews = function (id) {
         var fd = new FormData();
         fd.append('id', id);
@@ -313,6 +343,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
+            haberToEdit = null;
             $scope.updateHabersOfUser();
         }).error(function (err) {
             console.log(err);
@@ -348,6 +379,14 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         });
 
     }
+    $http.get('/haberimdesin/getCategories').success(function (res) {
+        //console.log(res);
+        $scope.data = {
+            model: null,
+            availableOptions: res.categories
+        };
+
+    }).error(function (err) { console.log(err) });
     $scope.dislikeNews = function () {
 
         var id = $scope.activeHaber[0].haberID;

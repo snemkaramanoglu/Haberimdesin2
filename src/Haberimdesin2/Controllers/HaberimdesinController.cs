@@ -44,6 +44,31 @@ namespace Haberimdesin2.Controllers
         }
 
         // POST: Haberimdesin/Create
+
+
+        [HttpPost]
+        public JsonResult UpdateHaber()
+        {
+
+
+            int haberID = int.Parse(Request.Form["id"]);
+            string haberTitle =Request.Form["title"];
+            string haberHeadline = Request.Form["headline"];
+            string haberDetail = Request.Form["detail"];
+            int haberCategoryID = int.Parse(Request.Form["categoryID"]);
+            var result = _context.Haber.SingleOrDefault(h => h.HaberID == haberID);
+            if (result != null)
+            {
+                result.HeadLine = haberHeadline;
+                result.Title = haberTitle;
+                result.Detail = haberDetail;
+                result.CategoryID = haberCategoryID;
+                _context.SaveChanges();
+            }
+            return Json(new { });
+        }
+
+
         [HttpPost]
         public JsonResult LikeComment()
         {

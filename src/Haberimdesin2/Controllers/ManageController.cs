@@ -124,7 +124,10 @@ namespace Haberimdesin2.Controllers
         {
             return View();
         }
-
+        public IActionResult EditNews()
+        {
+            return View();
+        }
         //
         // POST: /Manage/AddPhoneNumber
         [HttpPost]
