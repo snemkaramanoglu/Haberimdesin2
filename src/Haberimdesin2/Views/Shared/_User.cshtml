@@ -13,7 +13,7 @@
     <link href="~/deneme/owl-carousel/owl.theme.css" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="~/deneme/css/Style.css">
+    <link rel="stylesheet" href="~/deneme/css/style.css">
     <link href="~/deneme/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
 
     <!-- Custom Fonts -->
@@ -24,7 +24,7 @@
 </head>
 <body ng-app="Haberimdesin">
     <!--Navigation-->
-    <nav class="navbar navbar-full" ng-controller="News">
+    <nav class="navbar navbar-default" ng-controller="News">
         <div id="menu">
             <div class="navbar-header">
                 <button type="button" class="btn btn-navbar navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse"><i class="fa fa-bars"></i></button>
@@ -39,13 +39,15 @@
             </div>
         </div>
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top: 20px;">
         @RenderBody()
-        <hr />
-        <div style="text-align:center;">
-            <p>Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Ceng Students</p>
-        </div>
     </div>
+    <footer class="container-fluid text-center">
+        <a href="#myPage" title="To Top">
+            <span class="glyphicon glyphicon-chevron-up"></span>
+        </a>
+        <p>© Copyright 2016 - <a href="http://habersizsiniz.azurewebsites.net/" target="_blank" rel="nofollow">Haberimdesin</a> Designed by Anadolu Üniversitesi Ceng Students</p>
+    </footer>
 
 
     <environment names="Development">
