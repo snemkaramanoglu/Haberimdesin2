@@ -75,13 +75,13 @@ html, body {width:100%; padding:0; margin:0; background-color: rgba(231, 231, 23
             border-color: inherit;
             border-width: 0;
             margin-bottom: 0;
-            background-color: #3F51B5;
+            background-color: #303F9F;
             z-index: 9999;
             font-size: 12px !important;
             line-height: 1.42857143 !important;
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             border-radius: 0;
-            font-family: Georgia, Times, "Times New Roman", serif;
+            font-family: Montserrat, sans-serif;
             height: 42px;
         }
 
@@ -99,13 +99,13 @@ html, body {width:100%; padding:0; margin:0; background-color: rgba(231, 231, 23
             color: #fff !important;
         }
 
-        ul.nav .dropdown-menu{color: #1e3af4; background-color:#1e3af4; }
-        ul.nav .dropdown-menu:hover{color: #1e3af4 !important;
+        ul.nav .dropdown-menu{cursor: pointer;padding-left:4px;color: #303F9F; background-color:#303F9F; }
+        ul.nav .dropdown-menu:hover{color: #303F9F !important;
             background-color: #fff !important;}
-        ul.nav .dropdown-menu:hover a{color: black !important;
+        ul.nav .dropdown-menu:hover a{padding-left:8px; color: black !important;
             background-color:transparent !important;}
-        ul.nav .dropdown-menu li{color: #1e3af4;font-weight: bold; border-radius: 5px !important; }
-        ul.nav .dropdown-menu li:hover{ background-color: #1e3af4 !important;  }
+        ul.nav .dropdown-menu li{color: #303F9F; }
+        ul.nav .dropdown-menu li:hover{background-color: #303F9F !important;  }
 
         footer .glyphicon {
             font-size: 20px;
