@@ -48,11 +48,20 @@
                         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
                         <span class="sr-only">Next</span>
                     </a>
-                </div>
+                </div>  
             </div>
         </div>
     </div>
     <div class="col-sm-8">
+        </p>
+
+
+        <form onsubmit="return false" oninput="level.value = distance.valueAsNumber">
+            <label style="width:60%" for="dist">Kaç Kilometre Uzaklığı Görmek İstersiniz?</label>
+            <output for="dist" name="level">100</output>/100
+            <input style="width:60%" ng-model="MyValue" name="distance" id="dist" type="range" min="0" max="100" ng-init="MyValue=100" ng-change="updateDistanceLimit(MyValue)">
+
+        </form>
         <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:20px; height:300px; ">
             <div class="panel-heading" style="height: 50px;">
                 <img src="https://eliaslealblog.files.wordpress.com/2014/03/user-200.png" style="height: 20px; width: 20px" alt="" />
@@ -87,11 +96,11 @@
                             <h5>{{haber.title}}</h5>
                             <hr>
                             {{haber.headLine}}<a ng-click="getNewsDetail(haber.haberID)" class="btn  btn-facebook pull-right" style="  bottom:0px; right:0px;  " role="button">Devamı</a>
-                           
+
                         </div>
                     </div>
                 </div>
-            </div>       
+            </div>
         </div>
     </div>
 

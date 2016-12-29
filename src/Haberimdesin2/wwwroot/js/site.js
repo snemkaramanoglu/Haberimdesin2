@@ -14,10 +14,31 @@ var haberDislikes = null;
 var commentDislikes = null;
 var activeUserID = null;
 var haberToEdit = null;
+var longitude = 0;
+var latitude = 0;
+function geoFindMe() {
+    var output = document.getElementById("out");
 
+    if (!navigator.geolocation){
+        alert("Geolocation is not supported by your browser!");
+        return;
+    }
+
+    function success(position) {
+        latitude  = position.coords.latitude;
+        longitude = position.coords.longitude;
+        alert("Latitude is ' "+ latitude + "'° <br>Longitude is '" + longitude + "'°");
+    }
+
+    function error() {
+        alert("Unable to retrieve your location");
+    }
+    navigator.geolocation.getCurrentPosition(success, error);
+}
 HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
 
-
+    geoFindMe();
+    $scope.distance = 100;
     $scope.activeHaber = null;
     $scope.getUserID = function () {
         console.log(activeUserID);
@@ -29,15 +50,16 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.lastNew = function () {
         return lastNew;
     }
-    $scope.habers = function () {
-        return habers;
-    };
+
     $scope.haberToEdit = function () {
         return haberToEdit;
     };
     $scope.habersOfUser = function () {
         return habersOfUser;
     };
+    $scope.updateDistanceLimit = function (val) {
+        $scope.distance = val;
+    }
 
     $scope.getHaberLikesOf = function (id) {
         var usrName = "@HttpContext.Current.User.Identity.Name";
@@ -151,6 +173,28 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.getAllNews();
     $scope.updateHaberLikes();
     $scope.updateUserID();
+    $scope.habers = function () {
+        if (habers == null) return;
+        var habersWithDistance = habers.slice(0);
+
+        for (i = habersWithDistance.length - 1; i >= 0; i--) {
+            var lat = habersWithDistance[i].latitude;
+            var lon = habersWithDistance[i].longitude;
+            var theta = longitude - lon;
+            var dist = Math.sin(latitude * (Math.PI / 180)) * Math.sin(lat * (Math.PI / 180)) + Math.cos(latitude * (Math.PI / 180)) * Math.cos(lat * (Math.PI / 180)) * Math.cos(theta * (Math.PI / 180));
+            dist = Math.acos(dist);
+            dist = dist * (180 / Math.PI);
+            dist = dist * 60 * 1.1515;
+            
+            
+            if (dist > $scope.distance) {
+                console.log(habersWithDistance[i].title);
+                habersWithDistance.splice(i,1);
+            };
+
+        }
+        return habersWithDistance;
+    };
     $scope.updateHabersOfUser = function () {
         
         var url = "/haberimdesin/getNewsByUserID/" + activeUserID;
@@ -476,40 +520,12 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
    
     }).error(function (err) { console.log(err)});
 
-    function getMyLocation() {
-        return $q(function (resolve, reject) {
-            if (navigator.geolocation) {
-                navigator.geolocation.watchPosition(function (position) {
-                    lat = position.coords.latitude;
-                    longi = position.coords.longitude;
-                    return resolve({ lat: lat, longi: longi });
-                }, function (error) {
-                    switch (error.code) {
-                        case error.PERMISSION_DENIED:
-                            return reject({ error: "User denied the request for Geolocation." });
-
-                        case error.POSITION_UNAVAILABLE:
-                            return reject({ error: "Location information is unavailable." });
-
-                        case error.TIMEOUT:
-                            return reject({ error: "The request to get user location timed out." });
-
-                        case error.UNKNOWN_ERROR:
-                            return reject({ error: "An unknown error occurred." });
-
-                    }
-                });
-            } else {
-                return reject({ error: "Browser Not Support" });
-            }
-        });
-    }
+    
     
 
-
+    geoFindMe();
     $scope.uploadNews = function () {
 
-        getMyLocation().then(function (res) {
 
             var fileArray = $scope.imageFiles;
             var fd = new FormData();
@@ -519,8 +535,8 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
             fd.append('haberHeader', $scope.haberHeader);
             fd.append('haberHeadline', $scope.haberHeadline);
             fd.append('haberDetail', $scope.haberDetail);
-            fd.append('latitude', res.lat);
-            fd.append('longitude', res.longi);
+            fd.append('latitude', latitude);
+            fd.append('longitude', longitude);
             fd.append('CategoryID',$scope.data.model);
 
             $http.post('/Haberimdesin/CreateNews', fd, {
@@ -534,7 +550,7 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
             });
         }, function (rej) {
             console.log(res);
-        });
+        
     };
 
 }]);

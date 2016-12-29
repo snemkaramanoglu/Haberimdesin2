@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace Haberimdesin2.Controllers
 {
@@ -235,8 +236,8 @@ namespace Haberimdesin2.Controllers
             string detail = Request.Form["haberDetail"];
             string userId = Request.Form["name"];
             
-            float latitude = float.Parse(Request.Form["latitude"]);
-            float longitude = float.Parse(Request.Form["longitude"]);
+            float latitude = float.Parse(Request.Form["latitude"], CultureInfo.InvariantCulture);
+            float longitude = float.Parse(Request.Form["longitude"], CultureInfo.InvariantCulture);
             int categoryId = int.Parse(Request.Form["CategoryID"]);
             DateTime time = DateTime.Now;
 
@@ -355,7 +356,6 @@ namespace Haberimdesin2.Controllers
         {
 
             var newsList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToList();
-            
 
             return Json(new { newsList });
         }
