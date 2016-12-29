@@ -27,7 +27,7 @@ function geoFindMe() {
     function success(position) {
         latitude  = position.coords.latitude;
         longitude = position.coords.longitude;
-        alert("Latitude is ' "+ latitude + "'° <br>Longitude is '" + longitude + "'°");
+        //alert("Latitude is ' "+ latitude + "'° <br>Longitude is '" + longitude + "'°");
     }
 
     function error() {
@@ -43,13 +43,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.getUserID = function () {
         console.log(activeUserID);
         return activeUserID;
-    }
+    };
     $scope.last2News = function () {
         return last2News;
-    }
+    };
     $scope.lastNew = function () {
         return lastNew;
-    }
+    };
 
     $scope.haberToEdit = function () {
         return haberToEdit;
@@ -59,42 +59,42 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     };
     $scope.updateDistanceLimit = function (val) {
         $scope.distance = val;
-    }
+    };
 
     $scope.getHaberLikesOf = function (id) {
         var usrName = "@HttpContext.Current.User.Identity.Name";
         if (haberLikes.has(id))
             return haberLikes.get(id).length;
         else return 0;
-    }
+    };
     $scope.getHaberDislikesOf = function (id) {
         if (haberDislikes.has(id))
             return haberDislikes.get(id).length;
         else return 0;
-    }
+    };
     $scope.getCommentDislikesOf = function (id) {
         if (commentDislikes.has(id))
             return commentDislikes.get(id).length;
         else return 0;
-    }
+    };
     $scope.getCommentLikesOf = function (id) {
         if (commentLikes.has(id))
             return commentLikes.get(id).length;
         else return 0;
-    }
+    };
     $http.get('/haberimdesin/getCategories').success(function (res) {
         $scope.categories = res.categories;
     }).error(function (err) {
         console.log(err);
     });
   
-    $scope.updateUserID = function(){
+    $scope.updateUserID = function () {
         var url = "/haberimdesin/getUserID";
         $http.get(url).success(function (re) {
             activeUserID = re.usID;
             $scope.updateHabersOfUser();
         }).error(function (err) { console.log(err); });
-    }
+    };
     $scope.getAllNews = function () {
         var url = "/haberimdesin/getAllNews";
         $http.get(url).success(function (re) {
@@ -105,7 +105,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
 
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
-    }
+    };
     
     $scope.updateHaberLikes = function () {
         if (updatedLikes) return;
@@ -118,7 +118,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
 
         var url = "/haberimdesin/getAllHaberLikes";
         $http.get(url).success(function (re) {
-            
+
             for (i = 0; i < re.haberLikeList.length; i++) {
                 var id = re.haberLikeList[i].haberID;
                 if (haberLikes.has(id) === false)
@@ -129,7 +129,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             }
         }).error(function (err) { console.log(err); });
 
-        
+
         url = "/haberimdesin/getAllHaberDislikes";
         $http.get(url).success(function (re) {
 
@@ -169,12 +169,12 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
                 commentDislikes.set(id, value);
             }
         }).error(function (err) { console.log(err); });
-    }
+    };
     $scope.getAllNews();
     $scope.updateHaberLikes();
     $scope.updateUserID();
     $scope.habers = function () {
-        if (habers == null) return;
+        if (habers === null) return;
         var habersWithDistance = habers.slice(0);
 
         for (i = habersWithDistance.length - 1; i >= 0; i--) {
@@ -190,38 +190,38 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             if (dist > $scope.distance) {
                 console.log(habersWithDistance[i].title);
                 habersWithDistance.splice(i,1);
-            };
+            }
 
         }
         return habersWithDistance;
     };
     $scope.updateHabersOfUser = function () {
-        
+
         var url = "/haberimdesin/getNewsByUserID/" + activeUserID;
         $http.get(url).success(function (re) {
             habersOfUser = re.newsList.reverse();
             console.log(habersOfUser);
 
         }).error(function (err) { console.log(err); });
-    }
+    };
     
     $scope.getNewsByCategory = function (id) {
-        
+
         var url = "/haberimdesin/getNewsByID/" + id;
         $http.get(url).success(function (re) {
-           
+
             last2News = null;
             lastNew = null;
             habers = re.newsList.reverse();
-     
+
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
-        
-    }
+
+    };
     $scope.changeCategory = function (newID) {
         console.log(newID);
         haberToEdit.categoryID = newID;
-   }
+    };
     $scope.updateHaber = function () {
         var fd = new FormData();
         console.log(haberToEdit);
@@ -238,16 +238,16 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         }).error(function (err) {
             console.log(err);
         });
-    }
+    };
     $scope.likeComment = function (id) {
 
-        for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
+        for (var i = 0; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
             if (commentLikes.get(id)[i] === activeUserID) {
                 $scope.cancelLikeComment(id);
                 return;
             }
         }
-        for (i = 0 ; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
+        for (i = 0; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
             if (commentDislikes.get(id)[i] === activeUserID) $scope.cancelDislikeComment(id);
         }
 
@@ -266,14 +266,14 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
     $scope.dislikeComment = function (id) {
 
 
-        for (i = 0 ; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
+        for (i = 0; commentLikes.has(id) && i < commentLikes.get(id).length; i++) {
             if (commentLikes.get(id)[i] === activeUserID) $scope.cancelLikeComment(id);
         }
-        for (i = 0 ; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
+        for (i = 0; commentDislikes.has(id) && i < commentDislikes.get(id).length; i++) {
             if (commentDislikes.get(id)[i] === activeUserID) {
                 $scope.cancelDislikeComment(id);
                 return;
@@ -295,7 +295,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
     $scope.cancelLikeComment = function (id) {
 
 
@@ -316,7 +316,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
     $scope.cancelDislikeComment = function (id) {
 
 
@@ -337,7 +337,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
    
     $scope.cancelDislikeNews = function () {
         var id = $scope.activeHaber[0].haberID;
@@ -355,7 +355,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         }).error(function (err) {
             console.log(err);
         });
-    }
+    };
     $scope.cancelLikeNews = function () {
         var id = $scope.activeHaber[0].haberID;
         var fd = new FormData();
@@ -373,13 +373,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
     $scope.editNews = function (haber) {
 
 
         haberToEdit = haber;
 
-    }
+    };
     $scope.cancelNews = function (id) {
         var fd = new FormData();
         fd.append('id', id);
@@ -393,23 +393,23 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
 
     $scope.likeNews = function () {
         var id = $scope.activeHaber[0].haberID;
-        
-        for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
+
+        for (i = 0; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
             if (haberLikes.get(id)[i] === activeUserID) {
                 $scope.cancelLikeNews();
                 return;
             }
         }
-        for (i = 0 ; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
+        for (i = 0; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
             if (haberDislikes.get(id)[i] === activeUserID) $scope.cancelDislikeNews();
         }
         var fd = new FormData();
-        fd.append('id',  $scope.activeHaber[0].haberID);
-        $http.post('/Haberimdesin/LikeNews', fd,  {
+        fd.append('id', $scope.activeHaber[0].haberID);
+        $http.post('/Haberimdesin/LikeNews', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
@@ -422,7 +422,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             console.log(err);
         });
 
-    }
+    };
     $http.get('/haberimdesin/getCategories').success(function (res) {
         //console.log(res);
         $scope.data = {
@@ -430,15 +430,15 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             availableOptions: res.categories
         };
 
-    }).error(function (err) { console.log(err) });
+    }).error(function (err) { console.log(err); });
     $scope.dislikeNews = function () {
 
         var id = $scope.activeHaber[0].haberID;
 
-       for (i = 0 ; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
-           if (haberLikes.get(id)[i] === activeUserID) $scope.cancelLikeNews();
+        for (i = 0; haberLikes.has(id) && i < haberLikes.get(id).length; i++) {
+            if (haberLikes.get(id)[i] === activeUserID) $scope.cancelLikeNews();
         }
-        for (i = 0 ; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
+        for (i = 0; haberDislikes.has(id) && i < haberDislikes.get(id).length; i++) {
             if (haberDislikes.get(id)[i] === activeUserID) {
                 $scope.cancelDislikeNews();
                 return;
@@ -458,7 +458,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         }).error(function (err) {
             console.log(err);
         });
-    }
+    };
     $scope.getNewsDetail = function (id) {
         window.scrollTo(0, 0);
         var url = "/haberimdesin/getNewsDetail/" + id;
@@ -467,16 +467,16 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             $scope.yorumlar = re.yorumList.reverse();
             $scope.lastNew = null;
             $scope.last2News = null;
- 
+
             $scope.kisiler = re.userNameList.reverse();
             $scope.activeHaber = re.newsList;
         }).error(function (err) { console.log(err); });
-    }
+    };
     
     $scope.uploadComment = function () {
         var fd = new FormData();
         fd.append('yorumIcerik', $scope.$$childTail.yorumIcerik);
-        fd.append('haberID', $scope.activeHaber[0].haberID)
+        fd.append('haberID', $scope.activeHaber[0].haberID);
         $http.post('/Haberimdesin/CreateComment', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -487,8 +487,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         });
 
         var newObject = jQuery.extend({}, $scope.yorumlar[0]);
-        
-        
+
+
         newObject.content = $scope.$$childTail.yorumIcerik;
         newObject.like = 0;
         newObject.dislike = 0;
@@ -499,7 +499,23 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
 
         var newUser = $scope.activeHaber[0].user.name + " " + $scope.activeHaber[0].user.surname;
         $scope.kisiler.splice(0, 0, newUser);
-        
+
+    };
+    $scope.uploadUserProfileImage = function () {
+        var fd = new FormData();
+        var fileArray = $scope.profileImageFiles;
+        console.log(fileArray);
+        fd.append('file', fileArray);
+
+        $http.post('/Manage/uploadProfileImage', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            console.log(response);
+            window.location.assign('/Manage/Index');
+        }).error(function (err) {
+            console.log(err);
+        });
     }
 }]);
 
@@ -518,7 +534,7 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
             availableOptions: res.categories
         };
    
-    }).error(function (err) { console.log(err)});
+    }).error(function (err) { console.log(err);});
 
     
     
@@ -544,12 +560,12 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
                 console.log(response+"oldu");
-              window.location.assign('/Home/Index');
+               window.location.assign('/Home/Index');
             }).error(function (err) {
                 console.log(err);
             });
         }, function (rej) {
-            console.log(res);
+            console.log(rej);
         
     };
 

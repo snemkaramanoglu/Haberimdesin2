@@ -44,7 +44,11 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "angularjs": "1.5.8"
+    "angularjs": "1.5.8",
+    "System.Linq.Queryable": "4.0.1",
+    "System.Linq.Parallel": "4.0.1",
+    "System.Interactive.Async": "3.0.0",
+    "System.Collections.Immutable": "1.2.0"
   },
 
   "tools": {

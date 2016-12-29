@@ -8,9 +8,10 @@ using Haberimdesin2.Data;
 namespace Haberimdesin2.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161229212140_UserPass column added to the ApplicationUser table")]
+    partial class UserPasscolumnaddedtotheApplicationUsertable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
