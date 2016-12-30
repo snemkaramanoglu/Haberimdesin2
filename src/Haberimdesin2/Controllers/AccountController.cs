@@ -105,7 +105,7 @@ namespace Haberimdesin2.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name=model.Name, Surname = model.Surname };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Name=model.Name, Surname = model.Surname, UserPass = model.Password};
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

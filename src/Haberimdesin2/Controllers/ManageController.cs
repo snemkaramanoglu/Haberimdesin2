@@ -25,8 +25,11 @@ namespace Haberimdesin2.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
-       
         private ApplicationDbContext _context;
+        private IHostingEnvironment _environment;
+       
+
+        
         public ManageController(
 
         UserManager<ApplicationUser> userManager,
@@ -34,14 +37,16 @@ namespace Haberimdesin2.Controllers
         IEmailSender emailSender,
         ISmsSender smsSender,
         ILoggerFactory loggerFactory,
-        ApplicationDbContext context)
+        ApplicationDbContext context,
+        IHostingEnvironment env)
         {
             
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
-            
+            _environment = env;
+
             _context = context;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
@@ -59,12 +64,15 @@ namespace Haberimdesin2.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
+            
             var user = await GetCurrentUserAsync();
             if (user == null)
             {
                 return View("Error");
             }
+            string userProfileImage = user.ProfileImgURL;
+            if (userProfileImage == null || userProfileImage == "") { userProfileImage = "/Deneme/images/4.jpg"; }
+            ViewData["ProfileImgURL"] = userProfileImage;
             var model = new IndexViewModel
             {
                 HasPassword = await _userManager.HasPasswordAsync(user),
@@ -370,6 +378,31 @@ namespace Haberimdesin2.Controllers
             var message = result.Succeeded ? ManageMessageId.AddLoginSuccess : ManageMessageId.Error;
             return RedirectToAction(nameof(ManageLogins), new { Message = message });
         }
+        public async Task<JsonResult> uploadProfileImage()
+        {
+            var files = Request.Form.Files;
+
+            string uImg;
+
+
+            string profileImgURL = Path.Combine(new string[] { _environment.WebRootPath, "images", "profileIMG_" + _userManager.GetUserId(User) });
+            if (!Directory.Exists(profileImgURL))
+                Directory.CreateDirectory(profileImgURL);
+
+
+            IFormFile file = files.ElementAt(0);
+            using (var fileStream = new FileStream(Path.Combine(profileImgURL, file.FileName), FileMode.Create))
+            {
+                
+                var currentUser = _context.ApplicationUser.Where(u => u.Id == _userManager.GetUserId(User)).FirstOrDefault();
+                uImg = "/images/" + "profileIMG_" + _userManager.GetUserId(User) + "/" + file.FileName;
+                currentUser.ProfileImgURL = uImg;
+                _context.SaveChanges();
+                await file.CopyToAsync(fileStream);
+
+            }
+            return Json(new { uImg });
+        }
 
         //Dosya Yükleme Kısmında Yüklerken Kullanılabilir
         /*
@@ -391,7 +424,7 @@ namespace Haberimdesin2.Controllers
             return View();
         }
         */
-        #region Helpers
+            #region Helpers
 
         private void AddErrors(IdentityResult result)
         {

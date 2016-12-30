@@ -1,4 +1,4 @@
-@model Haberimdesin2.Models.HaberEntity
+@model Haberimdesin2.Models.FeaturedHaber
 
 @{
  
@@ -20,10 +20,10 @@
                 <h1 class="vid-name"><a href="#">@Model.Title</a></h1>
                 <div class="info">
                     <!---- KULLANICI ADINI NEDEN CEKEMEDIGIMI ANLAMADIMM ---->
-                    <h5>By @Model.user</h5>
+                    <h5>By @Model.UserName @Model.UserSurname</h5>
                     <span><i class="fa fa-calendar"></i>@Model.TimeStamp</span>
-                    <span><i class="fa fa-hand-o-up"></i>@Model.Like</span>
-                    <span><i class="fa fa-hand-o-down"></i>@Model.Dislike</span>
+                    <span><i class="fa fa-hand-o-up"></i>@Model.LikeCount</span>
+                    <span><i class="fa fa-hand-o-down"></i>@Model.DislikeCount</span>
                     <span><i class="fa fa-location-arrow"></i>konum bilgisi</span>
                 </div>
                 @Html.DisplayFor(model => model.Detail)
@@ -251,6 +251,7 @@
             </div>
         </div>
     </div>
+ </div>
 
 
     <!-- Footer -->
@@ -267,5 +268,5 @@
 
     });
     </script>
-    <div>
+   
    

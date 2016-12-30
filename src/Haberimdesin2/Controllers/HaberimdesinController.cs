@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace Haberimdesin2.Controllers
 {
@@ -235,8 +236,8 @@ namespace Haberimdesin2.Controllers
             string detail = Request.Form["haberDetail"];
             string userId = Request.Form["name"];
             
-            float latitude = float.Parse(Request.Form["latitude"]);
-            float longitude = float.Parse(Request.Form["longitude"]);
+            float latitude = float.Parse(Request.Form["latitude"], CultureInfo.InvariantCulture);
+            float longitude = float.Parse(Request.Form["longitude"], CultureInfo.InvariantCulture);
             int categoryId = int.Parse(Request.Form["CategoryID"]);
             DateTime time = DateTime.Now;
 
@@ -353,11 +354,44 @@ namespace Haberimdesin2.Controllers
         [HttpGet]
         public JsonResult getNewsByID(int id)
         {
+            List<FeaturedHaber> haberList = new List<FeaturedHaber>();
 
-            var newsList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToList();
-            
+            var newsList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToArray();
+            for (int i = 0; i < newsList.Length; i++)
+            {
+                int like = _context.LikeHaber.Where(l => l.HaberID == newsList[i].HaberID).Count();
+                int dislike = _context.DislikeHaber.Where(d => d.HaberID == newsList[i].HaberID).Count();
+                string[] newsImgAddressArray = _context.Image.Where(im => im.HaberID == newsList[i].HaberID).Select(item => item.ImageURL).ToArray<string>();
+                FeaturedHaber hbr = new FeaturedHaber();
+                hbr.LikeCount = like;
+                hbr.DislikeCount = dislike;
+                hbr.Images = newsImgAddressArray;
+                hbr.HaberId = newsList[i].HaberID;
+                hbr.Detail = newsList[i].Detail;
+                hbr.HeadLine = newsList[i].HeadLine;
+                hbr.Id = newsList[i].Id;
+                hbr.PrimaryImgURL = newsList[i].PrimaryImgURL;
+                hbr.Title = newsList[i].Title;
+                hbr.TimeStamp = newsList[i].TimeStamp;
+                hbr.Latitude = newsList[i].Latitude;
+                hbr.Longitude = newsList[i].Longitude;
+                hbr.CategoryID = newsList[i].CategoryID;
+                if (hbr.Id != null)
+                {
+                    hbr.UserName = newsList[i].user.Name;
+                    hbr.UserSurname = newsList[i].user.Surname;
+                    hbr.UserImageURL = newsList[i].user.ProfileImgURL;
+                }else
+                {
+                    hbr.UserName = "Anonim";
+                    hbr.UserSurname = "Anonim";
+                    hbr.UserImageURL = "Deneme/images/4.jpg";
+                }
 
-            return Json(new { newsList });
+                haberList.Add(hbr);
+            }
+
+            return Json(new { haberList });
         }
 
         [HttpGet]

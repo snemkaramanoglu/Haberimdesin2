@@ -22,6 +22,8 @@ namespace Haberimdesin2.Models
         
         public DateTime BirthDate { get; set; }
 
+        public String UserPass { get; set; }
+
 
 
     }

@@ -4,6 +4,7 @@
 
 @{
     ViewData["Title"] = "Hesabınızı Yönetin";
+   
 }
 
 
@@ -20,22 +21,25 @@
                 <div class="box-content">
                     <div>
                         <ul>
-                            <li><a class="clickable" asp-route-id="@UserManager.GetUserId(User)" asp-controller="ApplicationUsers" asp-action="Edit" class="btn-bracketed">Kişisel Bilgilerinizi düzeltmek için tıklayın.</a></li> 
-                           <li> <a class="clickable" asp-route-id="@UserManager.GetUserId(User)" asp-controller="Haber" asp-action="Index" class="btn-bracketed">Haberlerinizi görmek, düzenlemek veya silmek için tıklayın.</a></li> 
+                            <li><a class="clickable btn-bracketed" asp-route-id="@UserManager.GetUserId(User)" asp-controller="ApplicationUsers" asp-action="Edit" >Kişisel Bilgilerinizi düzeltmek için tıklayın.</a></li> 
+                           <li> <a class="clickable btn-bracketed" asp-route-id="@UserManager.GetUserId(User)" asp-controller="Haber" asp-action="Index" >Haberlerinizi görmek, düzenlemek veya silmek için tıklayın.</a></li> 
                         </ul>
                             <hr />
                         <dl class="dl-horizontal">
                             <div class="col-sm-4">
-                                <img src="~/Deneme/images/4.jpg" style="height:200px; width:200px; alt="Third slide">
+                                <img src="@ViewData["ProfileImgURL"]" style="height:200px; width:200px;" alt="Third slide">
                                 
-                                    
-                                <input asp-controller="Manage" asp-route-id="@UserManager.GetUserId(User)" enctype="multipart/form-data" type="file" id="inputFile" name="file" asp-action="UpdateImage" method="post" enctype="multipart/form-data" /></input> <br /><br />
+                                <form ng-submit="uploadUserProfileImage()">
+                                    <input type="file" id="profileImage" style="width:200px;" name="profileImagefile" file-model="profileImageFiles" class="form-control" accept=".jpg, .jpeg, .png"  ng-required="true" />
+                                    <input type="submit" class="btn btn-block btn-primary"  style="width:200px;" value="Resmi Yenile" />
+                                </form>  
+                                 <br /><br />
                             
                             </div>
                             <div class="col-sm-8">
                                
                                
-                                <dt>Şifre:
+                                <dt >Şifre:
 
 
                                 </dt>
@@ -70,6 +74,9 @@
 
                                
                             </div>
+
+
+
 
                             <div class="col-sm-8" style="margin-top:30px">
 
