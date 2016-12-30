@@ -14,7 +14,9 @@
     <div id="main-content" class="col-md-12" >
         <div class="box" style="margin-bottom: 20px">
             <div class="text-center">
-                <img src="~/images/logo.png" alt="" />
+                <a class="" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" alt="" />
+                </a>
             </div>
             <div class="box-content">
                 <form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
