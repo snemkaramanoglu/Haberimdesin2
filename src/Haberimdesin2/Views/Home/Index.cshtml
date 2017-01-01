@@ -53,18 +53,16 @@
         </div>
     </div>
     <div class="col-sm-8">
-     
-                  
-                            <table>
-                                <tr>
+      
+                  <
+                          
                                     <form onsubmit="return false" oninput="level.value = distance.valueAsNumber">
                                         <label style="width:60%" for="dist">Kaç Kilometre Uzaklığı Görmek İstersiniz?</label>
                                         <output for="dist" name="level">100</output>/100
                                         <input style="width:60%" ng-model="MyValue" name="distance" id="dist" type="range" min="0" max="100" ng-init="MyValue=100" ng-change="updateDistanceLimit(MyValue)">
 
                                     </form>
-                                </tr>
-                                <tr>
+                            
                                     <div class="dropdown">
                                         <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
 
@@ -75,8 +73,7 @@
                                             <li ng-repeat="category in categories" ng-class="News" ng-click="getNewsByCategory(category.categoryID)"><a>{{category.name}}</a> </li>
                                         </ul>
                                     </div>
-                                </tr>
-                            </table>
+                             
                     
                         <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:20px; height:300px; ">
                                 <div class="panel-heading" style="height: 50px;">
@@ -147,7 +144,7 @@
                                                     </span>
 
                                                 </div>
-                                                <p style="margin-top: 15px">{{haber.detail}}</p>
+                                                <p style="margin-top: 15px; font-size: 15px;">{{haber.detail}}</p>
                                                 <hr />
                                                 <div class="comment">
 
