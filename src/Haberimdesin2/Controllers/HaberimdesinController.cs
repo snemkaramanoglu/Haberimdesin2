@@ -301,6 +301,7 @@ namespace Haberimdesin2.Controllers
         public JsonResult getAllHaberLikes()//site.js acsana
         {
 
+
             var haberLikeList = _context.LikeHaber.ToList(); //niye saçmaladý
 
 
