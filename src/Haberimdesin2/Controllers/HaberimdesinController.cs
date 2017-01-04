@@ -364,42 +364,43 @@ namespace Haberimdesin2.Controllers
         [HttpGet]
         public JsonResult getNewsByID(int id)
         {
-            List<FeaturedHaber> haberList = new List<FeaturedHaber>();
+            //List<FeaturedHaber> haberList = new List<FeaturedHaber>();
 
-            var newsList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToArray();
-            for (int i = 0; i < newsList.Length; i++)
-            {
-                int like = _context.LikeHaber.Where(l => l.HaberID == newsList[i].HaberID).Count();
-                int dislike = _context.DislikeHaber.Where(d => d.HaberID == newsList[i].HaberID).Count();
-                string[] newsImgAddressArray = _context.Image.Where(im => im.HaberID == newsList[i].HaberID).Select(item => item.ImageURL).ToArray<string>();
-                FeaturedHaber hbr = new FeaturedHaber();
-                hbr.LikeCount = like;
-                hbr.DislikeCount = dislike;
-                hbr.Images = newsImgAddressArray;
-                hbr.HaberId = newsList[i].HaberID;
-                hbr.Detail = newsList[i].Detail;
-                hbr.HeadLine = newsList[i].HeadLine;
-                hbr.Id = newsList[i].Id;
-                hbr.PrimaryImgURL = newsList[i].PrimaryImgURL;
-                hbr.Title = newsList[i].Title;
-                hbr.TimeStamp = newsList[i].TimeStamp;
-                hbr.Latitude = newsList[i].Latitude;
-                hbr.Longitude = newsList[i].Longitude;
-                hbr.CategoryID = newsList[i].CategoryID;
-                if (hbr.Id != null)
-                {
-                    hbr.UserName = newsList[i].user.Name;
-                    hbr.UserSurname = newsList[i].user.Surname;
-                    hbr.UserImageURL = newsList[i].user.ProfileImgURL;
-                }else
-                {
-                    hbr.UserName = "Anonim";
-                    hbr.UserSurname = "Anonim";
-                    hbr.UserImageURL = "Deneme/images/4.jpg";
-                }
+            var haberList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToArray();
+            //for (int i = 0; i < newsList.Length; i++)
+            //{
+            //    int like = _context.LikeHaber.Where(l => l.HaberID == newsList[i].HaberID).Count();
+            //    int dislike = _context.DislikeHaber.Where(d => d.HaberID == newsList[i].HaberID).Count();
+            //    string[] newsImgAddressArray = _context.Image.Where(im => im.HaberID == newsList[i].HaberID).Select(item => item.ImageURL).ToArray<string>();
+            //    FeaturedHaber hbr = new FeaturedHaber();
+            //    hbr.LikeCount = like;
+            //    hbr.DislikeCount = dislike;
+            //    hbr.Images = newsImgAddressArray;
+            //    hbr.HaberId = newsList[i].HaberID;
+            //    hbr.Detail = newsList[i].Detail;
+            //    hbr.HeadLine = newsList[i].HeadLine;
+            //    hbr.Id = newsList[i].Id;
+            //    hbr.PrimaryImgURL = newsList[i].PrimaryImgURL;
+            //    hbr.Title = newsList[i].Title;
+            //    hbr.TimeStamp = newsList[i].TimeStamp;
+            //    hbr.Latitude = newsList[i].Latitude;
+            //    hbr.Longitude = newsList[i].Longitude;
+            //    hbr.CategoryID = newsList[i].CategoryID;
+                
+            //    if (hbr.Id != null)
+            //    {
+            //        hbr.UserName = newsList[i].user.Name;
+            //        hbr.UserSurname = newsList[i].user.Surname;
+            //        hbr.UserImageURL = newsList[i].user.ProfileImgURL;
+            //    }else
+            //    {
+            //        hbr.UserName = "Anonim";
+            //        hbr.UserSurname = "Anonim";
+            //        hbr.UserImageURL = "Deneme/images/4.jpg";
+            //    }
 
-                haberList.Add(hbr);
-            }
+            //    haberList.Add(hbr);
+            //}
 
             return Json(new { haberList });
         }

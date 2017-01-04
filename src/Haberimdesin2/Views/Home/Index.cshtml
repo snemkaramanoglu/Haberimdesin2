@@ -6,7 +6,7 @@
     <div class="row" style="text-align: center;">
        
         <div class="col-sm-12">
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" ng-if="lastNew!=null">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" ng-if="lastNew()!=null">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
                     <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -49,35 +49,44 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>  
+               
+            </div>
+
+            <div class="col-sm-8" ng-if="activeHaber==null">
+
+                <form onsubmit="return false" oninput="level.value = distance.valueAsNumber">
+                    <label style="width:60%" for="dist">Kaç Kilometre Uzaklığı Görmek İstersiniz?</label>
+                    <output for="dist" name="level">50</output>/50
+                    <input style="width:60%" ng-model="MyValue" name="distance" id="dist" type="range" min="0" max="50" ng-init="MyValue=50" ng-change="updateDistanceLimit(MyValue)">
+
+                </form>
+
+                <div class="dropdown">
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+
+                        <a asp-area="" asp-controller="Home" asp-action="Category" data-toggle="dropdown">Kategori</a>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-repeat="category in categories" ng-class="News" ng-click="getNewsByCategory(category.categoryID)"><a>{{category.name}}</a> </li>
+                    </ul>
+                </div>
             </div>
         </div>
+
     </div>
     <div class="col-sm-8">
       
-                  <
+                  
                           
-                                    <form onsubmit="return false" oninput="level.value = distance.valueAsNumber">
-                                        <label style="width:60%" for="dist">Kaç Kilometre Uzaklığı Görmek İstersiniz?</label>
-                                        <output for="dist" name="level">100</output>/100
-                                        <input style="width:60%" ng-model="MyValue" name="distance" id="dist" type="range" min="0" max="100" ng-init="MyValue=100" ng-change="updateDistanceLimit(MyValue)">
-
-                                    </form>
-                            
-                                    <div class="dropdown">
-                                        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-
-                                            <a asp-area="" asp-controller="Home" asp-action="Category" data-toggle="dropdown">Kategori</a>
-                                            <span class="caret"></span>
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li ng-repeat="category in categories" ng-class="News" ng-click="getNewsByCategory(category.categoryID)"><a>{{category.name}}</a> </li>
-                                        </ul>
-                                    </div>
+                                    
                              
                     
                         <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:20px;  ">
                                 <div class="panel-heading" style="height: 50px;">
-                                    <img src="~/Deneme/images/4.jpg" style="height: 20px; width: 20px" alt="" />
+
+                                    <img src="{{getProfileImage(haber.user)}}" style="height: 20px; width: 20px" alt="" />
+
                                     <h6 style="display: inline-block;"><small>{{haber.user.name + " " + haber.user.surname}}</small></h6>
                                     <ul class="list-inline pull-right" style="margin: 0; line-height: 20px">
                                         <li class="list-inline-item" style="border-left: solid 1px grey; padding: 0 5px 0 5px">
@@ -131,7 +140,9 @@
                                                 </div>
 
                                                 <div class="info">
-                                                    <h5> <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
+                                                    <h5> 
+                                                    <img src="{{getProfileImage(haber.user)}}" style="height: 30px; width: 30px" alt="" />
+                                                    <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
                                                     <span><i class="fa fa-calendar"></i>{{haber.timeStamp | date:'yyyy/MM/dd'}}</span>
                                                     <span class="list-inline-item" ng-click="likeNews()">
                                                         {{getHaberLikesOf(haber.haberID)}}</>
@@ -201,28 +212,16 @@
                         </div>
 
                         <div class="col-md-4" style="margin-top: 20px;">
-                            <div class="widget " ng-controller="News">
+                            <div class="widget ">
                                 <div class="heading"><h4>SON HABERLER</h4></div>
                                 <div class="content">
-
-                                    <div class="wrap-vid" style="margin-left: 12px;">
-                                        <div class="zoom-container">
-                                            <div class="zoom-caption">
-
-
-                                                <p>{{lastNew().title}}</p>
-                                            </div>
-                                            <img src="{{lastNew().primaryImgURL}}" style="width: 250px; height: 200px; margin-top: 5px" />
-                                        </div>
-
-                                    </div>
-                                    <div class="wrap-vid" style="margin-left: 12px;" ng-repeat="haber in last2News()">
-                                        <div class="zoom-container">
+                                    <div class="wrap-vid" style="margin-left: 12px;" ng-repeat="haber in last3News()">
+                                        <div class="zoom-container"  ng-click="getNewsDetail(haber.haberID)">
                                             <div class="zoom-caption">
 
                                                 <p>{{haber.title}}</p>
                                             </div>
-                                            <img src="{{haber.primaryImgURL}}" style="width: 250px; height: 200px; margin-top: 20px" />
+                                            <img src="{{haber.primaryImgURL}}"style="width: 250px; height: 200px; margin-top: 20px" />
                                         </div>
 
                                     </div>

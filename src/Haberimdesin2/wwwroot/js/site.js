@@ -7,6 +7,7 @@ var habersOfUser = null;
 var habers = null;
 var lastNew = null;
 var last2News = null;
+var last3News = null;
 var updatedLikes = false;
 var haberLikes = null;
 var commentLikes = null;
@@ -45,9 +46,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
     $scope.activeHaber = null;
     $scope.getUser = function () {
         return activeUser;
+
     }
     $scope.getUserID = function () {
         return activeUserID;
+    };
+    $scope.last3News = function () {
+        return last3News;
     };
     $scope.last2News = function () {
         return last2News;
@@ -116,7 +121,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
             habers = re.newsList.reverse();
             lastNew = habers[0];
             last2News = habers.slice(1, 3);
-
+            last3News = habers.slice(0, 3);
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
     };
@@ -187,6 +192,18 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
     $scope.getAllNews();
     $scope.updateHaberLikes();
     $scope.updateUserID();
+
+
+    $scope.getProfileImage = function (user) {
+        if (user.profileImgURL == null) {
+            return "Deneme/images/4.jpg";
+        }
+        else {
+            return user.profileImgURL;
+        }
+
+    }
+    
     $scope.habers = function () {
         if (habers === null) return;
         var habersWithDistance = habers.slice(0);
@@ -200,12 +217,12 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
             dist = dist * (180 / Math.PI);
             dist = dist * 60 * 1.1515;
             
-            
             if (dist > $scope.distance) {
                 habersWithDistance.splice(i,1);
             }
 
         }
+
         return habersWithDistance;
     };
     $scope.updateHabersOfUser = function () {
@@ -229,7 +246,6 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
             last2News = null;
             lastNew = null;
             habers = re.haberList.reverse();
-
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
 
@@ -240,7 +256,6 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
     };
     $scope.updateHaber = function () {
         var fd = new FormData();
-        console.log(haberToEdit);
         fd.append("id", haberToEdit.haberID);
         fd.append("title", haberToEdit.title);
         fd.append("detail", haberToEdit.detail);
@@ -399,17 +414,26 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
 
     };
     $scope.cancelNews = function (id) {
-        var fd = new FormData();
-        fd.append('id', id);
-        $http.post('/Haberimdesin/CancelHaberById', fd, {
-            transformRequest: angular.identity,
-            headers: { 'Content-Type': undefined }
-        }).success(function (response) {
-            haberToEdit = null;
-            $scope.updateHabersOfUser();
-        }).error(function (err) {
-            console.log(err);
-        });
+
+
+        var r = confirm("Haberinizi silmek istediğinizden emin misiniz?");
+        if (r == true) {
+            var fd = new FormData();
+            fd.append('id', id);
+            $http.post('/Haberimdesin/CancelHaberById', fd, {
+                transformRequest: angular.identity,
+                headers: { 'Content-Type': undefined }
+            }).success(function (response) {
+                haberToEdit = null;
+                $scope.updateHabersOfUser();
+            }).error(function (err) {
+                console.log(err);
+            });
+        } else {
+            
+        }
+
+      
 
     };
 
@@ -481,15 +505,17 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
     };
     $scope.getNewsDetail = function (id) {
         window.scrollTo(0, 0);
+        console.log("ADIM1");
         var url = "/haberimdesin/getNewsDetail/" + id;
         $http.get(url).success(function (re) {
             habers = null;
-            $scope.yorumlar = re.yorumList.reverse();
+            
             $scope.lastNew = null;
             $scope.last2News = null;
-
-            $scope.kisiler = re.userNameList.reverse();
             $scope.activeHaber = re.newsList;
+            $scope.kisiler = re.userNameList.reverse();
+            $scope.yorumlar = re.yorumList.reverse();
+            console.log($scope.activeHaber);
         }).error(function (err) { console.log(err); });
     };
     
@@ -518,14 +544,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
         $scope.yorumlar.splice(0, 0, newObject);
 
 
-        var newUser = $scope.activeHaber[0].user.name + " " + $scope.activeHaber[0].user.surname;
+        var newUser = activeUser.name + " " + activeUser.surname;
         $scope.kisiler.splice(0, 0, newUser);
 
     };
     $scope.uploadUserProfileImage = function () {
         var fd = new FormData();
         var fileArray = $scope.profileImageFiles;
-        console.log(fileArray);
         fd.append('file', fileArray);
 
         $http.post('/Manage/uploadProfileImage', fd, {
@@ -580,6 +605,8 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
+
+               alert('Haberiniz başarılı olarak eklenmiştir!');
                window.location.assign('/Home/Index');
             }).error(function (err) {
                 console.log(err);
