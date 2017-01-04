@@ -136,8 +136,8 @@ namespace Haberimdesin2.Controllers
         {
 
 
-            int haberId = int.Parse(Request.Form["id"]);
-            string userId = _userManager.GetUserId(User);
+            int haberId = int.Parse(Request.Form["HaberId"]);
+            string userId = Request.Form["UserId"];
             DislikeHaberEntity dHaber = new DislikeHaberEntity
             {
                 UserID = userId,
@@ -152,8 +152,8 @@ namespace Haberimdesin2.Controllers
         {
 
 
-            int haberId = int.Parse(Request.Form["id"]);
-            string userId = _userManager.GetUserId(User);
+            int haberId = int.Parse(Request.Form["HaberId"]);
+            string userId = Request.Form["UserId"];
             LikeHaberEntity lHaber = new LikeHaberEntity
             {
                 UserID = userId,
@@ -184,8 +184,8 @@ namespace Haberimdesin2.Controllers
         [HttpPost]
         public JsonResult CancelDislikeNews()
         {
-            int haberId = int.Parse(Request.Form["id"]);
-            string userId = _userManager.GetUserId(User);
+            int haberId = int.Parse(Request.Form["HaberId"]);
+            string userId = Request.Form["UserId"];
             var itemsToRemove = _context.DislikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
             for (int i = 0; i < itemsToRemove.Count; i++)
             {
@@ -198,8 +198,8 @@ namespace Haberimdesin2.Controllers
         [HttpPost]
         public JsonResult CancelLikeNews()
         {
-            int haberId = int.Parse(Request.Form["id"]);
-            string userId = _userManager.GetUserId(User);
+            int haberId = int.Parse(Request.Form["HaberId"]);
+            string userId = Request.Form["UserId"];
             var itemsToRemove = _context.LikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
             for(int i = 0; i < itemsToRemove.Count; i++)
             {
@@ -213,8 +213,9 @@ namespace Haberimdesin2.Controllers
         {
             string icerik = Request.Form["yorumIcerik"];
             int haberId = int.Parse(Request.Form["haberID"]);
+
             DateTime time = DateTime.Now;
-            string userId = _userManager.GetUserId(User);
+            string userId = Request.Form["UserId"];
             CommentEntity comment = new CommentEntity
             {
                 UserID = userId,
@@ -288,6 +289,14 @@ namespace Haberimdesin2.Controllers
         {
             var usID = _userManager.GetUserId(User);
             return Json(new { usID });
+        }
+        [HttpGet]
+        public JsonResult getUserDetail(string id)
+        {
+            var user = _context.ApplicationUser.Where(x => x.Id == id).Single();
+            if (user != null)
+                return Json(new { user });
+            else return Json(new { });
         }
 
         [HttpGet]

@@ -13,6 +13,7 @@ var commentLikes = null;
 var haberDislikes = null;
 var commentDislikes = null;
 var activeUserID = null;
+var activeUser = null;
 var haberToEdit = null;
 var longitude = 0;
 var latitude = 0;
@@ -35,13 +36,17 @@ function geoFindMe() {
     }
     navigator.geolocation.getCurrentPosition(success, error);
 }
-HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) {
+
+
+HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, $location) {
 
     geoFindMe();
     $scope.distance = 100;
     $scope.activeHaber = null;
+    $scope.getUser = function () {
+        return activeUser;
+    }
     $scope.getUserID = function () {
-        console.log(activeUserID);
         return activeUserID;
     };
     $scope.last2News = function () {
@@ -87,12 +92,21 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     }).error(function (err) {
         console.log(err);
     });
-  
+    $scope.updateUser = function () {
+
+        var url = "/haberimdesin/getUserDetail/" + activeUserID;
+        $http.get(url).success(function (re) {
+            activeUser = re.user;
+
+        }).error(function (err) { console.log(err); });
+    };
     $scope.updateUserID = function () {
         var url = "/haberimdesin/getUserID";
         $http.get(url).success(function (re) {
             activeUserID = re.usID;
             $scope.updateHabersOfUser();
+            $scope.updateUser();
+
         }).error(function (err) { console.log(err); });
     };
     $scope.getAllNews = function () {
@@ -188,7 +202,6 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             
             
             if (dist > $scope.distance) {
-                console.log(habersWithDistance[i].title);
                 habersWithDistance.splice(i,1);
             }
 
@@ -200,19 +213,22 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         var url = "/haberimdesin/getNewsByUserID/" + activeUserID;
         $http.get(url).success(function (re) {
             habersOfUser = re.newsList.reverse();
-            console.log(habersOfUser);
+
 
         }).error(function (err) { console.log(err); });
     };
     
+
+
     $scope.getNewsByCategory = function (id) {
+
 
         var url = "/haberimdesin/getNewsByID/" + id;
         $http.get(url).success(function (re) {
 
             last2News = null;
             lastNew = null;
-            habers = re.newsList.reverse();
+            habers = re.haberList.reverse();
 
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
@@ -342,7 +358,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.cancelDislikeNews = function () {
         var id = $scope.activeHaber[0].haberID;
         var fd = new FormData();
-        fd.append('id', $scope.activeHaber[0].haberID);
+        fd.append('HaberId', $scope.activeHaber[0].haberID);
+        fd.append('UserId', activeUserID);
         $http.post('/Haberimdesin/CancelDislikeNews', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -359,7 +376,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
     $scope.cancelLikeNews = function () {
         var id = $scope.activeHaber[0].haberID;
         var fd = new FormData();
-        fd.append('id', $scope.activeHaber[0].haberID);
+        fd.append('HaberId', $scope.activeHaber[0].haberID);
+        fd.append('UserId', activeUserID);
         $http.post('/Haberimdesin/CancelLikeNews', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -408,7 +426,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             if (haberDislikes.get(id)[i] === activeUserID) $scope.cancelDislikeNews();
         }
         var fd = new FormData();
-        fd.append('id', $scope.activeHaber[0].haberID);
+        fd.append('HaberId', $scope.activeHaber[0].haberID);
+        fd.append('UserId', activeUserID);
         $http.post('/Haberimdesin/LikeNews', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -445,7 +464,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
             }
         }
         var fd = new FormData();
-        fd.append('id', $scope.activeHaber[0].haberID);
+        fd.append('HaberId', $scope.activeHaber[0].haberID);
+        fd.append('UserId', activeUserID);
         $http.post('/Haberimdesin/DislikeNews', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -477,6 +497,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http) 
         var fd = new FormData();
         fd.append('yorumIcerik', $scope.$$childTail.yorumIcerik);
         fd.append('haberID', $scope.activeHaber[0].haberID);
+        fd.append('UserId', activeUserID);
         $http.post('/Haberimdesin/CreateComment', fd, {
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
@@ -559,7 +580,6 @@ HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', functi
                 transformRequest: angular.identity,
                 headers: { 'Content-Type': undefined }
             }).success(function (response) {
-                console.log(response+"oldu");
                window.location.assign('/Home/Index');
             }).error(function (err) {
                 console.log(err);

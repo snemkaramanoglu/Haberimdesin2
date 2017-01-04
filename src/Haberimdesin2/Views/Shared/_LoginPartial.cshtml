@@ -9,7 +9,7 @@
     <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hoşgeldin @UserManager.GetUserName(User)!</a>
+                <a asp-area="" ng-class="News" ng-href="/Manage" title="Manage">Hoşgeldin {{getUser().name}} {{getUser().surname}}!</a>
             </li>
             <li>
                 <button type="submit" class="btn btn-link navbar-btn navbar-link"><span class="glyphicon glyphicon-off" style="color:crimson;"> Çıkış </span></button>
