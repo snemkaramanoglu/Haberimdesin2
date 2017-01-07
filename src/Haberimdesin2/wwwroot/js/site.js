@@ -17,9 +17,9 @@ var activeUser = null;
 var haberToEdit = null;
 var longitude = 0;
 var latitude = 0;
+var init = false;
 function geoFindMe() {
-    var output = document.getElementById("out");
-
+    if (longitude != 0 || latitude != 0) return;
     if (!navigator.geolocation){
         alert("Geolocation is not supported by your browser!");
         return;
@@ -40,6 +40,7 @@ function geoFindMe() {
 
 HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
+
     geoFindMe();
     $scope.distance = 100;
     $scope.activeHaber = null;
@@ -56,9 +57,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
     $scope.last2News = function () {
         return last2News;
     };
+
+
+
     $scope.lastNew = function () {
 
-
+        
+        
 
 
         return lastNew;
@@ -251,7 +256,6 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
             last2News = null;
             lastNew = null;
             habers = re.haberList.reverse();
-            console.log(re);
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
 
@@ -520,9 +524,24 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
             $scope.activeHaber = re.newsList;
             $scope.yorumcular = re.userList.reverse();
             $scope.yorumlar = re.yorumList.reverse();
+
+            $location.url('?hID=' + $scope.activeHaber[0].haberID);
+
         }).error(function (err) { console.log(err); });
     };
-    
+    $scope.initURL = function () {
+        var url = window.location.href;
+        var index = url.indexOf('?');
+        var getstring = url.substring(index + 1, url.length);
+        var parameters = getstring.split("&");
+        for (var i = 0; i < parameters.length; i++) {
+            var splittedParameters = parameters[i].split("=");
+            if (splittedParameters[0] == "hID")
+                $scope.getNewsDetail(splittedParameters[1]);
+        }
+
+    }
+    $scope.initURL();
     $scope.uploadComment = function () {
         var fd = new FormData();
         fd.append('yorumIcerik', $scope.$$childTail.yorumIcerik);

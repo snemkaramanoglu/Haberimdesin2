@@ -357,10 +357,21 @@ namespace Haberimdesin2.Controllers
         {
 
             var newsList = _context.Haber.Where(h => h.user.Id == id).ToList();
+            int[] haberLikes = new int[newsList.Count];
+            int[] haberDislikes = new int[newsList.Count];
+            for (int i = 0; i < newsList.Count; i++) {
+                int likeCount = _context.LikeHaber.Where(h => h.HaberID == newsList[i].HaberID).ToArray().Length;
+                int dislikeCount = _context.DislikeHaber.Where(h => h.HaberID == newsList[i].HaberID).ToArray().Length;
+                haberLikes[i] = likeCount;
+                haberDislikes[i] = dislikeCount;
+            }
 
-
-            return Json(new { newsList });
+            return Json(new { newsList, haberLikes, haberDislikes});
         }
+
+
+
+
         [HttpGet]
         public JsonResult getNewsByID(int id)
         {
