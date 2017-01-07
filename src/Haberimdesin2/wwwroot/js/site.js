@@ -245,6 +245,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
             last2News = null;
             lastNew = null;
             habers = re.haberList.reverse();
+            console.log(re);
             $scope.activeHaber = null;
         }).error(function (err) { console.log(err); });
 
