@@ -83,9 +83,9 @@
                              
                     
                         <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:20px;  ">
-                                <div class="panel-heading" style="height: 60px;">
+                                <div class="panel-heading" style="height: 65px;">
 
-                                    <img src="{{getProfileImage(haber.user)}}" style="height: 50px; width: 50px" alt="" />
+                                    <img src="{{getProfileImage(haber.user)}}" style="height: 40px; width: 40px; margin-right:10px;" alt="" />
 
                                     <h6 style="display: inline-block;"><small>{{haber.user.name + " " + haber.user.surname}}</small></h6>
                                     <ul class="list-inline pull-right" style="margin: 0; line-height: 20px">
@@ -141,8 +141,8 @@
 
                                                 <div class="info">
                                                     <h5> 
-                                                    <img src="{{getProfileImage(haber.user)}}" style="height: 30px; width: 30px" alt="" />
-                                                    <a href="#">{{haber.user.name + " " + haber.user.surname}}</a></h5>
+                                                    <img src="{{getProfileImage(haber.user)}}" style="height: 50px; width: 50px" alt="" />
+                                                   {{haber.user.name + " " + haber.user.surname}}</h5>
                                                     <span><i class="fa fa-calendar"></i>{{haber.timeStamp | date:'yyyy/MM/dd'}}</span>
                                                     <span class="list-inline-item" ng-click="likeNews()">
                                                         {{getHaberLikesOf(haber.haberID)}}</>
@@ -187,7 +187,7 @@
                                                                                         <div class="comment-user">
                                                                                             <i class="fa fa-user"></i> {{yorumcular[$index].name}} {{yorumcular[$index].surname}}
                                                                                         </div>
-                                                                                        <time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
+                                                                                        <time class="comment-date" ><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
                                                                                     </header>
                                                                                     <div class="comment-post">
                                                                                         <p>
