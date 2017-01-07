@@ -381,7 +381,16 @@ namespace Haberimdesin2.Controllers
         public async Task<JsonResult> uploadProfileImage()
         {
             var files = Request.Form.Files;
-
+            string uId;
+            if (Request.Form.Keys.Contains("userId"))
+            {
+                uId = Request.Form["userId"];
+            }
+            else
+            {
+                uId = _userManager.GetUserId(User);
+            }
+            
             string uImg;
 
 
@@ -394,8 +403,8 @@ namespace Haberimdesin2.Controllers
             using (var fileStream = new FileStream(Path.Combine(profileImgURL, file.FileName), FileMode.Create))
             {
                 
-                var currentUser = _context.ApplicationUser.Where(u => u.Id == _userManager.GetUserId(User)).FirstOrDefault();
-                uImg = "/images/" + "profileIMG_" + _userManager.GetUserId(User) + "/" + file.FileName;
+                var currentUser = _context.ApplicationUser.Where(u => u.Id == uId).FirstOrDefault();
+                uImg = "/images/" + "profileIMG_" + uId + "/" + file.FileName;
                 currentUser.ProfileImgURL = uImg;
                 _context.SaveChanges();
                 await file.CopyToAsync(fileStream);

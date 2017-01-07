@@ -420,14 +420,14 @@ namespace Haberimdesin2.Controllers
             
             var newsList = _context.Haber.Where(h => h.HaberID == id).Include(h => h.user).ToList();
             var yorumList = _context.Comment.Where(c => c.HaberID == id).Include(c => c.user).ToList();
-            var userNameList = new List<String>();
+
+            var userList = new List<ApplicationUser>();
             for(int i = 0; i < yorumList.Count; i++)
             {
-                string name = _context.Users.Where(u => u.Id == yorumList[i].UserID).ToList()[0].Name;
-                string surname = _context.Users.Where(u => u.Id == yorumList[i].UserID).ToList()[0].Surname;
-                userNameList.Add(name + " " + surname);
+                var usr = _context.Users.Single(u => u.Id == yorumList[i].UserID);
+                userList.Add(usr);
             }
-            return Json(new { yorumList, newsList, userNameList });
+            return Json(new { yorumList, newsList, userList });
         }
 
 

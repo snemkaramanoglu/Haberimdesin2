@@ -39,7 +39,7 @@ function geoFindMe() {
 }
 
 
-HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, $location) {
+HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
     geoFindMe();
     $scope.distance = 100;
@@ -58,7 +58,13 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
         return last2News;
     };
     $scope.lastNew = function () {
+
+
+
+
         return lastNew;
+
+
     };
 
     $scope.haberToEdit = function () {
@@ -506,7 +512,6 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
     };
     $scope.getNewsDetail = function (id) {
         window.scrollTo(0, 0);
-        console.log("ADIM1");
         var url = "/haberimdesin/getNewsDetail/" + id;
         $http.get(url).success(function (re) {
             habers = null;
@@ -514,9 +519,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
             $scope.lastNew = null;
             $scope.last2News = null;
             $scope.activeHaber = re.newsList;
-            $scope.kisiler = re.userNameList.reverse();
+            $scope.yorumcular = re.userList.reverse();
             $scope.yorumlar = re.yorumList.reverse();
-            console.log($scope.activeHaber);
         }).error(function (err) { console.log(err); });
     };
     
@@ -529,24 +533,27 @@ HaberimdesinApp.controller('News', ['$scope', '$http', function ($scope, $http, 
             transformRequest: angular.identity,
             headers: { 'Content-Type': undefined }
         }).success(function (response) {
-            console.log(response);
+             var newYorum = jQuery.extend({}, $scope.yorumlar[0]);
+
+
+            newYorum.content = $scope.$$childTail.yorumIcerik;
+            newYorum.like = 0;
+            newYorum.dislike = 0;
+            newYorum.timeStamp = new Date();
+            newYorum.commentID = newYorum.commentID + 1;
+            $scope.yorumlar.splice(0, 0, newYorum);
+
+
+
+            var newYorumcu = jQuery.extend({}, activeUser);
+
+
+            $scope.yorumcular.splice(0, 0, newYorumcu);
         }).error(function (err) {
             console.log(err);
         });
 
-        var newObject = jQuery.extend({}, $scope.yorumlar[0]);
-
-
-        newObject.content = $scope.$$childTail.yorumIcerik;
-        newObject.like = 0;
-        newObject.dislike = 0;
-        newObject.timeStamp = new Date();
-        newObject.commentID = newObject.commentID + 1;
-        $scope.yorumlar.splice(0, 0, newObject);
-
-
-        var newUser = activeUser.name + " " + activeUser.surname;
-        $scope.kisiler.splice(0, 0, newUser);
+       
 
     };
     $scope.uploadUserProfileImage = function () {
