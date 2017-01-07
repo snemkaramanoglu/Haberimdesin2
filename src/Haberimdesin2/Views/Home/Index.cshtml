@@ -53,7 +53,7 @@
             </div>
 
             <div class="col-sm-8" ng-if="activeHaber==null">
-
+              
                 <form onsubmit="return false" oninput="level.value = distance.valueAsNumber">
                     <label style="width:60%" for="dist">Kaç Kilometre Uzaklığı Görmek İstersiniz?</label>
                     <output for="dist" name="level">50</output>/50
@@ -83,9 +83,9 @@
                              
                     
                         <div class="panel panel-default" ng-repeat="haber in habers()" style="margin-top:20px;  ">
-                                <div class="panel-heading" style="height: 50px;">
+                                <div class="panel-heading" style="height: 60px;">
 
-                                    <img src="{{getProfileImage(haber.user)}}" style="height: 20px; width: 20px" alt="" />
+                                    <img src="{{getProfileImage(haber.user)}}" style="height: 50px; width: 50px" alt="" />
 
                                     <h6 style="display: inline-block;"><small>{{haber.user.name + " " + haber.user.surname}}</small></h6>
                                     <ul class="list-inline pull-right" style="margin: 0; line-height: 20px">
