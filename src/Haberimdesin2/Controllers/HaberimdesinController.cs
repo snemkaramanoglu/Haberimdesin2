@@ -367,6 +367,15 @@ namespace Haberimdesin2.Controllers
             //List<FeaturedHaber> haberList = new List<FeaturedHaber>();
 
             var haberList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToArray();
+            int[] haberLikes = new int[haberList.Length];
+            int[] haberDislikes = new int[haberList.Length];
+            for (int i = 0; i < haberList.Length; i++)
+            {
+                int likeCount = _context.LikeHaber.Where(h => h.HaberID == haberList[i].HaberID).ToArray().Length;
+                int dislikeCount = _context.DislikeHaber.Where(h => h.HaberID == haberList[i].HaberID).ToArray().Length;
+                haberLikes[i] = likeCount;
+                haberDislikes[i] = dislikeCount;
+            }
             //for (int i = 0; i < newsList.Length; i++)
             //{
             //    int like = _context.LikeHaber.Where(l => l.HaberID == newsList[i].HaberID).Count();
@@ -402,7 +411,7 @@ namespace Haberimdesin2.Controllers
             //    haberList.Add(hbr);
             //}
 
-            return Json(new { haberList });
+            return Json(new { haberList, haberLikes, haberDislikes });
         }
 
         [HttpGet]
