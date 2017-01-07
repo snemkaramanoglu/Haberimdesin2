@@ -2,7 +2,7 @@
     ViewData["Title"] = "İletişim";
 }
 
-<div id="page-content"  class="archive-page container">
+<div id="page-content" ng-controller="News" class="archive-page container">
 
     <div class="row">
         <div id="main-content" class="col-md-8">
@@ -14,7 +14,7 @@
                 </center>
                 <div class="box-content">
                     <div id="contact_form">
-                        <form name="form1" id="ff" method="post" action="contact.php">
+                        <form name="form1" id="ff" method="post" >
                             <label>
                                 <span>Adınız:</span>
                                 <input type="text" name="name" id="name" required>
@@ -27,7 +27,7 @@
                                 <span>Mesajınızı giriniz:</span>
                                 <textarea name="message" id="message"></textarea>
                             </label>
-                            <center><input class="sendButton" type="submit" name="Submit" value="Gönder"></center>
+                            <center><input class="sendButton" type="submit" name="Submit" ng-click="deneme()" value="Gönder"></center>
                         </form>
                     </div>
                 </div>

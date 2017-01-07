@@ -206,7 +206,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
 
     $scope.getProfileImage = function (user) {
         if (user.profileImgURL == null) {
-            return "Deneme/images/4.jpg";
+         
+           return "Deneme/images/4.jpg";
         }
         else {
             return user.profileImgURL;
@@ -244,8 +245,15 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
 
         }).error(function (err) { console.log(err); });
     };
-    
+    $scope.deneme = function () {
+        alert('Mesajınız başarılı bir şekilde bize ulaştı :)');
 
+        window.location.assign('/Home/Contact');
+    }
+    $scope.sifreUnut = function () {
+        alert('Lütfen mail gelen kutunuzu kontrol ediniz.');
+        window.location.assign('/Account/Login');
+    }
 
     $scope.getNewsByCategory = function (id) {
 
@@ -574,6 +582,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
        
 
     };
+   
     $scope.uploadUserProfileImage = function () {
         var fd = new FormData();
         var fileArray = $scope.profileImageFiles;

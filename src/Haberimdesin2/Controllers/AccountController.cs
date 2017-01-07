@@ -260,6 +260,7 @@ namespace Haberimdesin2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            /*
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByNameAsync(model.Email);
@@ -277,7 +278,7 @@ namespace Haberimdesin2.Controllers
                 //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
                 //return View("ForgotPasswordConfirmation");
             }
-
+            */
             // If we got this far, something failed, redisplay form
             return View(model);
         }
