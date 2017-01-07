@@ -18,7 +18,7 @@
 
                     <div class="item active">
 
-                        <img src="{{lastNew().primaryImgURL}}" style="width: 100%; height: 400px; margin-top: 5px" alt="First slide">
+                        <img src="{{lastNew().primaryImgURL}}" style="width: 100%; height: 400px; margin-top: 5px" alt="First slide" ng-click="getNewsDetail(lastNew().haberID)">
 
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
@@ -30,7 +30,7 @@
                         </div><!-- /header-text -->
                     </div>
                     <div class="item" ng-repeat="haber in last2News()">
-                        <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 100%; height: 400px; margin-top: 5px" alt="">
+                        <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: 100%; height: 400px; margin-top: 5px" alt="" ng-click="getNewsDetail(haber.haberID)">
                         <!-- Static Header -->
                         <div class="header-text hidden-xs">
                             <div class="col-md-12 text-center">
