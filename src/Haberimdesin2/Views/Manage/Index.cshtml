@@ -81,7 +81,7 @@
                             <div class="col-sm-8" style="margin-top:30px">
 
 
-                                <div class="box-content" ng-show="haberToEdit() != null">
+                                <div  class="box-content" ng-show="haberToEdit() != null">
                                     <div class="container-fluid" ng-controller="News">
                                         <form>
                                             <div class="container-fluid">
@@ -124,48 +124,35 @@
 
                                 </div>
                                 <div ng-hide="habersOfUser().length">Henüz hiç haberiniz yok.</div>
+                                <div class="panel panel-info" ng-repeat="haber in habersOfUser()">
+                                    <div class="panel-heading"><h7 style="font-size:1.25em;">{{haber.title}}</h7></div>
+                                   
+                                   
+                                        <div class="row">
+                                            <div class="container-fluid" style="padding: 0 10px 0 10px">
+                                                <div class="col-sm-5" style="text-align:center;">
+                                                    <div class="row">
+                                                        <img id="primaryImage" src="{{haber.primaryImgURL}}" style="width: %100;margin-top:10px; height: %100;  margin-right: 6px;margin-left: 6px;"  alt="">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-7" style="text-align: left; ">
+                                                    <h6>{{haber.headLine}}</h6>
+                                                    <p>{{haber.detail}}</p>
+                                                   
+                                                       <tr style="margin-top:50px; right:0px; ">
+                                        <td>  <button style="width:100px; height:30px;" class="btn  btn-danger" type="button" ng-click="cancelNews(haber.haberID)"> Sil </button></td>
 
-                                <dd ng-repeat="haber in habersOfUser()" style="border-bottom: 1px solid #5c5356;padding: 10px; margin: 30px 0px 0px 0px; color:#131231;">
-                                    <b style>{{haber.title}}</b></br>
-                                    {{haber.timeStamp | date:'yyyy/MM/dd'}}</br>
-                                    {{haber.headLine}}</br>
-                                    <button type="button" 
-                                            style="background-color: white; 
-                                                    color: #600e27; 
-                                                    border: 2px solid #f07878;
-                                                    padding-top: 5px;
-                                                    padding-bottom: 5px;
-                                                    width: 80px;
-                                                    text-align: center;
-                                                    text-decoration: none;
-                                                    display: inline-block;
-                                                    font-size: 12px;
-                                                    margin: 4px 2px;
-                                                    -webkit-transition-duration: 0.4s; /* Safari */
-                                                    transition-duration: 0.4s;
-                                                    cursor: pointer;" onmouseover="this.style.backgroundColor = '#f07878'; this.style.color = 'white';" 
-                                                    onmouseout="this.style.backgroundColor = 'white'; this.style.color = '#600e27';" 
-                                                     ng-click="cancelNews(haber.haberID)"> Sil </button>
-                                    <button type="button"
-                                            style="background-color: white; 
-                                                    color: #296176; 
-                                                    border: 2px solid #50cfff;
-                                                    padding-top: 5px;
-                                                    padding-bottom: 5px;
-                                                    width: 80px;
-                                                    text-align: center;
-                                                    text-decoration: none;
-                                                    display: inline-block;
-                                                    font-size: 12px;
-                                                    margin: 4px 2px;
-                                                    -webkit-transition-duration: 0.4s; /* Safari */
-                                                    transition-duration: 0.4s;
-                                                    cursor: pointer;" onmouseover="this.style.backgroundColor = '#50cfff'; this.style.color = 'white';"
-                                            onmouseout="this.style.backgroundColor = 'white'; this.style.color = '#296176';"
-                                           >
-                                        <a ng-click="editNews(haber)">Düzenle</a>
-                                    </button>
-                                </dd>
+
+                                    <td>    <button style="width:100px; height:30px;" class="btn btn-success" type="button" ng-click="editNews(haber)">Düzenle</button></td>
+                                    </tr>
+
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                               
                             </div>
                         </dl>
                     </div>

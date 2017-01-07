@@ -1,9 +1,9 @@
 @model Haberimdesin2.Models.ApplicationUser
 
 @{
-
-
     Layout = "_Layout";
+
+
 }
 <div id="page-content" class="archive-page container">
 
@@ -12,7 +12,7 @@
             <div class="box">
                 
                 
-                    <h2>Kiþisel Bilgilerinizi Düzenleyinn</h2>
+                    <h2>Kisisel Bilgilerinizi Duzenleyinn</h2>
 
                     <form asp-action="Edit">
                         <div class="form-horizontal">
@@ -20,14 +20,14 @@
 
                             <hr />
                             <div class="form-group">
-                                <label asp-for="Name" class="col-md-2 control-label">Adýnýz</label>
+                                <label asp-for="Name" class="col-md-2 control-label">Adiniz</label>
                                 <div class="col-md-10">
                                     <input asp-for="Name" class="form-control" />
                                     <span asp-validation-for="Name" class="text-danger" />
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label asp-for="Surname" class="col-md-2 control-label">Soyadýnýz</label>
+                                <label asp-for="Surname" class="col-md-2 control-label">Soyadiniz</label>
                                 <div class="col-md-10">
                                     <input asp-for="Surname" class="form-control" />
                                     <span asp-validation-for="Surname" class="text-danger" />
@@ -43,7 +43,7 @@
 
                             <div class="form-group">
                                 <div class="col-md-offset-2 col-md-10">
-                                    <input type="submit" value="Save" class="btn btn-default" />
+                                    <input class="btn btn-primary" type="submit" value="Guncelle" class="btn btn-default" />
                                 </div>
                                 <div type="hidden" asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <input type="hidden" asp-for="Id" />
