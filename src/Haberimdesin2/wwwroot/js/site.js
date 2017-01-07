@@ -1,6 +1,5 @@
 ﻿var HaberimdesinApp = angular.module('Haberimdesin', []);
 
-//routing
 
 //Controllers
 var habersOfUser = null;
