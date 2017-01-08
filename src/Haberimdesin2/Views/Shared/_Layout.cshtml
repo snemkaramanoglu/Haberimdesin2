@@ -10,10 +10,10 @@
     <!-- Owl Carousel Assets -->
     <link href="~/deneme/owl-carousel/owl.carousel.css" rel="stylesheet">
     <link href="~/deneme/owl-carousel/owl.theme.css" rel="stylesheet">
-   
+
     <!-- Custom CSS -->
-   <link href="~/deneme/css/styler.css" rel="stylesheet" type="text/css" /> 
-   
+    <link href="~/deneme/css/styler.css" rel="stylesheet" type="text/css" />
+
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="~/deneme/font-awesome-4.4.0/css/font-awesome.min.css" type="text/css">
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:600italic,400,300,600,700' rel='stylesheet' type='text/css'>
@@ -24,13 +24,13 @@
 
     <div class="jumbotron text-center" style="margin-bottom:0;  background-color: #1A237E;">
         <a asp-area="" asp-controller="Home" asp-action="Index" style="color:white">
-            
-        
+
+
             <h1>Haberimdesin</h1>
             <p>Haberini Yap! Çevrende olup biten haberlerden haberdar ol!</p>
-          
+
         </a>
-</div>
+    </div>
     <nav class="navbar navbar-full  " ng-controller="News">
         <div id="menu">
             <div class="navbar-header">
@@ -38,11 +38,11 @@
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" asp-area=""></a>
                 <ul class="nav navbar-nav navbar-left ">
                     <li><img src="~/images/logo.png" style="width:30px; margin-top:10px;" alt="" /></li>
-                    <li><a ng-cotroller= "News" ng-click="goHomePage()">Anasayfa</a></li>
+                    <li><a ng-cotroller="News" ng-click="goHomePage()">Anasayfa</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">Hakkımızda</a></li>
                     <li> <a asp-area="" asp-controller="Home" asp-action="Contact">İletişim</a></li>
 
-                  
+
                     <li><a asp-area="" asp-controller="Home" asp-action="AddNews" style="background-color: #F57C00;">Yeni Haber Ekle <i class="glyphicon glyphicon-edit"></i></a></li>
                 </ul>
 
@@ -53,7 +53,7 @@
 
             </div>
         </div>
-</nav>
+    </nav>
     <div class="container body-content">
         @RenderBody()
     </div>

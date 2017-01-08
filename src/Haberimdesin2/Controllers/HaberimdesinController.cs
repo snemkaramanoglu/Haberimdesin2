@@ -24,7 +24,7 @@ namespace Haberimdesin2.Controllers
             _context = context;
             _environment = env;
             _userManager = sgn;
-            
+
         }
         // GET: Haberimdesin
         public ActionResult Index()
@@ -50,10 +50,8 @@ namespace Haberimdesin2.Controllers
         [HttpPost]
         public JsonResult UpdateHaber()
         {
-
-
             int haberID = int.Parse(Request.Form["id"]);
-            string haberTitle =Request.Form["title"];
+            string haberTitle = Request.Form["title"];
             string haberHeadline = Request.Form["headline"];
             string haberDetail = Request.Form["detail"];
             int haberCategoryID = int.Parse(Request.Form["categoryID"]);
@@ -160,7 +158,7 @@ namespace Haberimdesin2.Controllers
                 HaberID = haberId,
             };
             var itemsAlreadyIn = _context.LikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
-            if(itemsAlreadyIn.Count>0) return Json(new { });
+            if (itemsAlreadyIn.Count > 0) return Json(new { });
             _context.LikeHaber.Add(lHaber);
             _context.SaveChanges();
             return Json(new { });
@@ -201,11 +199,11 @@ namespace Haberimdesin2.Controllers
             int haberId = int.Parse(Request.Form["HaberId"]);
             string userId = Request.Form["UserId"];
             var itemsToRemove = _context.LikeHaber.Where(x => x.UserID == userId && x.HaberID == haberId).ToList();
-            for(int i = 0; i < itemsToRemove.Count; i++)
+            for (int i = 0; i < itemsToRemove.Count; i++)
             {
                 _context.LikeHaber.Remove(itemsToRemove[i]);
             }
-            if(itemsToRemove.Count > 0) _context.SaveChanges();
+            if (itemsToRemove.Count > 0) _context.SaveChanges();
             return Json(new { });
         }
         [HttpPost]
@@ -236,13 +234,13 @@ namespace Haberimdesin2.Controllers
             string headline = Request.Form["haberHeadline"];
             string detail = Request.Form["haberDetail"];
             string userId = Request.Form["name"];
-            
+
             float latitude = float.Parse(Request.Form["latitude"], CultureInfo.InvariantCulture);
             float longitude = float.Parse(Request.Form["longitude"], CultureInfo.InvariantCulture);
             int categoryId = int.Parse(Request.Form["CategoryID"]);
             DateTime time = DateTime.Now;
 
-            if(String.IsNullOrEmpty(userId))userId = _userManager.GetUserId(User);
+            if (String.IsNullOrEmpty(userId)) userId = _userManager.GetUserId(User);
             HaberEntity haber = new HaberEntity { Id = userId, Title = title, HeadLine = headline, Detail = detail, Latitude = latitude, Longitude = longitude, TimeStamp = time, CategoryID = categoryId };
 
             _context.Haber.Add(haber);
@@ -261,7 +259,7 @@ namespace Haberimdesin2.Controllers
                 {
                     using (var fileStream = new FileStream(Path.Combine(haberImgURL, file.FileName), FileMode.Create))
                     {
-                        haber.PrimaryImgURL =  "/images/" +"haber"+haberId+"/"+ file.FileName;
+                        haber.PrimaryImgURL = "/images/" + "haber" + haberId + "/" + file.FileName;
                         await file.CopyToAsync(fileStream);
                     }
 
@@ -270,7 +268,7 @@ namespace Haberimdesin2.Controllers
                 {
                     using (var fileStream = new FileStream(Path.Combine(haberImgURL, file.FileName), FileMode.Create))
                     {
-                       string imgURL  = "/images/" + "haber" + haberId + "/" + file.FileName;
+                        string imgURL = "/images/" + "haber" + haberId + "/" + file.FileName;
                         await file.CopyToAsync(fileStream);
                         ImageEntity image = new ImageEntity { HaberID = haberId, UserID = userId, ImageURL = imgURL };
                         _context.Image.Add(image);
@@ -315,44 +313,44 @@ namespace Haberimdesin2.Controllers
         }
 
         [HttpGet]
-        public JsonResult getAllHaberLikes()//site.js acsana
+        public JsonResult getAllHaberLikes()
         {
 
 
-            var haberLikeList = _context.LikeHaber.ToList(); //niye saçmaladý
+            var haberLikeList = _context.LikeHaber.ToList();
 
 
             return Json(new { haberLikeList });
         }
         [HttpGet]
-        public JsonResult getAllHaberDislikes()//site.js acsana
+        public JsonResult getAllHaberDislikes()
         {
 
-            var haberDislikeList = _context.DislikeHaber.ToList(); //niye saçmaladý
+            var haberDislikeList = _context.DislikeHaber.ToList();
 
 
             return Json(new { haberDislikeList });
         }
         [HttpGet]
-        public JsonResult getAllCommentDislikes()//site.js acsana
+        public JsonResult getAllCommentDislikes()
         {
 
-            var commentDislikeList = _context.DislikeComment.ToList(); //niye saçmaladý
+            var commentDislikeList = _context.DislikeComment.ToList();
 
 
             return Json(new { commentDislikeList });
         }
         [HttpGet]
-        public JsonResult getAllCommentLikes()//site.js acsana
+        public JsonResult getAllCommentLikes()
         {
 
-            var commentLikeList = _context.LikeComment.ToList(); //niye saçmaladý
+            var commentLikeList = _context.LikeComment.ToList();
 
 
             return Json(new { commentLikeList });
         }
         [HttpGet]
-        public JsonResult getAllNews()//site.js acsana
+        public JsonResult getAllNews()
         {
 
             var newsList = _context.Haber.Include(h => h.user).ToList(); //niye saçmaladý
@@ -425,7 +423,7 @@ namespace Haberimdesin2.Controllers
             //    hbr.Latitude = newsList[i].Latitude;
             //    hbr.Longitude = newsList[i].Longitude;
             //    hbr.CategoryID = newsList[i].CategoryID;
-                
+
             //    if (hbr.Id != null)
             //    {
             //        hbr.UserName = newsList[i].user.Name;
@@ -447,12 +445,12 @@ namespace Haberimdesin2.Controllers
         [HttpGet]
         public JsonResult getNewsDetail(int id)
         {
-            
+
             var newsList = _context.Haber.Where(h => h.HaberID == id).Include(h => h.user).ToList();
             var yorumList = _context.Comment.Where(c => c.HaberID == id).Include(c => c.user).ToList();
             string newsURL = "https://www.haberimdesin.com/#?hID=" + id;
             var userList = new List<ApplicationUser>();
-            for(int i = 0; i < yorumList.Count; i++)
+            for (int i = 0; i < yorumList.Count; i++)
             {
                 yorumList[i].haber = null;
                 var usr = _context.Users.Single(u => u.Id == yorumList[i].UserID);
