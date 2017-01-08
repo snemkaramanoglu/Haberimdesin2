@@ -89,7 +89,7 @@ form li{
 }
 input[type="text"], input[type="password"] {
 	font-family: 'Open Sans', sans-serif;
-	width:60%;
+	width:80%;
 	padding:0.7em 2em 0.7em 1.7em;
 	color:#858282;
 	font-size:18px;
