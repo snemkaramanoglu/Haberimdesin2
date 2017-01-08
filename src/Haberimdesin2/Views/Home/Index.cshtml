@@ -170,20 +170,20 @@
 
                                                                 <section class="comment-list">
                                                                     <!-- First Comment -->
-                                                                    <article class="col-sm-6">
+                                                                    <article class="col-sm-8">
 
                                                                         <div class="col-sm-12">
                                                                             <div class="panel panel-default arrow left">
-                                                                                <div class="panel-body">
+                                                                                <div class="panel-body" style="font-size:1.2em;">
                                                                                     <header class="text-left">
                                                                                         <div class="comment-user">
                                                                                             <i class="fa fa-user"></i> {{yorumcular[$index].name}} {{yorumcular[$index].surname}}
                                                                                         </div>
-                                                                                        <time class="comment-date" ><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'yyyy/MM/dd'}}</time>
+                                                                                        <time class="comment-date" ><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'dd/MM/yyyy'}}</time>
                                                                                     </header>
                                                                                     <div class="comment-post">
                                                                                         <p>
-                                                                                            <small>{{yorum.content}}</small>
+                                                                                            {{yorum.content}}
                                                                                         </p>
                                                                                     </div>
                                                                                 </div>
