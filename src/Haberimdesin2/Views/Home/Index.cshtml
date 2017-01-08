@@ -55,7 +55,7 @@
                         <label style="width:60%" for="dist">Kaç Kilometre Uzaklığı Görmek İstersiniz?</label>
                     </div>
                     <div class="col-md-6">
-                        <input style="height:15px; background-color:darkolivegreen;" ng-model="MyValue" name="distance" id="dist" type="range" min="0" max="50" ng-init="MyValue=50" ng-change="updateDistanceLimit(MyValue)" />
+                        <input style="height:15px; background-color:darkolivegreen;" ng-model="MyValue" name="distance" id="dist" type="range" min="0.5" max="50" step="0.5" ng-init="MyValue=50" ng-change="updateDistanceLimit(MyValue)" />
                     </div>
                     <div class="col-md-2">
                         <output style="width:auto" for="dist" name="level">50<span>/50</span></output>
