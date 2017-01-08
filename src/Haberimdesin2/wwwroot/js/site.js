@@ -410,6 +410,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
             console.log(err);
         });
     };
+
     $scope.cancelLikeNews = function () {
         var id = $scope.activeHaber[0].haberID;
         var fd = new FormData();
@@ -587,6 +588,26 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
             console.log(err);
         });
     }
+
+    $scope.updateUser = function () {
+
+        var url = "/haberimdesin/getUserDetail/" + activeUserID;
+        $http.get(url).success(function (re) {
+            activeUser = re.user;
+
+        }).error(function (err) { console.log(err); });
+    };
+
+    $scope.kullaniciCekme = function (email) {
+        console.log("AAAAAA" + email);
+        var url = "/haberimdesin/getUserDetailByEmail/" + email;
+        $http.get(url).success(function (re) {
+            console.log(re);// SUANDA 
+
+        }).error(function (err) { console.log(err); });
+    };
+    var x = "nadirgozcu@hotmail.com";
+    $scope.kullaniciCekme(x);
     $scope.getNewsDetail = function (id) {
         window.scrollTo(0, 0);
         var url = "/haberimdesin/getNewsDetail/" + id;

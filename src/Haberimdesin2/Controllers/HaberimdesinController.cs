@@ -283,7 +283,7 @@ namespace Haberimdesin2.Controllers
             return Json(new { });
         }
 
-        
+
         [HttpGet]
         public JsonResult getUserID()
         {
@@ -298,7 +298,15 @@ namespace Haberimdesin2.Controllers
                 return Json(new { user });
             else return Json(new { });
         }
-
+        [HttpGet]
+        public JsonResult getUserDetailByEmail(string email)
+        {
+            
+            var user = _context.ApplicationUser.Where(x => x.Email == email).Single();
+            if (user != null)
+                return Json(new { user });
+            else return Json(new { });
+        }
         [HttpGet]
         public JsonResult getCategories()
         {
