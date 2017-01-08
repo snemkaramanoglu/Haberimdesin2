@@ -170,17 +170,18 @@
 
                                                                 <section class="comment-list">
                                                                     <!-- First Comment -->
-                                                                    <article class="col-sm-8">
+                                                                    <article class="col-md-12">
 
-                                                                        <div class="col-sm-12">
+                                                                        <div class="col-md-12">
                                                                             <div class="panel panel-default arrow left">
                                                                                 <div class="panel-body" style="font-size:1.2em;">
                                                                                     <header class="text-left">
                                                                                         <div class="comment-user">
                                                                                             <i class="fa fa-user"></i> {{yorumcular[$index].name}} {{yorumcular[$index].surname}}
                                                                                         </div>
-                                                                                        <time class="comment-date" ><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'dd/MM/yyyy'}}</time>
+                                                                                        <time class="comment-date"><i class="fa fa-clock-o"></i> {{yorum.timeStamp | date:'dd/MM/yyyy'}}</time>
                                                                                     </header>
+                                                                                    <hr />
                                                                                     <div class="comment-post">
                                                                                         <p>
                                                                                             {{yorum.content}}
