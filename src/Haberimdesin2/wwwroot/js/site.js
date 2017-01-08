@@ -62,7 +62,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
 
     $scope.lastNew = function () {
 
-        
+
         
 
 
@@ -254,8 +254,21 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
 
         window.location.assign('/Home/Contact');
     }
-    $scope.sifreUnut = function () {
-        alert('Lütfen mail gelen kutunuzu kontrol ediniz.');
+    $scope.sifreUnut = function (email) {
+        console.log(email);
+        var fd = new FormData();
+        fd.append("email", email);
+        $http.post('/Haberimdesin/sendEmail', fd, {
+            transformRequest: angular.identity,
+            headers: { 'Content-Type': undefined }
+        }).success(function (response) {
+            alert('Lütfen mail gelen kutunuzu kontrol ediniz.');
+        }).error(function (err) {
+            console.log(err);
+            alert('Bağlantı problemleri yaşandı.');
+        });
+
+       
         /*
         var deneme = $scope.email;
         var link = "mailto:"+ deneme + "?subject=New%20email " + "deneme"
@@ -263,7 +276,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
      
         console.log(deneme);
         */
-       window.location.assign('/Account/Login');
+       //window.location.assign('/Account/Login');
     }
 
     $scope.getNewsByCategory = function (id) {
@@ -596,25 +609,9 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
         });
     }
 
-    $scope.updateUser = function () {
 
-        var url = "/haberimdesin/getUserDetail/" + activeUserID;
-        $http.get(url).success(function (re) {
-            activeUser = re.user;
 
-        }).error(function (err) { console.log(err); });
-    };
 
-    $scope.kullaniciCekme = function (email) {
-        console.log("AAAAAA" + email);
-        var url = "/haberimdesin/getUserDetailByEmail/" + email;
-        $http.get(url).success(function (re) {
-            console.log(re);// SUANDA 
-
-        }).error(function (err) { console.log(err); });
-    };
-    var x = "nadirgozcu@hotmail.com";
-    $scope.kullaniciCekme(x);
     $scope.getNewsDetail = function (id) {
         window.scrollTo(0, 0);
         var url = "/haberimdesin/getNewsDetail/" + id;

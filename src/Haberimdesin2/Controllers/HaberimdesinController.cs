@@ -11,6 +11,9 @@ using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using MimeKit;
+using MailKit.Net.Smtp;
+using MailKit.Security;
 
 namespace Haberimdesin2.Controllers
 {
@@ -296,15 +299,31 @@ namespace Haberimdesin2.Controllers
                 return Json(new { user });
             else return Json(new { });
         }
-        [HttpGet]
-        public JsonResult getUserDetailByEmail(string email)
+        [HttpPost]
+        public JsonResult sendEmail()
         {
-            
-            var user = _context.ApplicationUser.Where(x => x.Email == email).Single();
-            if (user != null)
-                return Json(new { user });
-            else return Json(new { });
+            string email = Request.Form["email"];
+            var sifre = _context.ApplicationUser.Where(u => u.Email == email).Select(u => u.UserPass).ToList()[0];
+            var emailMessage = new MimeMessage();
+            emailMessage.From.Add(new MailboxAddress("Haberimdesin", "webmaster@haberimdesin.com"));
+            emailMessage.To.Add(new MailboxAddress("Alici", email));
+            emailMessage.Subject = "Sifre hatirlatma";
+            // here your metion body type "Plane"  "html" type. i am using "html"
+            emailMessage.Body = new TextPart("plain") { Text = @"Sifreniz : " + sifre };
+
+            SmtpClient smtp = new SmtpClient();
+            // here you mention that your email port, email host & ssl enable-disable(true & false) 
+          
+            smtp.Connect("smtpout.europe.secureserver.net", 3535, false);
+            // here your mention your sending address and password 
+            smtp.Authenticate("webmaster@haberimdesin.com", "Haber@26");
+            smtp.Send(emailMessage);
+            // discount your connecton
+            smtp.Disconnect(true);
+            return Json(new { });
         }
+
+
         [HttpGet]
         public JsonResult getCategories()
         {
