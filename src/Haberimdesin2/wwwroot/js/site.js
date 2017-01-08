@@ -32,6 +32,8 @@ function geoFindMe() {
     }
 
     function error() {
+        latitude = 9999;
+        longitude = 9999;
         alert("Unable to retrieve your location");
     }
     navigator.geolocation.getCurrentPosition(success, error);
@@ -41,8 +43,38 @@ function geoFindMe() {
 HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($scope, $http, $location) {
 
 
+    
+    $scope.distance = 50;
     geoFindMe();
-    $scope.distance = 100;
+    $scope.getNewsDetail = function (id) {
+        window.scrollTo(0, 0);
+        var url = "/haberimdesin/getNewsDetail/" + id;
+        $http.get(url).success(function (re) {
+            habers = null;
+
+            $scope.lastNew = null;
+            $scope.last2News = null;
+            $scope.activeHaber = re.newsList;
+            $scope.yorumcular = re.userList.reverse();
+            $scope.yorumlar = re.yorumList.reverse();
+
+            $location.url('?hID=' + $scope.activeHaber[0].haberID);
+
+        }).error(function (err) { console.log(err); });
+    };
+    $scope.initURL = function () {
+        var url = window.location.href;
+        var index = url.indexOf('?');
+        var getstring = url.substring(index + 1, url.length);
+        var parameters = getstring.split("&");
+        for (var i = 0; i < parameters.length; i++) {
+            var splittedParameters = parameters[i].split("=");
+            if (splittedParameters[0] == "hID")
+                $scope.getNewsDetail(splittedParameters[1]);
+        }
+
+    };
+    $scope.initURL();
     $scope.activeHaber = null;
     $scope.getUser = function () {
         return activeUser;
@@ -547,19 +579,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
         });
     };
 
-    $scope.initURL = function () {
-        var url = window.location.href;
-        var index = url.indexOf('?');
-        var getstring = url.substring(index + 1, url.length);
-        var parameters = getstring.split("&");
-        for (var i = 0; i < parameters.length; i++) {
-            var splittedParameters = parameters[i].split("=");
-            if (splittedParameters[0] == "hID")
-                $scope.getNewsDetail(splittedParameters[1]);
-        }
-
-    };
     
+   
     $scope.uploadComment = function () {
         var fd = new FormData();
         fd.append('yorumIcerik', $scope.$$childTail.yorumIcerik);
@@ -612,23 +633,14 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
 
 
 
-    $scope.getNewsDetail = function (id) {
-        window.scrollTo(0, 0);
-        var url = "/haberimdesin/getNewsDetail/" + id;
-        $http.get(url).success(function (re) {
-            habers = null;
 
-            $scope.lastNew = null;
-            $scope.last2News = null;
-            $scope.activeHaber = re.newsList;
-            $scope.yorumcular = re.userList.reverse();
-            $scope.yorumlar = re.yorumList.reverse();
-
-            $location.url('?hID=' + $scope.activeHaber[0].haberID);
-
-        }).error(function (err) { console.log(err); });
-    };
-    $scope.initURL();
+    $scope.fixActiveHaber = function () {
+  
+        if ($scope.activeHaber == null) $scope.initURL();
+        var newtime = 4000;
+        setTimeout($scope.fixActiveHaber, newtime);
+    }
+    $scope.fixActiveHaber();
 }]);
 
 HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', function ($scope, $http, $q) {
