@@ -256,7 +256,14 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
     }
     $scope.sifreUnut = function () {
         alert('Lütfen mail gelen kutunuzu kontrol ediniz.');
-        window.location.assign('/Account/Login');
+        /*
+        var deneme = $scope.email;
+        var link = "mailto:"+ deneme + "?subject=New%20email " + "deneme"
+             + "&body=" + escape("122"); 
+     
+        console.log(deneme);
+        */
+       window.location.assign('/Account/Login');
     }
 
     $scope.getNewsByCategory = function (id) {

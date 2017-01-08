@@ -17,21 +17,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
 
-/*
-
-    / KATEGORILER STRING OLARAK SECILECEK
-    / LIKE DISLIKE EKLENECEK
-    COMMENT EKLENECEK
-
-    TARIH EKLENECEK
-    KULLANICI ADI EKLEDEICEK
- bU KADAR YETER SANIRIM BASKA býsý yok evet
- su bg kýsmýna bakayým sen telýný sarja koy
-
-    */
-
-
-
 namespace Haberimdesin2.Controllers
 {
     public class HaberController : Controller
@@ -66,10 +51,10 @@ namespace Haberimdesin2.Controllers
         // GET: HaberEntities
         public async Task<IActionResult> Index()
         {
-         
+
             var applicationDbContext = _context.Haber.Include(h => h.category).Include(h => h.user);
             return View(await applicationDbContext.ToListAsync());
-          
+
 
         }
 
@@ -82,28 +67,16 @@ namespace Haberimdesin2.Controllers
             return View();
         }
 
-        //[HttpPost]
-        //[Authorize]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> AddLike(HaberEntity haberEntity)
-        //{
-        //    haberEntity.
-        //}
-
-
 
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(HaberEntity haberEntity)
         {
-
-
             haberEntity.Detail = Request.Form["Detail"].ToString();
             haberEntity.HeadLine = Request.Form["HeadLine"].ToString();
             haberEntity.Title = Request.Form["Title"].ToString();
             haberEntity.Id = _user.GetUserId(User);
-            //SONUÇTA BAÞTA LÝKELERÝ SIFIR
             haberEntity.TimeStamp = DateTime.Now;
             var file = Request.Form.Files[0];
 
@@ -128,26 +101,6 @@ namespace Haberimdesin2.Controllers
             ViewData["CategoryID"] = new SelectList(_context.Category, "CategoryID", "CategoryID", haberEntity.CategoryID);
             return View(haberEntity);
         }
-
-        //Henüz kullanýlmýyor.
-        public ActionResult SonUcHaber()
-        {
-            List<HaberEntity> sonBesMakaleList = new List<HaberEntity>();
-            var sonbesmakale = _context.Haber;
-            sonBesMakaleList = sonbesmakale.OrderByDescending(i => i.TimeStamp).Take(3).ToList();
-
-            return PartialView(sonBesMakaleList);
-
-        }
-
-
-
-
-        // POST: HaberEntities/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-
         // GET: HaberEntities/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {

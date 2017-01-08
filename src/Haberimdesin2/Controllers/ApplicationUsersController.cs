@@ -136,7 +136,7 @@ namespace Haberimdesin2.Controllers
         }
         public async Task<IActionResult> Index2()
         {
-           // RedirectToAction("Index", "ApplicationUsers");
+           
             return View();
         
         }
