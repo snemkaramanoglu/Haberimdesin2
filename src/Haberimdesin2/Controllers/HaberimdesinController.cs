@@ -358,17 +358,21 @@ namespace Haberimdesin2.Controllers
 
             var newsList = _context.Haber.Where(h => h.user.Id == id).ToList();
             string[] newsURLs = new string[newsList.Count];
-            int[] haberLikes = new int[newsList.Count];
-            int[] haberDislikes = new int[newsList.Count];
-            for (int i = 0; i < newsList.Count; i++) {
+            List<int> haberLikes = new List<int>();
+            List<int> haberDislikes = new List<int>();
+            List<int> yorumCounter = new List<int>();
+            for (int i = 0; i < newsList.Count; i++)
+            {
                 int likeCount = _context.LikeHaber.Where(h => h.HaberID == newsList[i].HaberID).ToArray().Length;
                 int dislikeCount = _context.DislikeHaber.Where(h => h.HaberID == newsList[i].HaberID).ToArray().Length;
-                newsURLs[i] = "https://www.haberimdesin.com/#?hID=" + newsList[i].HaberID; 
-                haberLikes[i] = likeCount;
-                haberDislikes[i] = dislikeCount;
+                int yorumCount = _context.Comment.Where(c => c.HaberID == newsList[i].HaberID).ToArray().Length;
+                newsURLs[i] = "https://www.haberimdesin.com/#?hID=" + newsList[i].HaberID;
+                haberLikes.Add(likeCount);
+                haberDislikes.Add(dislikeCount);
+                yorumCounter.Add(yorumCount);
             }
 
-            return Json(new { newsList, haberLikes, haberDislikes, newsURLs });
+            return Json(new { newsList, haberLikes, haberDislikes, newsURLs, yorumCounter });
         }
 
 
@@ -381,15 +385,18 @@ namespace Haberimdesin2.Controllers
 
             var haberList = _context.Haber.Where(h => h.CategoryID == id).Include(h => h.user).ToArray();
             string[] newsURLs = new string[haberList.Length];
-            int[] haberLikes = new int[haberList.Length];
-            int[] haberDislikes = new int[haberList.Length];
+            List<int> haberLikes = new List<int>();
+            List<int> haberDislikes = new List<int>();
+            List<int> yorumCounter = new List<int>();
             for (int i = 0; i < haberList.Length; i++)
             {
                 int likeCount = _context.LikeHaber.Where(h => h.HaberID == haberList[i].HaberID).ToArray().Length;
                 int dislikeCount = _context.DislikeHaber.Where(h => h.HaberID == haberList[i].HaberID).ToArray().Length;
+                int yorumCount = _context.Comment.Where(c => c.HaberID == haberList[i].HaberID).ToArray().Length;
                 newsURLs[i] = "https://www.haberimdesin.com/#?hID=" + haberList[i].HaberID;
-                haberLikes[i] = likeCount;
-                haberDislikes[i] = dislikeCount;
+                haberLikes.Add(likeCount);
+                haberDislikes.Add(dislikeCount);
+                yorumCounter.Add(yorumCount);
             }
             //for (int i = 0; i < newsList.Length; i++)
             //{
@@ -426,7 +433,7 @@ namespace Haberimdesin2.Controllers
             //    haberList.Add(hbr);
             //}
 
-            return Json(new { haberList, haberLikes, haberDislikes, newsURLs });
+            return Json(new { haberList, haberLikes, haberDislikes, newsURLs, yorumCounter });
         }
 
         [HttpGet]
@@ -439,6 +446,7 @@ namespace Haberimdesin2.Controllers
             var userList = new List<ApplicationUser>();
             for(int i = 0; i < yorumList.Count; i++)
             {
+                yorumList[i].haber = null;
                 var usr = _context.Users.Single(u => u.Id == yorumList[i].UserID);
                 userList.Add(usr);
             }

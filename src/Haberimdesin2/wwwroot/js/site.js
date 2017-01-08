@@ -17,7 +17,7 @@ var activeUser = null;
 var haberToEdit = null;
 var longitude = 0;
 var latitude = 0;
-var init = false;
+
 function geoFindMe() {
     if (longitude != 0 || latitude != 0) return;
     if (!navigator.geolocation){
@@ -235,6 +235,10 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
         }
 
         return habersWithDistance;
+    };
+    $scope.goHomePage = function () {
+        window.location.assign('/Home/Index');
+        return;
     };
     $scope.updateHabersOfUser = function () {
 
@@ -521,22 +525,7 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
             console.log(err);
         });
     };
-    $scope.getNewsDetail = function (id) {
-        window.scrollTo(0, 0);
-        var url = "/haberimdesin/getNewsDetail/" + id;
-        $http.get(url).success(function (re) {
-            habers = null;
-            
-            $scope.lastNew = null;
-            $scope.last2News = null;
-            $scope.activeHaber = re.newsList;
-            $scope.yorumcular = re.userList.reverse();
-            $scope.yorumlar = re.yorumList.reverse();
 
-            $location.url('?hID=' + $scope.activeHaber[0].haberID);
-
-        }).error(function (err) { console.log(err); });
-    };
     $scope.initURL = function () {
         var url = window.location.href;
         var index = url.indexOf('?');
@@ -548,8 +537,8 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
                 $scope.getNewsDetail(splittedParameters[1]);
         }
 
-    }
-    $scope.initURL();
+    };
+    
     $scope.uploadComment = function () {
         var fd = new FormData();
         fd.append('yorumIcerik', $scope.$$childTail.yorumIcerik);
@@ -598,6 +587,23 @@ HaberimdesinApp.controller('News', ['$scope', '$http', '$location', function ($s
             console.log(err);
         });
     }
+    $scope.getNewsDetail = function (id) {
+        window.scrollTo(0, 0);
+        var url = "/haberimdesin/getNewsDetail/" + id;
+        $http.get(url).success(function (re) {
+            habers = null;
+
+            $scope.lastNew = null;
+            $scope.last2News = null;
+            $scope.activeHaber = re.newsList;
+            $scope.yorumcular = re.userList.reverse();
+            $scope.yorumlar = re.yorumList.reverse();
+
+            $location.url('?hID=' + $scope.activeHaber[0].haberID);
+
+        }).error(function (err) { console.log(err); });
+    };
+    $scope.initURL();
 }]);
 
 HaberimdesinApp.controller('addNewsController', ['$scope', '$http', '$q', function ($scope, $http, $q) {
